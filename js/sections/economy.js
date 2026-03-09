@@ -108,7 +108,7 @@ export async function refresh() {
       const valEl = getCardValueEl('econ-forex');
       if (valEl) {
         valEl.textContent = '';
-        valEl.style.fontSize = '1rem';
+        valEl.classList.add('stat-value--embed');
 
         const table = document.createElement('div');
         table.className = 'mini-table';

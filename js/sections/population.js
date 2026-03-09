@@ -280,7 +280,10 @@ function buildCountryPicker() {
   btn.className = 'country-picker-btn';
   btn.id = 'country-picker-btn';
   btn.type = 'button';
-  btn.innerHTML = '<span class="country-picker-text">Global</span><span class="country-picker-arrow">&#9662;</span>';
+  btn.setAttribute('aria-haspopup', 'listbox');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-label', 'Select country');
+  btn.innerHTML = '<span class="country-picker-text">Global</span><span class="country-picker-arrow" aria-hidden="true">&#9662;</span>';
 
   const dropdown = document.createElement('div');
   dropdown.className = 'country-picker-dropdown';
@@ -291,16 +294,20 @@ function buildCountryPicker() {
   searchInput.type = 'text';
   searchInput.className = 'country-picker-search';
   searchInput.placeholder = 'Search countries...';
+  searchInput.setAttribute('aria-label', 'Search countries');
 
   const list = document.createElement('ul');
   list.className = 'country-picker-list';
   list.id = 'country-picker-list';
+  list.setAttribute('role', 'listbox');
 
   // Default "Global" option
   const globalItem = document.createElement('li');
   globalItem.className = 'country-picker-item active';
   globalItem.dataset.value = 'global';
   globalItem.textContent = 'Global';
+  globalItem.setAttribute('role', 'option');
+  globalItem.setAttribute('aria-selected', 'true');
   list.appendChild(globalItem);
 
   dropdown.appendChild(searchInput);
@@ -312,6 +319,7 @@ function buildCountryPicker() {
   btn.addEventListener('click', () => {
     const isOpen = !dropdown.hidden;
     dropdown.hidden = isOpen;
+    btn.setAttribute('aria-expanded', String(!isOpen));
     if (!isOpen) {
       searchInput.value = '';
       filterCountryList('');
@@ -333,12 +341,17 @@ function buildCountryPicker() {
     const text = item.textContent;
 
     // Update active state
-    list.querySelectorAll('.country-picker-item').forEach(li => li.classList.remove('active'));
+    list.querySelectorAll('.country-picker-item').forEach(li => {
+      li.classList.remove('active');
+      li.setAttribute('aria-selected', 'false');
+    });
     item.classList.add('active');
+    item.setAttribute('aria-selected', 'true');
 
     // Update button text
     btn.querySelector('.country-picker-text').textContent = text;
     dropdown.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
 
     selectedCountry = value === 'global' ? null : value;
 
@@ -353,6 +366,7 @@ function buildCountryPicker() {
   document.addEventListener('click', (e) => {
     if (!wrapper.contains(e.target)) {
       dropdown.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
     }
   });
 
@@ -360,6 +374,7 @@ function buildCountryPicker() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       dropdown.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
     }
   });
 
@@ -386,6 +401,8 @@ function populateCountryList() {
     li.className = 'country-picker-item';
     li.dataset.value = name;
     li.textContent = name;
+    li.setAttribute('role', 'option');
+    li.setAttribute('aria-selected', 'false');
     list.appendChild(li);
   }
 }

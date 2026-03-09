@@ -39,11 +39,11 @@ export async function refresh() {
   if (!valEl) return;
 
   valEl.textContent = '';
-  valEl.style.fontSize = '1rem';
-  valEl.style.fontFamily = 'var(--font-sans)';
+  valEl.classList.add('stat-value--embed');
 
   const list = document.createElement('ol');
   list.className = 'story-list';
+  list.setAttribute('role', 'list');
 
   for (const story of stories) {
     const li = document.createElement('li');
@@ -52,7 +52,7 @@ export async function refresh() {
     titleLink.className = 'story-title';
     titleLink.textContent = story.title || 'Untitled';
     titleLink.target = '_blank';
-    titleLink.rel = 'noopener';
+    titleLink.rel = 'noopener noreferrer';
     if (story.url) {
       titleLink.href = story.url;
     } else {

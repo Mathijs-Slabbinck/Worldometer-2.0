@@ -91,8 +91,7 @@ function setupScrollSpy() {
           const id = entry.target.id;
           for (const link of navLinks) {
             link.classList.remove('active');
-            link.style.backgroundColor = '';
-            link.style.color = '';
+            link.style.removeProperty('background-color');
           }
           const activeLink = navLinks.find(l => l.dataset.section === id);
           if (activeLink) {
@@ -101,7 +100,6 @@ function setupScrollSpy() {
               .getPropertyValue(`--accent-${id}`).trim();
             if (accent) {
               activeLink.style.backgroundColor = accent;
-              activeLink.style.color = '#fff';
             }
           }
         }
@@ -123,6 +121,7 @@ function setupNavClicks() {
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, '', `#${sectionId}`);
       }
     });
   }

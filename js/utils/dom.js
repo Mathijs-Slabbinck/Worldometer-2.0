@@ -27,8 +27,11 @@ export function createCard({ id, label, featured }) {
   card.id = id;
   card.dataset.state = 'loading';
 
+  const labelId = id + '-label';
+
   const labelEl = document.createElement('div');
   labelEl.className = 'stat-label';
+  labelEl.id = labelId;
   labelEl.textContent = label;
 
   const valueEl = document.createElement('div');
@@ -38,6 +41,9 @@ export function createCard({ id, label, featured }) {
   const contextEl = document.createElement('div');
   contextEl.className = 'stat-context';
   contextEl.textContent = '\u00A0';
+
+  card.setAttribute('role', 'group');
+  card.setAttribute('aria-labelledby', labelId);
 
   card.appendChild(labelEl);
   card.appendChild(valueEl);
@@ -55,15 +61,17 @@ export function updateCard(id, { value, context, contextClass, state }) {
 
   if (value !== undefined) {
     const valEl = card.querySelector('.stat-value');
-    valEl.textContent = value;
+    if (valEl) valEl.textContent = value;
   }
 
   if (context !== undefined) {
     const ctxEl = card.querySelector('.stat-context');
-    ctxEl.textContent = context;
-    ctxEl.className = 'stat-context';
-    if (contextClass) {
-      ctxEl.classList.add(contextClass);
+    if (ctxEl) {
+      ctxEl.textContent = context;
+      ctxEl.className = 'stat-context';
+      if (contextClass) {
+        ctxEl.classList.add(contextClass);
+      }
     }
   }
 }
@@ -100,6 +108,10 @@ export function setCardError(id, retryFn) {
     const btn = document.createElement('button');
     btn.className = 'retry-btn';
     btn.textContent = 'Retry';
+    const labelText = card.querySelector('.stat-label');
+    if (labelText) {
+      btn.setAttribute('aria-label', `Retry loading ${labelText.textContent}`);
+    }
     btn.addEventListener('click', retryFn);
     ctxEl.appendChild(btn);
   }
@@ -115,7 +127,6 @@ export function setCardStale(id) {
     const badge = document.createElement('span');
     badge.className = 'badge stale';
     badge.textContent = 'stale';
-    badge.style.marginLeft = '0.5rem';
     label.appendChild(badge);
   }
 }

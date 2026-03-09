@@ -268,16 +268,20 @@ function buildLocationPicker() {
   btnChange.className = 'location-picker-toggle';
   btnChange.setAttribute('type', 'button');
   btnChange.textContent = 'Change location';
+  btnChange.setAttribute('aria-expanded', 'false');
+  btnChange.setAttribute('aria-controls', 'location-picker-panel');
 
   // Search panel (hidden by default)
   const panel = document.createElement('div');
   panel.className = 'location-picker-panel';
+  panel.id = 'location-picker-panel';
 
   const input = document.createElement('input');
   input.className = 'location-picker-input';
   input.setAttribute('type', 'text');
   input.setAttribute('placeholder', 'Search city (e.g. Tokyo, Paris, New York)...');
   input.setAttribute('autocomplete', 'off');
+  input.setAttribute('aria-label', 'Search city or location');
 
   const resultsList = document.createElement('ul');
   resultsList.className = 'location-picker-results';
@@ -299,6 +303,7 @@ function buildLocationPicker() {
 
   btnChange.addEventListener('click', function () {
     panelOpen = !panelOpen;
+    btnChange.setAttribute('aria-expanded', String(panelOpen));
     if (panelOpen) {
       panel.classList.add('open');
       btnChange.textContent = 'Cancel';
@@ -332,6 +337,7 @@ function buildLocationPicker() {
     panelOpen = false;
     panel.classList.remove('open');
     btnChange.textContent = 'Change location';
+    btnChange.setAttribute('aria-expanded', 'false');
     // Re-fetch weather with IP location
     refreshWeatherOnly();
   });
@@ -370,8 +376,10 @@ async function searchGeocode(query, resultsList, panel, btnChange) {
 
     li.appendChild(nameSpan);
     li.appendChild(detailSpan);
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'option');
 
-    li.addEventListener('click', function () {
+    function selectPlace() {
       weatherLocation = {
         lat: place.latitude,
         lon: place.longitude,
@@ -380,7 +388,16 @@ async function searchGeocode(query, resultsList, panel, btnChange) {
       };
       panel.classList.remove('open');
       btnChange.textContent = 'Change location';
+      btnChange.setAttribute('aria-expanded', 'false');
       refreshWeatherOnly();
+    }
+
+    li.addEventListener('click', selectPlace);
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectPlace();
+      }
     });
 
     resultsList.appendChild(li);
@@ -417,6 +434,8 @@ function buildQuakeList(quakes) {
   const btnToggle = document.createElement('button');
   btnToggle.className = 'expandable-toggle';
   btnToggle.setAttribute('type', 'button');
+  btnToggle.setAttribute('aria-expanded', 'false');
+  btnToggle.setAttribute('aria-controls', 'quake-panel');
 
   const spnToggleText = document.createElement('span');
   spnToggleText.textContent = 'Browse earthquakes';
@@ -424,6 +443,7 @@ function buildQuakeList(quakes) {
   const spnToggleArrow = document.createElement('span');
   spnToggleArrow.className = 'expandable-toggle-arrow';
   spnToggleArrow.textContent = '\u25BC';
+  spnToggleArrow.setAttribute('aria-hidden', 'true');
 
   btnToggle.appendChild(spnToggleText);
   btnToggle.appendChild(spnToggleArrow);
@@ -431,6 +451,7 @@ function buildQuakeList(quakes) {
   // Panel
   const divPanel = document.createElement('div');
   divPanel.className = 'expandable-panel';
+  divPanel.id = 'quake-panel';
 
   // Search input
   const inpSearch = document.createElement('input');
@@ -438,10 +459,12 @@ function buildQuakeList(quakes) {
   inpSearch.setAttribute('type', 'text');
   inpSearch.setAttribute('placeholder', 'Search by location, magnitude (e.g. M5, Alaska)...');
   inpSearch.setAttribute('autocomplete', 'off');
+  inpSearch.setAttribute('aria-label', 'Search earthquakes');
 
   // Items list
   const ulItems = document.createElement('ul');
   ulItems.className = 'expandable-items';
+  ulItems.setAttribute('role', 'list');
 
   divPanel.appendChild(inpSearch);
   divPanel.appendChild(ulItems);
@@ -503,13 +526,23 @@ function buildQuakeList(quakes) {
       liItem.appendChild(spnMag);
       liItem.appendChild(spnPlace);
       liItem.appendChild(spnTime);
+      liItem.setAttribute('tabindex', '0');
+      liItem.setAttribute('role', 'button');
 
-      liItem.addEventListener('click', function () {
+      function selectQuake() {
         showQuakeDetail(quake, divDetail);
         // Highlight selected item
         const prev = ulItems.querySelector('.expandable-item.selected');
         if (prev) prev.classList.remove('selected');
         liItem.classList.add('selected');
+      }
+
+      liItem.addEventListener('click', selectQuake);
+      liItem.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectQuake();
+        }
       });
 
       ulItems.appendChild(liItem);
@@ -527,6 +560,7 @@ function buildQuakeList(quakes) {
   let isOpen = false;
   btnToggle.addEventListener('click', function () {
     isOpen = !isOpen;
+    btnToggle.setAttribute('aria-expanded', String(isOpen));
     if (isOpen) {
       divPanel.classList.add('open');
       spnToggleArrow.classList.add('open');
@@ -676,6 +710,7 @@ function showQuakeDetail(quake, container) {
     anc.target = '_blank';
     anc.rel = 'noopener noreferrer';
     anc.textContent = 'View on USGS \u2192';
+    anc.setAttribute('aria-label', `View ${props.place || 'earthquake'} on USGS (opens in new tab)`);
     divLink.appendChild(anc);
     container.appendChild(divLink);
   }

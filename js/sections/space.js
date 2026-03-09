@@ -1,7 +1,6 @@
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber, abbreviate } from '../utils/format.js';
-import { nowISO, monthAgoISO, weekFromNowISO, countdown, formatUTC } from '../utils/time.js';
-import { relativeTime } from '../utils/time.js';
+import { nowISO, monthAgoISO, weekFromNowISO, countdown, formatUTC, relativeTime } from '../utils/time.js';
 import { NASA_API_KEY } from '../config.js';
 import { createCard, createSubCategory, updateCard, updateCardContext, setCardError, setCardStale, getCardValueEl } from '../utils/dom.js';
 import { CountUp } from '../utils/counter.js';
@@ -102,10 +101,17 @@ export async function refresh() {
       const anc = document.createElement('a');
       anc.className = 'astronaut-link';
       anc.textContent = person.name;
-      anc.href = '#';
+      anc.setAttribute('role', 'button');
+      anc.setAttribute('tabindex', '0');
       anc.addEventListener('click', function (e) {
         e.preventDefault();
         showAstronautModal(person.name);
+      });
+      anc.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showAstronautModal(person.name);
+        }
       });
       spnNames.appendChild(anc);
       if (i < people.length - 1) {
@@ -184,6 +190,7 @@ export async function refresh() {
       link.rel = 'noopener noreferrer';
       link.textContent = 'Details \u2192';
       link.className = 'launch-link';
+      link.setAttribute('aria-label', `Details for ${missionName}`);
       ctxEl.appendChild(link);
     }
 
@@ -380,6 +387,8 @@ function buildFlareList(flares) {
   const btnToggle = document.createElement('button');
   btnToggle.className = 'expandable-toggle';
   btnToggle.setAttribute('type', 'button');
+  btnToggle.setAttribute('aria-expanded', 'false');
+  btnToggle.setAttribute('aria-controls', 'flare-panel');
 
   const spnToggleText = document.createElement('span');
   spnToggleText.textContent = 'View all flares';
@@ -387,6 +396,7 @@ function buildFlareList(flares) {
   const spnToggleArrow = document.createElement('span');
   spnToggleArrow.className = 'expandable-toggle-arrow';
   spnToggleArrow.textContent = '\u25BC';
+  spnToggleArrow.setAttribute('aria-hidden', 'true');
 
   btnToggle.appendChild(spnToggleText);
   btnToggle.appendChild(spnToggleArrow);
@@ -394,6 +404,7 @@ function buildFlareList(flares) {
   // Panel
   const divPanel = document.createElement('div');
   divPanel.className = 'expandable-panel';
+  divPanel.id = 'flare-panel';
 
   // Search input
   const inpSearch = document.createElement('input');
@@ -401,10 +412,12 @@ function buildFlareList(flares) {
   inpSearch.setAttribute('type', 'text');
   inpSearch.setAttribute('placeholder', 'Search flares (e.g. X1, M2)...');
   inpSearch.setAttribute('autocomplete', 'off');
+  inpSearch.setAttribute('aria-label', 'Search solar flares');
 
   // Items list
   const ulItems = document.createElement('ul');
   ulItems.className = 'expandable-items';
+  ulItems.setAttribute('role', 'list');
 
   divPanel.appendChild(inpSearch);
   divPanel.appendChild(ulItems);
@@ -451,9 +464,17 @@ function buildFlareList(flares) {
 
       liItem.appendChild(spnClass);
       liItem.appendChild(spnDate);
+      liItem.setAttribute('tabindex', '0');
+      liItem.setAttribute('role', 'button');
 
       liItem.addEventListener('click', function () {
         showFlareModal(flare);
+      });
+      liItem.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showFlareModal(flare);
+        }
       });
 
       ulItems.appendChild(liItem);
@@ -464,6 +485,7 @@ function buildFlareList(flares) {
   let isOpen = false;
   btnToggle.addEventListener('click', function () {
     isOpen = !isOpen;
+    btnToggle.setAttribute('aria-expanded', String(isOpen));
     if (isOpen) {
       divPanel.classList.add('open');
       spnToggleArrow.classList.add('open');
@@ -562,7 +584,7 @@ function showFlareModal(flare) {
 
   // NASA DONKI link
   if (flare.link) {
-    bodyHtml += `<p style="margin-top:1rem;"><a href="${escapeHtml(flare.link)}" target="_blank" rel="noopener noreferrer">View on NASA DONKI &rarr;</a></p>`;
+    bodyHtml += `<p style="margin-top:1rem;"><a href="${escapeHtml(flare.link)}" target="_blank" rel="noopener noreferrer" aria-label="View solar flare ${escapeHtml(flare.classType || '')} on NASA DONKI (opens in new tab)">View on NASA DONKI &rarr;</a></p>`;
   }
 
   const title = `Solar Flare ${flare.classType || ''}`;

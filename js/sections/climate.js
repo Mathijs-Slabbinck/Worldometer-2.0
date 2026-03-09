@@ -157,12 +157,13 @@ function renderFuelMix(mix, stale) {
 
   const valEl = card.querySelector('.stat-value');
   valEl.textContent = '';
-  valEl.style.fontSize = '1rem';
-  valEl.style.fontFamily = 'var(--font-sans)';
+  valEl.classList.add('stat-value--embed');
 
   // Build the bar
   const bar = document.createElement('div');
   bar.className = 'fuel-mix-bar';
+  bar.setAttribute('role', 'img');
+  bar.setAttribute('aria-label', 'Electricity fuel mix bar chart — see legend below for breakdown');
 
   // Build legend
   const legend = document.createElement('div');

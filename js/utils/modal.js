@@ -29,10 +29,12 @@ function buildOverlay() {
   divModal.setAttribute('aria-modal', 'true');
   divModal.setAttribute('tabindex', '-1');
 
+  divModal.setAttribute('aria-labelledby', 'modal-title-id');
+
   divModal.innerHTML = `
     <button class="modal-close" aria-label="Close modal">&times;</button>
     <div class="modal-image-wrapper"></div>
-    <h2 class="modal-title"></h2>
+    <h2 class="modal-title" id="modal-title-id"></h2>
     <div class="modal-body"></div>
     <div class="modal-footer"></div>
   `;

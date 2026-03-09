@@ -22,6 +22,8 @@ let hasSignal = false;
 let lastUrineTankValue = null;
 let lastFlushTime = null;
 let lastUseTime = null;
+let initializedFromPersisted = false;
+let firstLiveReading = true;
 
 // Load persisted state from TOILET_DATA.md (called before connect)
 export function setInitialState(state) {
@@ -33,6 +35,7 @@ export function setInitialState(state) {
   }
   if (state.tankLevel !== null && state.tankLevel !== undefined && lastUrineTankValue === null) {
     lastUrineTankValue = state.tankLevel;
+    initializedFromPersisted = true;
   }
 }
 
@@ -91,14 +94,20 @@ export function connect() {
         // Note: detection only works while page is open. A reconnection after
         // a gap may cause false positives if the tank changed significantly
         // while disconnected. 3% threshold balances sensitivity vs noise.
+        // Skip detection on the first live reading if baseline came from
+        // persisted data — the gap between sessions causes false positives
         if (lastUrineTankValue !== null) {
-          const diff = numVal - lastUrineTankValue;
-          if (diff < -3) {
-            lastFlushTime = new Date();
-          }
-          // Detect use: tank level increase (>0.5%)
-          if (diff > 0.5) {
-            lastUseTime = new Date();
+          if (firstLiveReading && initializedFromPersisted) {
+            firstLiveReading = false;
+          } else {
+            const diff = numVal - lastUrineTankValue;
+            if (diff < -3) {
+              lastFlushTime = new Date();
+            }
+            // Detect use: tank level increase (>0.5%)
+            if (diff > 0.5) {
+              lastUseTime = new Date();
+            }
           }
         }
         lastUrineTankValue = numVal;

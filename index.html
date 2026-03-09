@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Worldometer 2.0</title>
+  <title>Worldometer 2.0 — Real-Time Global Statistics Dashboard</title>
+  <meta name="description" content="Worldometer 2.0 — real-time global statistics including space, climate, economy, population, health, and transport data.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,10 +18,16 @@
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <noscript>
+    <p style="text-align:center;padding:2rem;color:#f1f5f9;">This dashboard requires JavaScript to display live statistics. Please enable JavaScript in your browser settings.</p>
+  </noscript>
+
   <header class="site-header">
     <div class="header-inner">
-      <span class="site-logo">WORLDOMETER 2.0</span>
-      <nav class="category-nav">
+      <h1 class="site-logo">WORLDOMETER 2.0</h1>
+      <nav class="category-nav" aria-label="Dashboard sections">
         <a href="#space" data-section="space">Space</a>
         <a href="#earth" data-section="earth">Earth</a>
         <a href="#climate" data-section="climate">Climate</a>
@@ -34,7 +41,7 @@
     </div>
   </header>
 
-  <main class="container-fluid">
+  <main id="main-content" class="container-fluid">
     <section id="space" class="dashboard-section" data-accent="space">
       <h2 class="section-title">Space & Astronomy</h2>
       <div class="card-grid row g-3"></div>

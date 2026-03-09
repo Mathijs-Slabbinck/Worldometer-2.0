@@ -1,3 +1,19 @@
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
 /* Stat cards */
 .stat-card {
   background: var(--bg-secondary);
@@ -67,6 +83,7 @@
 .badge.stale {
   background: rgba(245, 158, 11, 0.2);
   color: #f59e0b;
+  margin-left: 0.5rem;
 }
 
 .badge.error {
@@ -149,6 +166,12 @@
 [data-accent="health"] .stat-value { color: var(--accent-health); }
 [data-accent="transport"] .stat-value { color: var(--accent-transport); }
 [data-accent="trending"] .stat-value { color: var(--accent-trending); }
+
+/* Stat value overrides for embedded content */
+.stat-value--embed {
+  font-size: 1rem;
+  font-family: var(--font-sans);
+}
 
 /* Mini table (for exchange rates etc) */
 .mini-table {
@@ -397,7 +420,11 @@
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 0.85rem;
-  outline: none;
+}
+
+.country-picker-search:focus {
+  outline: 2px solid var(--accent-population);
+  outline-offset: -2px;
 }
 
 .country-picker-search::placeholder {
@@ -475,10 +502,10 @@
 /* Close button */
 .modal-close {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  width: 32px;
-  height: 32px;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -669,8 +696,12 @@
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 0.8rem;
-  outline: none;
   box-sizing: border-box;
+}
+
+.expandable-search:focus {
+  outline: 2px solid var(--accent-earth);
+  outline-offset: -2px;
 }
 
 .expandable-search::placeholder {
@@ -788,7 +819,7 @@
 
 .expandable-item.selected {
   background: rgba(245, 158, 11, 0.1);
-  border-left: 2px solid var(--earth, #f59e0b);
+  border-left: 2px solid var(--accent-earth);
 }
 
 /* Earthquake detail panel */
@@ -929,8 +960,12 @@
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 0.85rem;
-  outline: none;
   box-sizing: border-box;
+}
+
+.location-picker-input:focus {
+  outline: 2px solid var(--accent-earth);
+  outline-offset: -2px;
 }
 
 .location-picker-input::placeholder {
@@ -1004,7 +1039,7 @@
   background: none;
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  color: var(--accent-earth, #f59e0b);
+  color: var(--accent-earth);
   font-family: var(--font-sans);
   font-size: 0.75rem;
   cursor: pointer;

@@ -32,6 +32,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.05em;
   white-space: nowrap;
+  margin: 0;
 }
 
 /* Nav */
@@ -65,6 +66,8 @@ body {
 
 .category-nav a.active {
   color: #fff;
+  border-bottom: 2px solid currentColor;
+  font-weight: 700;
 }
 
 /* Main — override Bootstrap container-fluid defaults */
@@ -97,10 +100,7 @@ main.container-fluid {
 [data-accent="transport"] .section-title { border-color: var(--accent-transport); color: var(--accent-transport); }
 [data-accent="trending"] .section-title { border-color: var(--accent-trending); color: var(--accent-trending); }
 
-/* Card grid — now uses Bootstrap row/col, no CSS Grid */
-.card-grid {
-  /* gap handled by Bootstrap g-3 class */
-}
+/* Card grid — gap handled by Bootstrap g-3 class */
 
 /* Footer */
 footer {
