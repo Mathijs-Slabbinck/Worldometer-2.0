@@ -69,7 +69,7 @@ export async function refresh() {
   const monthAgo = monthAgoISO();
 
   const results = await Promise.allSettled([
-    fetchData('http://api.open-notify.org/astros.json'),
+    fetchData('https://api.open-notify.org/astros.json'),
     Promise.resolve({ data: null, static: true }), // ISS has constant orbital params
     fetchData(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
     fetchData('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=1&mode=detailed', { retries: 0 }),
