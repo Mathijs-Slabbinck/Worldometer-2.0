@@ -1,3 +1,11 @@
+/* Noscript fallback */
+.noscript-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+}
+
 /* Skip link */
 .skip-link {
   position: absolute;
@@ -10,8 +18,11 @@
   font-size: 0.9rem;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   left: 0;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
 }
 
 /* Stat cards */
@@ -175,21 +186,39 @@
 
 /* Mini table (for exchange rates etc) */
 .mini-table {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.3rem 1rem;
+  width: 100%;
+  border-collapse: collapse;
   font-family: var(--font-mono);
   font-size: 0.95rem;
+}
+
+.mini-table th,
+.mini-table td {
+  padding: 0.15rem 0;
 }
 
 .mini-table .table-label {
   color: var(--text-secondary);
   font-weight: 500;
+  text-align: left;
 }
 
 .mini-table .table-value {
   text-align: right;
   font-weight: 600;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Fuel mix bar */
@@ -228,10 +257,11 @@
 }
 
 .fuel-mix-legend .dot {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Story list (trending) */
@@ -336,29 +366,29 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* Accent-colored sub-category labels per section */
-[data-accent="space"] .sub-category-label { color: var(--accent-space); }
+/* Accent-colored sub-category labels per section (lightened for small text contrast) */
+[data-accent="space"] .sub-category-label { color: #8284f4; }
 [data-accent="space"] .sub-category-label::after { background: rgba(99, 102, 241, 0.2); }
 
 [data-accent="earth"] .sub-category-label { color: var(--accent-earth); }
 [data-accent="earth"] .sub-category-label::after { background: rgba(245, 158, 11, 0.2); }
 
-[data-accent="climate"] .sub-category-label { color: var(--accent-climate); }
+[data-accent="climate"] .sub-category-label { color: #34d399; }
 [data-accent="climate"] .sub-category-label::after { background: rgba(16, 185, 129, 0.2); }
 
 [data-accent="economy"] .sub-category-label { color: var(--accent-economy); }
 [data-accent="economy"] .sub-category-label::after { background: rgba(249, 115, 22, 0.2); }
 
-[data-accent="population"] .sub-category-label { color: var(--accent-population); }
+[data-accent="population"] .sub-category-label { color: #a78bfa; }
 [data-accent="population"] .sub-category-label::after { background: rgba(139, 92, 246, 0.2); }
 
-[data-accent="health"] .sub-category-label { color: var(--accent-health); }
+[data-accent="health"] .sub-category-label { color: #f87171; }
 [data-accent="health"] .sub-category-label::after { background: rgba(239, 68, 68, 0.2); }
 
 [data-accent="transport"] .sub-category-label { color: var(--accent-transport); }
 [data-accent="transport"] .sub-category-label::after { background: rgba(6, 182, 212, 0.2); }
 
-[data-accent="trending"] .sub-category-label { color: var(--accent-trending); }
+[data-accent="trending"] .sub-category-label { color: #f472b6; }
 [data-accent="trending"] .sub-category-label::after { background: rgba(236, 72, 153, 0.2); }
 
 /* Country picker */
@@ -495,6 +525,11 @@
   outline: none;
 }
 
+.modal-container:focus-visible {
+  outline: 2px solid var(--accent-space);
+  outline-offset: 2px;
+}
+
 .modal-overlay.active .modal-container {
   transform: translateY(0) scale(1);
 }
@@ -568,6 +603,59 @@
   text-decoration: underline;
 }
 
+/* Modal content helper classes */
+.modal-description {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.modal-detail-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.modal-detail-label {
+  color: var(--text-muted);
+}
+
+.modal-detail-value {
+  font-family: var(--font-mono);
+}
+
+.modal-flare-class {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.modal-linked-list {
+  margin: 0.25rem 0 0 1rem;
+  padding: 0;
+  font-size: 0.8rem;
+}
+
+.modal-linked-list li {
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.modal-section-label {
+  color: var(--text-muted);
+}
+
+.modal-spaced {
+  margin-top: 0.75rem;
+}
+
+.modal-link-row {
+  margin-top: 1rem;
+}
+
 /* Modal footer */
 .modal-footer {
   margin-top: 1.25rem;
@@ -611,8 +699,11 @@
 }
 
 .astronaut-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
   color: var(--text-muted);
-  text-decoration: none;
   cursor: pointer;
   transition: color 0.2s;
   border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
@@ -1050,4 +1141,42 @@
 .location-picker-myloc:hover {
   background: var(--bg-tertiary);
   color: #fbbf24;
+}
+
+/* ========================
+   Global focus-visible styles
+   ======================== */
+
+.retry-btn:focus-visible,
+.expandable-toggle:focus-visible,
+.location-picker-toggle:focus-visible,
+.location-picker-myloc:focus-visible,
+.modal-close:focus-visible,
+.country-picker-btn:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.astronaut-link:focus-visible {
+  outline: 2px solid var(--accent-space);
+  outline-offset: 1px;
+  border-radius: 2px;
+}
+
+.launch-link:focus-visible {
+  outline: 2px solid var(--accent-space);
+  outline-offset: 2px;
+}
+
+.expandable-item:focus-visible,
+.country-picker-item:focus-visible,
+.location-picker-result:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: -2px;
+  background: var(--bg-tertiary);
+}
+
+.story-list .story-title:focus-visible {
+  outline: 2px solid var(--accent-trending);
+  outline-offset: 2px;
 }

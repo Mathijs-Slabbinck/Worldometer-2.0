@@ -6,7 +6,7 @@ import { CountUp } from '../utils/counter.js';
 
 export const sectionId = 'earth';
 
-let counters = {};
+const counters = {};
 let allQuakes = [];
 
 // Weather location state
@@ -285,6 +285,8 @@ function buildLocationPicker() {
 
   const resultsList = document.createElement('ul');
   resultsList.className = 'location-picker-results';
+  resultsList.setAttribute('role', 'listbox');
+  resultsList.setAttribute('aria-label', 'Location search results');
 
   const btnMyLocation = document.createElement('button');
   btnMyLocation.className = 'location-picker-myloc';
@@ -308,7 +310,7 @@ function buildLocationPicker() {
       panel.classList.add('open');
       btnChange.textContent = 'Cancel';
       input.value = '';
-      resultsList.innerHTML = '';
+      resultsList.replaceChildren();
       requestAnimationFrame(function () {
         input.focus();
       });
@@ -323,7 +325,7 @@ function buildLocationPicker() {
     clearTimeout(geocodeTimer);
     const query = input.value.trim();
     if (query.length < 2) {
-      resultsList.innerHTML = '';
+      resultsList.replaceChildren();
       return;
     }
     geocodeTimer = setTimeout(function () {
@@ -344,7 +346,7 @@ function buildLocationPicker() {
 }
 
 async function searchGeocode(query, resultsList, panel, btnChange) {
-  resultsList.innerHTML = '';
+  resultsList.replaceChildren();
 
   const res = await fetchData(
     `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=8&language=en`,
@@ -379,7 +381,7 @@ async function searchGeocode(query, resultsList, panel, btnChange) {
     li.setAttribute('tabindex', '0');
     li.setAttribute('role', 'option');
 
-    function selectPlace() {
+    const selectPlace = function () {
       weatherLocation = {
         lat: place.latitude,
         lon: place.longitude,
@@ -390,7 +392,7 @@ async function searchGeocode(query, resultsList, panel, btnChange) {
       btnChange.textContent = 'Change location';
       btnChange.setAttribute('aria-expanded', 'false');
       refreshWeatherOnly();
-    }
+    };
 
     li.addEventListener('click', selectPlace);
     li.addEventListener('keydown', function (e) {
@@ -452,6 +454,7 @@ function buildQuakeList(quakes) {
   const divPanel = document.createElement('div');
   divPanel.className = 'expandable-panel';
   divPanel.id = 'quake-panel';
+  divPanel.setAttribute('aria-label', 'Earthquake list');
 
   // Search input
   const inpSearch = document.createElement('input');
@@ -481,7 +484,7 @@ function buildQuakeList(quakes) {
 
   // Render quake items
   function renderItems(filter) {
-    ulItems.innerHTML = '';
+    ulItems.replaceChildren();
     const query = (filter || '').trim().toLowerCase();
     let filtered = quakes;
 
@@ -527,9 +530,9 @@ function buildQuakeList(quakes) {
       liItem.appendChild(spnPlace);
       liItem.appendChild(spnTime);
       liItem.setAttribute('tabindex', '0');
-      liItem.setAttribute('role', 'button');
+      liItem.setAttribute('aria-label', `Magnitude ${props.mag !== null ? props.mag.toFixed(1) : 'unknown'} — ${props.place || 'Unknown location'}`);
 
-      function selectQuake() {
+      const selectQuake = function () {
         showQuakeDetail(quake, divDetail);
         // Highlight selected item
         const prev = ulItems.querySelector('.expandable-item.selected');
@@ -571,7 +574,7 @@ function buildQuakeList(quakes) {
       spnToggleArrow.classList.remove('open');
       spnToggleText.textContent = 'Browse earthquakes';
       inpSearch.value = '';
-      divDetail.innerHTML = '';
+      divDetail.replaceChildren();
     }
   });
 
@@ -583,7 +586,7 @@ function buildQuakeList(quakes) {
 
 // Show earthquake detail below the list
 function showQuakeDetail(quake, container) {
-  container.innerHTML = '';
+  container.replaceChildren();
   const props = quake.properties;
   const coords = quake.geometry.coordinates;
   const longitude = coords[0];

@@ -91,11 +91,13 @@ function setupScrollSpy() {
           const id = entry.target.id;
           for (const link of navLinks) {
             link.classList.remove('active');
+            link.removeAttribute('aria-current');
             link.style.removeProperty('background-color');
           }
           const activeLink = navLinks.find(l => l.dataset.section === id);
           if (activeLink) {
             activeLink.classList.add('active');
+            activeLink.setAttribute('aria-current', 'true');
             const accent = getComputedStyle(document.documentElement)
               .getPropertyValue(`--accent-${id}`).trim();
             if (accent) {

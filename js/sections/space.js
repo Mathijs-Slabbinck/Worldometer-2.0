@@ -9,7 +9,7 @@ import { openModal } from '../utils/modal.js';
 
 export const sectionId = 'space';
 
-let counters = {};
+const counters = {};
 let countdownInterval = null;
 let launchWindowStart = null;
 
@@ -98,22 +98,14 @@ export async function refresh() {
     spnNames.className = 'astronaut-names';
     for (let i = 0; i < people.length; i++) {
       const person = people[i];
-      const anc = document.createElement('a');
-      anc.className = 'astronaut-link';
-      anc.textContent = person.name;
-      anc.setAttribute('role', 'button');
-      anc.setAttribute('tabindex', '0');
-      anc.addEventListener('click', function (e) {
-        e.preventDefault();
+      const btnAstronaut = document.createElement('button');
+      btnAstronaut.type = 'button';
+      btnAstronaut.className = 'astronaut-link';
+      btnAstronaut.textContent = person.name;
+      btnAstronaut.addEventListener('click', function () {
         showAstronautModal(person.name);
       });
-      anc.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          showAstronautModal(person.name);
-        }
-      });
-      spnNames.appendChild(anc);
+      spnNames.appendChild(btnAstronaut);
       if (i < people.length - 1) {
         spnNames.appendChild(document.createTextNode(', '));
       }
@@ -284,10 +276,10 @@ function startCountdown() {
 // Astronaut detail modal via Wikipedia API
 async function showAstronautModal(name) {
   // Show loading state immediately
-  openModal({
-    title: name,
-    body: '<p style="color:var(--text-muted);">Loading details...</p>',
-  });
+  const loadingBody = document.createElement('p');
+  loadingBody.className = 'modal-description';
+  loadingBody.textContent = 'Loading details...';
+  openModal({ title: name, body: loadingBody });
 
   const wikiName = name.replace(/ /g, '_');
   let wikiData = await fetchWikiSummary(wikiName);
@@ -302,44 +294,60 @@ async function showAstronautModal(name) {
   }
 
   let image = null;
-  let bodyHtml = '';
+  const bodyEl = document.createDocumentFragment();
 
   if (wikiData && wikiData.type !== 'disambiguation') {
-    // Description line (e.g. "American astronaut")
     if (wikiData.description) {
-      bodyHtml += `<p style="color:var(--text-muted);font-style:italic;margin-bottom:0.75rem;">${escapeHtml(wikiData.description)}</p>`;
+      const desc = document.createElement('p');
+      desc.className = 'modal-description';
+      desc.textContent = wikiData.description;
+      bodyEl.appendChild(desc);
     }
 
-    // Extract (summary paragraph)
     if (wikiData.extract) {
-      bodyHtml += `<p>${escapeHtml(wikiData.extract)}</p>`;
+      const extract = document.createElement('p');
+      extract.textContent = wikiData.extract;
+      bodyEl.appendChild(extract);
     }
 
-    // Thumbnail
     if (wikiData.thumbnail && wikiData.thumbnail.source) {
-      image = {
-        src: wikiData.thumbnail.source,
-        alt: name,
-      };
+      image = { src: wikiData.thumbnail.source, alt: name };
     }
 
-    // Wikipedia link
     const wikiUrl = wikiData.content_urls && wikiData.content_urls.desktop
       ? wikiData.content_urls.desktop.page
       : `https://en.wikipedia.org/wiki/${encodeURIComponent(wikiName)}`;
-    bodyHtml += `<p style="margin-top:1rem;"><a href="${escapeHtml(wikiUrl)}" target="_blank" rel="noopener noreferrer">View full Wikipedia article &rarr;</a></p>`;
+    const linkP = document.createElement('p');
+    linkP.className = 'modal-link-row';
+    const link = document.createElement('a');
+    link.href = wikiUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'View full Wikipedia article \u2192';
+    link.setAttribute('aria-label', 'View full Wikipedia article (opens in new tab)');
+    linkP.appendChild(link);
+    bodyEl.appendChild(linkP);
   } else {
-    // No Wikipedia data — provide a search link
-    const searchUrl = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(name)}`;
-    bodyHtml += `<p>No detailed information found on Wikipedia.</p>`;
-    bodyHtml += `<p><a href="${searchUrl}" target="_blank" rel="noopener noreferrer">Search Wikipedia for ${escapeHtml(name)} &rarr;</a></p>`;
+    const noInfo = document.createElement('p');
+    noInfo.textContent = 'No detailed information found on Wikipedia.';
+    bodyEl.appendChild(noInfo);
+
+    const searchP = document.createElement('p');
+    const searchLink = document.createElement('a');
+    searchLink.href = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(name)}`;
+    searchLink.target = '_blank';
+    searchLink.rel = 'noopener noreferrer';
+    searchLink.textContent = `Search Wikipedia for ${name} \u2192`;
+    searchLink.setAttribute('aria-label', `Search Wikipedia for ${name} (opens in new tab)`);
+    searchP.appendChild(searchLink);
+    bodyEl.appendChild(searchP);
   }
 
-  openModal({
-    title: name,
-    body: bodyHtml,
-    image: image,
-  });
+  // Wrap fragment in a div so it can be passed as a Node
+  const bodyDiv = document.createElement('div');
+  bodyDiv.appendChild(bodyEl);
+
+  openModal({ title: name, body: bodyDiv, image: image });
 }
 
 async function fetchWikiSummary(pageName) {
@@ -405,6 +413,7 @@ function buildFlareList(flares) {
   const divPanel = document.createElement('div');
   divPanel.className = 'expandable-panel';
   divPanel.id = 'flare-panel';
+  divPanel.setAttribute('aria-label', 'Solar flare list');
 
   // Search input
   const inpSearch = document.createElement('input');
@@ -428,7 +437,7 @@ function buildFlareList(flares) {
 
   // Render flare items
   function renderItems(filter) {
-    ulItems.innerHTML = '';
+    ulItems.replaceChildren();
     const query = (filter || '').trim().toLowerCase();
     let filtered = sorted;
 
@@ -465,7 +474,7 @@ function buildFlareList(flares) {
       liItem.appendChild(spnClass);
       liItem.appendChild(spnDate);
       liItem.setAttribute('tabindex', '0');
-      liItem.setAttribute('role', 'button');
+      liItem.setAttribute('aria-label', `Solar flare ${flare.classType || 'Unknown'} on ${formatFlareDate(flare.beginTime)}`);
 
       liItem.addEventListener('click', function () {
         showFlareModal(flare);
@@ -528,50 +537,73 @@ function formatFlareDate(dateStr) {
 
 // Solar flare detail modal
 function showFlareModal(flare) {
-  let bodyHtml = '';
+  const bodyDiv = document.createElement('div');
 
   // Flare class badge
   const colorClass = getFlareColorClass(flare.classType);
-  bodyHtml += `<p style="margin-bottom:0.75rem;">`;
-  bodyHtml += `<span class="${escapeHtml(colorClass)}" style="font-family:var(--font-mono);font-size:1.5rem;font-weight:700;">`;
-  bodyHtml += `${escapeHtml(flare.classType || 'Unknown')}</span>`;
-  bodyHtml += `</p>`;
+  const classEl = document.createElement('p');
+  classEl.className = 'modal-flare-class';
+  const classSpan = document.createElement('span');
+  classSpan.className = colorClass;
+  classSpan.textContent = flare.classType || 'Unknown';
+  classEl.appendChild(classSpan);
+  bodyDiv.appendChild(classEl);
 
-  // Time details
-  bodyHtml += `<div style="display:grid;grid-template-columns:auto 1fr;gap:0.3rem 1rem;font-size:0.85rem;margin-bottom:1rem;">`;
+  // Time details grid
+  const grid = document.createElement('div');
+  grid.className = 'modal-detail-grid';
 
-  if (flare.beginTime) {
-    bodyHtml += `<span style="color:var(--text-muted);">Start</span>`;
-    bodyHtml += `<span style="font-family:var(--font-mono);">${escapeHtml(formatUTC(flare.beginTime))}</span>`;
-  }
-  if (flare.peakTime) {
-    bodyHtml += `<span style="color:var(--text-muted);">Peak</span>`;
-    bodyHtml += `<span style="font-family:var(--font-mono);">${escapeHtml(formatUTC(flare.peakTime))}</span>`;
-  }
-  if (flare.endTime) {
-    bodyHtml += `<span style="color:var(--text-muted);">End</span>`;
-    bodyHtml += `<span style="font-family:var(--font-mono);">${escapeHtml(formatUTC(flare.endTime))}</span>`;
+  function addGridRow(label, value) {
+    const lblEl = document.createElement('span');
+    lblEl.className = 'modal-detail-label';
+    lblEl.textContent = label;
+    const valEl = document.createElement('span');
+    valEl.className = 'modal-detail-value';
+    valEl.textContent = value;
+    grid.appendChild(lblEl);
+    grid.appendChild(valEl);
   }
 
-  bodyHtml += `</div>`;
+  if (flare.beginTime) addGridRow('Start', formatUTC(flare.beginTime));
+  if (flare.peakTime) addGridRow('Peak', formatUTC(flare.peakTime));
+  if (flare.endTime) addGridRow('End', formatUTC(flare.endTime));
+  bodyDiv.appendChild(grid);
 
   // Active region and source location
   if (flare.activeRegionNum) {
-    bodyHtml += `<p><span style="color:var(--text-muted);">Active Region:</span> AR ${escapeHtml(String(flare.activeRegionNum))}</p>`;
+    const regionP = document.createElement('p');
+    const regionLabel = document.createElement('span');
+    regionLabel.className = 'modal-section-label';
+    regionLabel.textContent = 'Active Region: ';
+    regionP.appendChild(regionLabel);
+    regionP.appendChild(document.createTextNode('AR ' + String(flare.activeRegionNum)));
+    bodyDiv.appendChild(regionP);
   }
   if (flare.sourceLocation) {
-    bodyHtml += `<p><span style="color:var(--text-muted);">Source Location:</span> ${escapeHtml(flare.sourceLocation)}</p>`;
+    const srcP = document.createElement('p');
+    const srcLabel = document.createElement('span');
+    srcLabel.className = 'modal-section-label';
+    srcLabel.textContent = 'Source Location: ';
+    srcP.appendChild(srcLabel);
+    srcP.appendChild(document.createTextNode(flare.sourceLocation));
+    bodyDiv.appendChild(srcP);
   }
 
   // Linked events
   if (flare.linkedEvents && flare.linkedEvents.length > 0) {
-    bodyHtml += `<p style="color:var(--text-muted);margin-top:0.75rem;">Linked Events:</p>`;
-    bodyHtml += `<ul style="margin:0.25rem 0 0 1rem;padding:0;font-size:0.8rem;">`;
-    for (let i = 0; i < flare.linkedEvents.length; i++) {
-      const evt = flare.linkedEvents[i];
-      bodyHtml += `<li style="color:var(--text-secondary);margin-bottom:0.25rem;">${escapeHtml(evt.activityID || 'Unknown event')}</li>`;
+    const evtLabel = document.createElement('p');
+    evtLabel.className = 'modal-section-label modal-spaced';
+    evtLabel.textContent = 'Linked Events:';
+    bodyDiv.appendChild(evtLabel);
+
+    const evtList = document.createElement('ul');
+    evtList.className = 'modal-linked-list';
+    for (const evt of flare.linkedEvents) {
+      const li = document.createElement('li');
+      li.textContent = evt.activityID || 'Unknown event';
+      evtList.appendChild(li);
     }
-    bodyHtml += `</ul>`;
+    bodyDiv.appendChild(evtList);
   }
 
   // Instruments
@@ -579,20 +611,32 @@ function showFlareModal(flare) {
     const names = flare.instruments.map(function (inst) {
       return inst.displayName || inst.id || 'Unknown';
     });
-    bodyHtml += `<p style="margin-top:0.75rem;"><span style="color:var(--text-muted);">Instruments:</span> ${escapeHtml(names.join(', '))}</p>`;
+    const instP = document.createElement('p');
+    instP.className = 'modal-spaced';
+    const instLabel = document.createElement('span');
+    instLabel.className = 'modal-section-label';
+    instLabel.textContent = 'Instruments: ';
+    instP.appendChild(instLabel);
+    instP.appendChild(document.createTextNode(names.join(', ')));
+    bodyDiv.appendChild(instP);
   }
 
   // NASA DONKI link
   if (flare.link) {
-    bodyHtml += `<p style="margin-top:1rem;"><a href="${escapeHtml(flare.link)}" target="_blank" rel="noopener noreferrer" aria-label="View solar flare ${escapeHtml(flare.classType || '')} on NASA DONKI (opens in new tab)">View on NASA DONKI &rarr;</a></p>`;
+    const linkP = document.createElement('p');
+    linkP.className = 'modal-link-row';
+    const link = document.createElement('a');
+    link.href = flare.link;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'View on NASA DONKI \u2192';
+    link.setAttribute('aria-label', `View solar flare ${flare.classType || ''} on NASA DONKI (opens in new tab)`);
+    linkP.appendChild(link);
+    bodyDiv.appendChild(linkP);
   }
 
   const title = `Solar Flare ${flare.classType || ''}`;
-
-  openModal({
-    title: title.trim(),
-    body: bodyHtml,
-  });
+  openModal({ title: title.trim(), body: bodyDiv });
 }
 
 // Load persisted toilet data from TOILET_DATA.md

@@ -56,12 +56,17 @@ body {
   font-size: 0.85rem;
   font-weight: 500;
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .category-nav a:hover {
   background: var(--bg-tertiary);
   color: var(--text-primary);
+}
+
+.category-nav a:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
 }
 
 .category-nav a.active {

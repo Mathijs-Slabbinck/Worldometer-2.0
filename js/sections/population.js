@@ -5,7 +5,7 @@ import { CountUp } from '../utils/counter.js';
 
 export const sectionId = 'population';
 
-let counters = {};
+const counters = {};
 let tickerInterval = null;
 let currentPopulation = 0;
 let allCountries = [];
@@ -283,7 +283,15 @@ function buildCountryPicker() {
   btn.setAttribute('aria-haspopup', 'listbox');
   btn.setAttribute('aria-expanded', 'false');
   btn.setAttribute('aria-label', 'Select country');
-  btn.innerHTML = '<span class="country-picker-text">Global</span><span class="country-picker-arrow" aria-hidden="true">&#9662;</span>';
+  const spnText = document.createElement('span');
+  spnText.className = 'country-picker-text';
+  spnText.textContent = 'Global';
+  const spnArrow = document.createElement('span');
+  spnArrow.className = 'country-picker-arrow';
+  spnArrow.setAttribute('aria-hidden', 'true');
+  spnArrow.textContent = '\u25BE';
+  btn.appendChild(spnText);
+  btn.appendChild(spnArrow);
 
   const dropdown = document.createElement('div');
   dropdown.className = 'country-picker-dropdown';
@@ -308,6 +316,7 @@ function buildCountryPicker() {
   globalItem.textContent = 'Global';
   globalItem.setAttribute('role', 'option');
   globalItem.setAttribute('aria-selected', 'true');
+  globalItem.setAttribute('tabindex', '0');
   list.appendChild(globalItem);
 
   dropdown.appendChild(searchInput);
@@ -370,6 +379,32 @@ function buildCountryPicker() {
     }
   });
 
+  // Arrow key navigation in listbox
+  list.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    e.preventDefault();
+    const visibleItems = [...list.querySelectorAll('.country-picker-item:not([hidden])')];
+    if (visibleItems.length === 0) return;
+    const currentIndex = visibleItems.indexOf(document.activeElement);
+    let nextIndex = currentIndex;
+    if (e.key === 'ArrowDown') {
+      nextIndex = Math.min(currentIndex + 1, visibleItems.length - 1);
+    } else {
+      nextIndex = Math.max(currentIndex - 1, 0);
+    }
+    visibleItems[nextIndex].focus();
+  });
+
+  // Make country picker items focusable
+  list.addEventListener('keydown', (e) => {
+    const item = e.target.closest('.country-picker-item');
+    if (!item) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      item.click();
+    }
+  });
+
   // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -403,6 +438,7 @@ function populateCountryList() {
     li.textContent = name;
     li.setAttribute('role', 'option');
     li.setAttribute('aria-selected', 'false');
+    li.setAttribute('tabindex', '0');
     list.appendChild(li);
   }
 }

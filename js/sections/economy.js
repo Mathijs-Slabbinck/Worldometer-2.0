@@ -5,7 +5,7 @@ import { CountUp } from '../utils/counter.js';
 
 export const sectionId = 'economy';
 
-let counters = {};
+const counters = {};
 
 export async function init() {
   const grid = document.querySelector('#economy .card-grid');
@@ -110,23 +110,32 @@ export async function refresh() {
         valEl.textContent = '';
         valEl.classList.add('stat-value--embed');
 
-        const table = document.createElement('div');
+        const table = document.createElement('table');
         table.className = 'mini-table';
+        const caption = document.createElement('caption');
+        caption.className = 'sr-only';
+        caption.textContent = 'Exchange rates vs USD';
+        table.appendChild(caption);
+        const tbody = document.createElement('tbody');
 
         for (const cur of pairs) {
           if (data.rates[cur] !== undefined) {
-            const label = document.createElement('span');
-            label.className = 'table-label';
-            label.textContent = `USD/${cur}`;
+            const tr = document.createElement('tr');
+            const th = document.createElement('th');
+            th.setAttribute('scope', 'row');
+            th.className = 'table-label';
+            th.textContent = `USD/${cur}`;
 
-            const val = document.createElement('span');
-            val.className = 'table-value';
-            val.textContent = data.rates[cur].toFixed(cur === 'JPY' ? 2 : 4);
+            const td = document.createElement('td');
+            td.className = 'table-value';
+            td.textContent = data.rates[cur].toFixed(cur === 'JPY' ? 2 : 4);
 
-            table.appendChild(label);
-            table.appendChild(val);
+            tr.appendChild(th);
+            tr.appendChild(td);
+            tbody.appendChild(tr);
           }
         }
+        table.appendChild(tbody);
 
         valEl.appendChild(table);
       }

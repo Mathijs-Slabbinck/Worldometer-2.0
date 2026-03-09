@@ -31,13 +31,29 @@ function buildOverlay() {
 
   divModal.setAttribute('aria-labelledby', 'modal-title-id');
 
-  divModal.innerHTML = `
-    <button class="modal-close" aria-label="Close modal">&times;</button>
-    <div class="modal-image-wrapper"></div>
-    <h2 class="modal-title" id="modal-title-id"></h2>
-    <div class="modal-body"></div>
-    <div class="modal-footer"></div>
-  `;
+  const btnClose = document.createElement('button');
+  btnClose.className = 'modal-close';
+  btnClose.setAttribute('aria-label', 'Close modal');
+  btnClose.textContent = '\u00D7';
+
+  const divImageWrap = document.createElement('div');
+  divImageWrap.className = 'modal-image-wrapper';
+
+  const hdgTitle = document.createElement('h2');
+  hdgTitle.className = 'modal-title';
+  hdgTitle.id = 'modal-title-id';
+
+  const divBody = document.createElement('div');
+  divBody.className = 'modal-body';
+
+  const divFooter = document.createElement('div');
+  divFooter.className = 'modal-footer';
+
+  divModal.appendChild(btnClose);
+  divModal.appendChild(divImageWrap);
+  divModal.appendChild(hdgTitle);
+  divModal.appendChild(divBody);
+  divModal.appendChild(divFooter);
 
   divOverlay.appendChild(divModal);
   document.body.appendChild(divOverlay);
@@ -50,18 +66,19 @@ function buildOverlay() {
   });
 
   // Close button
-  divModal.querySelector('.modal-close').addEventListener('click', closeModal);
+  btnClose.addEventListener('click', closeModal);
 }
 
 function setContent(container, content) {
-  container.innerHTML = '';
+  container.replaceChildren();
   if (!content) {
     container.style.display = 'none';
     return;
   }
   container.style.display = '';
   if (typeof content === 'string') {
-    container.innerHTML = content;
+    // Only use textContent for plain text — callers should pass DOM nodes for rich content
+    container.textContent = content;
   } else if (content instanceof Node) {
     container.appendChild(content);
   }
@@ -117,7 +134,7 @@ export function openModal(config) {
 
   // Image
   const divImage = divModal.querySelector('.modal-image-wrapper');
-  divImage.innerHTML = '';
+  divImage.replaceChildren();
   if (config.image && config.image.src) {
     const img = document.createElement('img');
     img.className = 'modal-image';

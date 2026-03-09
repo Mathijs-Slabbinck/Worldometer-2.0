@@ -36,6 +36,8 @@ export function createCard({ id, label, featured }) {
 
   const valueEl = document.createElement('div');
   valueEl.className = 'stat-value';
+  valueEl.setAttribute('aria-live', 'polite');
+  valueEl.setAttribute('aria-atomic', 'true');
   valueEl.textContent = '\u00A0';
 
   const contextEl = document.createElement('div');
@@ -99,7 +101,11 @@ export function setCardError(id, retryFn) {
 
   card.dataset.state = 'error';
   const valEl = card.querySelector('.stat-value');
-  valEl.textContent = 'Data unavailable';
+  valEl.textContent = '';
+  const alertSpan = document.createElement('span');
+  alertSpan.setAttribute('role', 'alert');
+  alertSpan.textContent = 'Data unavailable';
+  valEl.appendChild(alertSpan);
 
   const ctxEl = card.querySelector('.stat-context');
   ctxEl.textContent = '';
@@ -127,6 +133,7 @@ export function setCardStale(id) {
     const badge = document.createElement('span');
     badge.className = 'badge stale';
     badge.textContent = 'stale';
+    badge.setAttribute('aria-label', 'Data may be outdated');
     label.appendChild(badge);
   }
 }

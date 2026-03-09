@@ -43,7 +43,6 @@ export async function refresh() {
 
   const list = document.createElement('ol');
   list.className = 'story-list';
-  list.setAttribute('role', 'list');
 
   for (const story of stories) {
     const li = document.createElement('li');
@@ -53,6 +52,7 @@ export async function refresh() {
     titleLink.textContent = story.title || 'Untitled';
     titleLink.target = '_blank';
     titleLink.rel = 'noopener noreferrer';
+    titleLink.setAttribute('aria-label', `${story.title || 'Untitled'} (opens in new tab)`);
     if (story.url) {
       titleLink.href = story.url;
     } else {
