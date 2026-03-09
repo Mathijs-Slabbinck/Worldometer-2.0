@@ -69,7 +69,7 @@ export async function refresh() {
   const monthAgo = monthAgoISO();
 
   const results = await Promise.allSettled([
-    fetchData('https://api.open-notify.org/astros.json'),
+    fetchData('https://ll.thespacedevs.com/2.2.0/astronaut/?in_space=true&limit=50', { retries: 0 }),
     Promise.resolve({ data: null, static: true }), // ISS has constant orbital params
     fetchData(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
     fetchData('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=1&mode=detailed', { retries: 0 }),
@@ -80,8 +80,9 @@ export async function refresh() {
   handleResult(results[0], (res) => {
     const { data, stale } = res;
     if (!data) return false;
-    const count = data.number;
-    const people = data.people || [];
+    // Support both open-notify format and SpaceDevs format
+    const count = data.number ?? data.count;
+    const people = data.people || (data.results || []).map(a => ({ name: a.name, craft: a.last_flight || '' }));
 
     if (counters['space-people']) {
       counters['space-people'].update(count);

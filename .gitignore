@@ -4,6 +4,9 @@ scripts/node_modules/
 # Claude Code
 .claude/
 
+# Project docs (not for deployment)
+REST/
+
 # OS files
 Thumbs.db
 Desktop.ini
