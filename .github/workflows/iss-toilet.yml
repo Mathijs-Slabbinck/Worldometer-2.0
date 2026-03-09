@@ -1,0 +1,35 @@
+name: ISS Toilet Monitor
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:        # Manual trigger
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: scripts
+        run: npm install
+
+      - name: Run ISS toilet monitor
+        working-directory: scripts
+        run: node iss-monitor.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "ISS Toilet Bot"
+          git config user.email "actions@github.com"
+          git add TOILET_DATA.md
+          git diff --staged --quiet || git commit -m "Update ISS toilet telemetry data"
+          git push

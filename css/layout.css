@@ -1,0 +1,119 @@
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1rem 2rem;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.site-logo {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* Nav */
+.category-nav {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.category-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.category-nav a {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.category-nav a:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.category-nav a.active {
+  color: #fff;
+}
+
+/* Main — override Bootstrap container-fluid defaults */
+main.container-fluid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Sections */
+.dashboard-section {
+  margin-bottom: var(--section-gap);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--text-muted);
+}
+
+/* Section accent colors */
+[data-accent="space"] .section-title { border-color: var(--accent-space); color: var(--accent-space); }
+[data-accent="earth"] .section-title { border-color: var(--accent-earth); color: var(--accent-earth); }
+[data-accent="climate"] .section-title { border-color: var(--accent-climate); color: var(--accent-climate); }
+[data-accent="economy"] .section-title { border-color: var(--accent-economy); color: var(--accent-economy); }
+[data-accent="population"] .section-title { border-color: var(--accent-population); color: var(--accent-population); }
+[data-accent="health"] .section-title { border-color: var(--accent-health); color: var(--accent-health); }
+[data-accent="transport"] .section-title { border-color: var(--accent-transport); color: var(--accent-transport); }
+[data-accent="trending"] .section-title { border-color: var(--accent-trending); color: var(--accent-trending); }
+
+/* Card grid — now uses Bootstrap row/col, no CSS Grid */
+.card-grid {
+  /* gap handled by Bootstrap g-3 class */
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem;
+  font-size: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Last updated */
+.last-updated {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}

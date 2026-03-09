@@ -1,0 +1,50 @@
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Cards hidden by default, shown on scroll */
+.stat-card {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stat-card.visible {
+  animation: fadeSlideUp 0.5s var(--ease-out-expo) forwards;
+}
+
+/* Pulse on value update */
+.stat-value.updating {
+  animation: countPulse 0.3s ease-out;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .stat-card {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worldometer 2.0</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="site-logo">WORLDOMETER 2.0</span>
+      <nav class="category-nav">
+        <a href="#space" data-section="space">Space</a>
+        <a href="#earth" data-section="earth">Earth</a>
+        <a href="#climate" data-section="climate">Climate</a>
+        <a href="#economy" data-section="economy">Economy</a>
+        <a href="#population" data-section="population">Population</a>
+        <a href="#health" data-section="health">Health</a>
+        <a href="#transport" data-section="transport">Transport</a>
+        <a href="#trending" data-section="trending">Trending</a>
+      </nav>
+      <span class="last-updated"></span>
+    </div>
+  </header>
+
+  <main class="container-fluid">
+    <section id="space" class="dashboard-section" data-accent="space">
+      <h2 class="section-title">Space & Astronomy</h2>
+      <div class="card-grid row g-3"></div>
+    </section>
+
+    <section id="earth" class="dashboard-section" data-accent="earth">
+      <h2 class="section-title">Earth & Seismology</h2>
+      <div class="card-grid row g-3"></div>
+    </section>
+
+    <section id="climate" class="dashboard-section" data-accent="climate">
+      <h2 class="section-title">Climate & Energy</h2>
+      <div class="card-grid row g-3"></div>
+    </section>
+
+    <section id="economy" class="dashboard-section" data-accent="economy">
+      <h2 class="section-title">Economy & Crypto</h2>
+      <div class="card-grid row g-3"></div>
+    </section>
+
+    <section id="population" class="dashboard-section" data-accent="population">
+      <h2 class="section-title">World Population</h2>
+      <div class="card-grid row g-3"></div>
+    </section>
+
+    <section id="health" class="dashboard-section" data-accent="health">
+      <h2 class="section-title">Health</h2>
+      <div class="card-grid row g-3"></div>
+    </section>
+
+    <section id="transport" class="dashboard-section" data-accent="transport">
+      <h2 class="section-title">Transportation</h2>
+      <div class="card-grid row g-3"></div>
+    </section>
+
+    <section id="trending" class="dashboard-section" data-accent="trending">
+      <h2 class="section-title">Trending Now</h2>
+      <div class="card-grid row g-3"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Data sourced from NASA, USGS, Open-Meteo, CoinGecko, OpenSky Network, Hacker News, World Bank, and other public APIs.</p>
+    <p>Built with vanilla HTML, CSS, and JavaScript. No frameworks, no build step.</p>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

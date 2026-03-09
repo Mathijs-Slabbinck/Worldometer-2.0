@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "lightstreamer-client-node": "^9.2.0"
+  }
+}

@@ -1,0 +1,38 @@
+:root {
+  /* Backgrounds */
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1a2235;
+
+  /* Accent colors */
+  --accent-space: #6366f1;
+  --accent-earth: #f59e0b;
+  --accent-climate: #10b981;
+  --accent-economy: #f97316;
+  --accent-population: #8b5cf6;
+  --accent-health: #ef4444;
+  --accent-transport: #06b6d4;
+  --accent-trending: #ec4899;
+
+  /* Text */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Stat sizes */
+  --stat-font-lg: clamp(2rem, 4vw, 3.5rem);
+  --stat-font-md: clamp(1.5rem, 3vw, 2.5rem);
+
+  /* Spacing */
+  --section-gap: 4rem;
+  --card-gap: 1.25rem;
+  --card-radius: 12px;
+  --card-padding: 1.5rem;
+
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
