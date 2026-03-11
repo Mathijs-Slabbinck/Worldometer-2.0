@@ -499,11 +499,9 @@ function buildQuakeList(quakes, cardId, panelId) {
   const card = document.getElementById(cardId);
   if (!card) return;
 
-  // Remove any existing expandable list and detail panel
+  // Remove any existing expandable list
   const existing = card.querySelector('.expandable-list');
   if (existing) existing.remove();
-  const existingDetail = card.querySelector('.quake-detail');
-  if (existingDetail) existingDetail.remove();
 
   if (quakes.length === 0) return;
 
@@ -553,12 +551,73 @@ function buildQuakeList(quakes, cardId, panelId) {
   divList.appendChild(btnToggle);
   divList.appendChild(divPanel);
 
-  // Detail panel (shows when a quake is selected)
-  const divDetail = document.createElement('div');
-  divDetail.className = 'quake-detail';
-
   card.appendChild(divList);
-  card.appendChild(divDetail);
+
+  const BATCH_SIZE = 100;
+
+  function createQuakeItem(quake) {
+    const props = quake.properties;
+    const liItem = document.createElement('li');
+    liItem.className = 'expandable-item';
+
+    const spnMag = document.createElement('span');
+    spnMag.className = 'expandable-item-label ' + getMagColorClass(props.mag);
+    spnMag.textContent = props.mag !== null ? `M${props.mag.toFixed(1)}` : 'M?';
+
+    const spnPlace = document.createElement('span');
+    spnPlace.className = 'quake-item-place';
+    spnPlace.textContent = props.place || 'Unknown location';
+
+    const spnTime = document.createElement('span');
+    spnTime.className = 'expandable-item-meta';
+    spnTime.textContent = formatQuakeTime(props.time);
+
+    liItem.appendChild(spnMag);
+    liItem.appendChild(spnPlace);
+    liItem.appendChild(spnTime);
+    liItem.setAttribute('tabindex', '0');
+    liItem.setAttribute('role', 'button');
+    liItem.setAttribute('aria-label', `Magnitude ${props.mag !== null ? props.mag.toFixed(1) : 'unknown'} — ${props.place || 'Unknown location'}`);
+
+    liItem.addEventListener('click', function () { showQuakeModal(quake); });
+    liItem.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showQuakeModal(quake);
+      }
+    });
+
+    return liItem;
+  }
+
+  function appendLoadMore(filtered, shownCount) {
+    const existing = ulItems.querySelector('.expandable-load-more');
+    if (existing) existing.remove();
+
+    const remaining = filtered.length - shownCount;
+    if (remaining <= 0) return;
+
+    const liMore = document.createElement('li');
+    liMore.className = 'expandable-load-more';
+
+    const btn = document.createElement('button');
+    btn.className = 'expandable-load-more-btn';
+    btn.setAttribute('type', 'button');
+    const nextBatch = Math.min(remaining, BATCH_SIZE);
+    btn.textContent = `Load ${nextBatch} more (${remaining} remaining)`;
+
+    btn.addEventListener('click', function () {
+      liMore.remove();
+      const nextSlice = filtered.slice(shownCount, shownCount + BATCH_SIZE);
+      for (const quake of nextSlice) {
+        ulItems.appendChild(createQuakeItem(quake));
+      }
+      appendLoadMore(filtered, shownCount + nextSlice.length);
+    });
+
+    liMore.appendChild(btn);
+    ulItems.appendChild(liMore);
+  }
 
   // Render quake items
   function renderItems(filter) {
@@ -584,58 +643,12 @@ function buildQuakeList(quakes, cardId, panelId) {
       return;
     }
 
-    // Limit to 100 items for performance
-    const shown = filtered.slice(0, 100);
-    for (let i = 0; i < shown.length; i++) {
-      const quake = shown[i];
-      const props = quake.properties;
-      const liItem = document.createElement('li');
-      liItem.className = 'expandable-item';
-
-      const spnMag = document.createElement('span');
-      spnMag.className = 'expandable-item-label ' + getMagColorClass(props.mag);
-      spnMag.textContent = props.mag !== null ? `M${props.mag.toFixed(1)}` : 'M?';
-
-      const spnPlace = document.createElement('span');
-      spnPlace.className = 'quake-item-place';
-      spnPlace.textContent = props.place || 'Unknown location';
-
-      const spnTime = document.createElement('span');
-      spnTime.className = 'expandable-item-meta';
-      spnTime.textContent = formatQuakeTime(props.time);
-
-      liItem.appendChild(spnMag);
-      liItem.appendChild(spnPlace);
-      liItem.appendChild(spnTime);
-      liItem.setAttribute('tabindex', '0');
-      liItem.setAttribute('role', 'button');
-      liItem.setAttribute('aria-label', `Magnitude ${props.mag !== null ? props.mag.toFixed(1) : 'unknown'} — ${props.place || 'Unknown location'}`);
-
-      const selectQuake = function () {
-        showQuakeDetail(quake, divDetail);
-        // Highlight selected item
-        const prev = ulItems.querySelector('.expandable-item.selected');
-        if (prev) prev.classList.remove('selected');
-        liItem.classList.add('selected');
-      }
-
-      liItem.addEventListener('click', selectQuake);
-      liItem.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          selectQuake();
-        }
-      });
-
-      ulItems.appendChild(liItem);
+    const initial = filtered.slice(0, BATCH_SIZE);
+    for (const quake of initial) {
+      ulItems.appendChild(createQuakeItem(quake));
     }
 
-    if (filtered.length > 100) {
-      const liMore = document.createElement('li');
-      liMore.className = 'expandable-empty';
-      liMore.textContent = `${filtered.length - 100} more — refine your search`;
-      ulItems.appendChild(liMore);
-    }
+    appendLoadMore(filtered, initial.length);
   }
 
   // Toggle open/close
@@ -653,7 +666,6 @@ function buildQuakeList(quakes, cardId, panelId) {
       spnToggleArrow.classList.remove('open');
       spnToggleText.textContent = 'Browse earthquakes';
       inpSearch.value = '';
-      divDetail.replaceChildren();
     }
   });
 
@@ -663,154 +675,117 @@ function buildQuakeList(quakes, cardId, panelId) {
   });
 }
 
-// Show earthquake detail below the list
-function showQuakeDetail(quake, container) {
-  container.replaceChildren();
+// Show earthquake detail in a modal
+function showQuakeModal(quake) {
   const props = quake.properties;
   const coords = quake.geometry.coordinates;
   const longitude = coords[0];
   const latitude = coords[1];
   const depth = coords[2];
 
-  // Header: magnitude + place
-  const divHeader = document.createElement('div');
-  divHeader.className = 'quake-detail-header';
+  const bodyDiv = document.createElement('div');
 
-  const spnMag = document.createElement('span');
-  spnMag.className = 'quake-detail-mag ' + getMagColorClass(props.mag);
-  spnMag.textContent = props.mag !== null ? `M${props.mag.toFixed(1)}` : 'M?';
-
-  const spnPlace = document.createElement('span');
-  spnPlace.className = 'quake-detail-place';
-  spnPlace.textContent = props.place || 'Unknown location';
-
-  divHeader.appendChild(spnMag);
-  divHeader.appendChild(spnPlace);
-  container.appendChild(divHeader);
+  // Description line
+  const descP = document.createElement('p');
+  descP.className = 'modal-description';
+  const magText = props.mag !== null ? `M${props.mag.toFixed(1)}` : 'Unknown magnitude';
+  descP.textContent = `${magText} — ${props.place || 'Unknown location'}`;
+  bodyDiv.appendChild(descP);
 
   // Detail grid
-  const divGrid = document.createElement('div');
-  divGrid.className = 'quake-detail-grid';
+  const grid = document.createElement('div');
+  grid.className = 'modal-detail-grid';
 
-  // Magnitude info
-  addDetailRow(divGrid, 'Magnitude', props.mag !== null ? props.mag.toFixed(1) : 'Unknown');
-  addDetailRow(divGrid, 'Mag Type', (props.magType || 'Unknown').toUpperCase());
+  function addRow(label, value, valueClass) {
+    const lblEl = document.createElement('span');
+    lblEl.className = 'modal-detail-label';
+    lblEl.textContent = label;
+    const valEl = document.createElement('span');
+    valEl.className = 'modal-detail-value';
+    if (valueClass) valEl.classList.add(valueClass);
+    valEl.textContent = value;
+    grid.appendChild(lblEl);
+    grid.appendChild(valEl);
+  }
 
-  // Depth
-  addDetailRow(divGrid, 'Depth', depth !== null ? `${depth.toFixed(1)} km` : 'Unknown');
+  addRow('Magnitude', props.mag !== null ? props.mag.toFixed(1) : 'Unknown');
+  addRow('Mag Type', (props.magType || 'Unknown').toUpperCase());
+  addRow('Depth', depth !== null ? `${depth.toFixed(1)} km` : 'Unknown');
+  addRow('Latitude', latitude !== null ? latitude.toFixed(4) + '\u00B0' : 'Unknown');
+  addRow('Longitude', longitude !== null ? longitude.toFixed(4) + '\u00B0' : 'Unknown');
 
-  // Coordinates
-  addDetailRow(divGrid, 'Latitude', latitude !== null ? latitude.toFixed(4) + '\u00B0' : 'Unknown');
-  addDetailRow(divGrid, 'Longitude', longitude !== null ? longitude.toFixed(4) + '\u00B0' : 'Unknown');
-
-  // Time (UTC)
   if (props.time) {
     const d = new Date(props.time);
     const utcStr = d.toISOString().replace('T', ' ').replace('.000Z', ' UTC');
-    addDetailRow(divGrid, 'Time (UTC)', utcStr);
-    // Local time
-    const localStr = d.toLocaleString();
-    addDetailRow(divGrid, 'Time (Local)', localStr);
+    addRow('Time (UTC)', utcStr);
+    addRow('Time (Local)', d.toLocaleString());
   }
 
-  // Updated
   if (props.updated) {
     const upd = new Date(props.updated);
     const updStr = upd.toISOString().replace('T', ' ').replace('.000Z', ' UTC');
-    addDetailRow(divGrid, 'Last Updated', updStr);
+    addRow('Last Updated', updStr);
   }
 
-  // Tsunami warning
   const tsunamiText = props.tsunami === 1 ? 'YES — Tsunami warning issued' : 'No';
   const tsunamiClass = props.tsunami === 1 ? 'quake-tsunami-yes' : '';
-  addDetailRow(divGrid, 'Tsunami Warning', tsunamiText, tsunamiClass);
+  addRow('Tsunami Warning', tsunamiText, tsunamiClass);
 
-  // Significance
   if (props.sig !== null && props.sig !== undefined) {
-    addDetailRow(divGrid, 'Significance', `${props.sig} / 1000`);
+    addRow('Significance', `${props.sig} / 1000`);
   }
-
-  // Felt reports
   if (props.felt !== null && props.felt !== undefined) {
-    addDetailRow(divGrid, 'Felt Reports', formatNumber(props.felt));
+    addRow('Felt Reports', formatNumber(props.felt));
   }
-
-  // Community Intensity (CDI)
   if (props.cdi !== null && props.cdi !== undefined) {
-    addDetailRow(divGrid, 'Community Intensity', props.cdi.toFixed(1));
+    addRow('Community Intensity', props.cdi.toFixed(1));
   }
-
-  // Max Instrument Intensity (MMI)
   if (props.mmi !== null && props.mmi !== undefined) {
-    addDetailRow(divGrid, 'Max Instrument Intensity', props.mmi.toFixed(1));
+    addRow('Max Instrument Intensity', props.mmi.toFixed(1));
   }
-
-  // Alert level
   if (props.alert) {
-    addDetailRow(divGrid, 'Alert Level', props.alert.charAt(0).toUpperCase() + props.alert.slice(1), `quake-alert-${props.alert}`);
+    addRow('Alert Level', props.alert.charAt(0).toUpperCase() + props.alert.slice(1), `quake-alert-${props.alert}`);
   }
 
-  // Status
-  addDetailRow(divGrid, 'Status', (props.status || 'Unknown').charAt(0).toUpperCase() + (props.status || 'Unknown').slice(1));
+  addRow('Status', (props.status || 'Unknown').charAt(0).toUpperCase() + (props.status || 'Unknown').slice(1));
+  addRow('Event Type', (props.type || 'earthquake').charAt(0).toUpperCase() + (props.type || 'earthquake').slice(1));
 
-  // Event type
-  addDetailRow(divGrid, 'Event Type', (props.type || 'earthquake').charAt(0).toUpperCase() + (props.type || 'earthquake').slice(1));
-
-  // Network
   if (props.net) {
-    addDetailRow(divGrid, 'Network', props.net.toUpperCase());
+    addRow('Network', props.net.toUpperCase());
   }
-
-  // Number of stations
   if (props.nst !== null && props.nst !== undefined) {
-    addDetailRow(divGrid, 'Stations Used', String(props.nst));
+    addRow('Stations Used', String(props.nst));
   }
-
-  // Azimuthal gap
   if (props.gap !== null && props.gap !== undefined) {
-    addDetailRow(divGrid, 'Azimuthal Gap', `${props.gap.toFixed(1)}\u00B0`);
+    addRow('Azimuthal Gap', `${props.gap.toFixed(1)}\u00B0`);
   }
-
-  // Min distance to station
   if (props.dmin !== null && props.dmin !== undefined) {
-    addDetailRow(divGrid, 'Min Station Dist', `${props.dmin.toFixed(3)}\u00B0`);
+    addRow('Min Station Dist', `${props.dmin.toFixed(3)}\u00B0`);
   }
-
-  // RMS travel time residual
   if (props.rms !== null && props.rms !== undefined) {
-    addDetailRow(divGrid, 'RMS Residual', `${props.rms.toFixed(2)} sec`);
+    addRow('RMS Residual', `${props.rms.toFixed(2)} sec`);
   }
 
-  container.appendChild(divGrid);
+  bodyDiv.appendChild(grid);
 
   // USGS event page link
   if (props.url) {
-    const divLink = document.createElement('div');
-    divLink.className = 'quake-detail-link';
+    const linkP = document.createElement('p');
+    linkP.className = 'modal-link-row';
     const anc = document.createElement('a');
     anc.href = props.url;
     anc.target = '_blank';
     anc.rel = 'noopener noreferrer';
     anc.textContent = 'View on USGS \u2192';
     anc.setAttribute('aria-label', `View ${props.place || 'earthquake'} on USGS (opens in new tab)`);
-    divLink.appendChild(anc);
-    container.appendChild(divLink);
+    linkP.appendChild(anc);
+    bodyDiv.appendChild(linkP);
   }
+
+  const title = props.place || 'Earthquake Details';
+  openModal({ title: title, body: bodyDiv });
 }
 
-function addDetailRow(container, label, value, valueClass) {
-  const spnLabel = document.createElement('span');
-  spnLabel.className = 'quake-detail-label';
-  spnLabel.textContent = label;
-
-  const spnValue = document.createElement('span');
-  spnValue.className = 'quake-detail-value';
-  if (valueClass) spnValue.classList.add(valueClass);
-  spnValue.textContent = value;
-
-  container.appendChild(spnLabel);
-  container.appendChild(spnValue);
-}
 
 function getMagColorClass(mag) {
   if (mag === null || mag === undefined) return '';
