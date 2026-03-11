@@ -24,8 +24,8 @@ export async function init() {
       cards: [
         { id: 'space-people', label: 'People in Space Right Now', featured: true },
         { id: 'space-iss-position', label: 'ISS Position' },
-        { id: 'space-iss-speed', label: 'ISS Speed' },
         { id: 'space-iss-altitude', label: 'ISS Altitude' },
+        { id: 'space-iss-speed', label: 'ISS Speed' },
         { id: 'space-iss-toilet', label: 'ISS Urine Tank Level', featured: true },
         { id: 'space-iss-flush', label: 'Last ISS Toilet Flush' },
       ],
@@ -132,11 +132,14 @@ export async function refresh() {
     return true;
   }, 'space-people');
 
-  // ISS orbital parameters (constant values — ISS orbit is very stable)
-  updateCard('space-iss-speed', { value: '~27,600 km/h', context: 'Orbital velocity (live)', state: 'success' });
-  setCardFreshness('space-iss-speed', 'old');
-  updateCard('space-iss-altitude', { value: '~408 km', context: 'Low Earth orbit (live)', state: 'success' });
-  setCardFreshness('space-iss-altitude', 'old');
+  // ISS speed + altitude are now sourced from the wheretheiss.at API (results[5])
+  // Fallback to static values if the API call failed
+  if (results[5].status !== 'fulfilled' || results[5].value.error || !results[5].value.data) {
+    updateCard('space-iss-speed', { value: '~27,600 km/h', context: 'Orbital velocity (live)', state: 'success' });
+    setCardFreshness('space-iss-speed', 'old');
+    updateCard('space-iss-altitude', { value: '~408 km', context: 'Low Earth orbit (live)', state: 'success' });
+    setCardFreshness('space-iss-altitude', 'old');
+  }
 
   // Asteroids
   handleResult(results[2], (res) => {
@@ -308,6 +311,27 @@ export async function refresh() {
       state: 'success',
     });
     setCardFreshness('space-iss-position', getFreshness('space-iss-position', stale));
+
+    // ISS speed + altitude from the same API response
+    const velocity = parseFloat(data.velocity);
+    const altitude = parseFloat(data.altitude);
+    if (!isNaN(velocity)) {
+      updateCard('space-iss-speed', {
+        value: formatNumber(Math.round(velocity)) + ' km/h',
+        context: 'Orbital velocity (live)',
+        state: 'success',
+      });
+      setCardFreshness('space-iss-speed', getFreshness('space-iss-speed', stale));
+    }
+    if (!isNaN(altitude)) {
+      updateCard('space-iss-altitude', {
+        value: Math.round(altitude) + ' km',
+        context: 'Low Earth orbit (live)',
+        state: 'success',
+      });
+      setCardFreshness('space-iss-altitude', getFreshness('space-iss-altitude', stale));
+    }
+
     return true;
   }, 'space-iss-position');
 
@@ -1188,8 +1212,10 @@ async function initISSToilet() {
     });
 
     if (persisted.lastFlush) {
+      const ageMs = Date.now() - new Date(persisted.lastFlush).getTime();
+      const prefix = ageMs > 60 * 60 * 1000 ? '' : '~';
       updateCard('space-iss-flush', {
-        value: '~' + relativeTime(persisted.lastFlush),
+        value: prefix + relativeTime(persisted.lastFlush),
         context: 'From telemetry log (live)',
         state: 'success',
       });
@@ -1221,8 +1247,10 @@ async function initISSToilet() {
 
     // Last flush
     if (state.lastFlushTime) {
+      const ageMs = Date.now() - new Date(state.lastFlushTime).getTime();
+      const prefix = ageMs > 60 * 60 * 1000 ? '' : '~';
       updateCard('space-iss-flush', {
-        value: '~' + relativeTime(state.lastFlushTime),
+        value: prefix + relativeTime(state.lastFlushTime),
         context: 'Tank level dropped >3% (live)',
         state: 'success',
       });

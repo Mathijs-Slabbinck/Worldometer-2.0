@@ -18,10 +18,7 @@ const LIVE_CARDS = new Set([
   'space-asteroids',
   'space-hazardous',
   'pop-world',
-  'pop-countries',
-  'pop-most-populous',
-  'pop-dense',
-  'pop-largest',
+  'space-people',
   'earth-weather',
   'earth-events',
   'earth-quakes-hour',
@@ -35,16 +32,18 @@ const LIVE_CARDS = new Set([
   'econ-eth-dom',
   'econ-mempool',
   'econ-hashrate',
-  'econ-forex',
   'trending-stories',
-  'trending-wiki',
   'transport-flights',
-  'econ-debt',
   'space-next-launch',
+  'space-apod',
+  'pop-countries',
+  'pop-largest',
 ]);
 
 const OLD_CARDS = new Set([
   'econ-gdp',
+  'pop-most-populous',
+  'pop-dense',
   'pop-births',
   'pop-deaths',
   'pop-literacy',
@@ -65,7 +64,6 @@ const OLD_CARDS = new Set([
   'climate-temp',
   'climate-arctic',
   'climate-ocean',
-  'space-apod',
 ]);
 
 /**

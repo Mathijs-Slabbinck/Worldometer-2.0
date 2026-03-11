@@ -3,6 +3,7 @@ import { formatNumber, abbreviate, formatPercent } from '../utils/format.js';
 import { createCard, createSubCategory, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
 import { getFreshness } from '../utils/freshness.js';
 import { CountUp } from '../utils/counter.js';
+import { getTrackerYear } from '../utils/update-tracker.js';
 
 export const sectionId = 'population';
 
@@ -27,9 +28,9 @@ export async function init() {
     { id: 'pop-births', label: 'Daily Births' },
     { id: 'pop-deaths', label: 'Daily Deaths' },
     { id: 'pop-countries', label: 'Countries in the World' },
+    { id: 'pop-largest', label: 'Largest Country by Area' },
     { id: 'pop-most-populous', label: 'Most Populous Country' },
     { id: 'pop-dense', label: 'Most Densely Populated Country' },
-    { id: 'pop-largest', label: 'Largest Country by Area' },
   ];
 
   for (const cfg of cards) {
@@ -146,9 +147,10 @@ export async function refresh() {
     if (Array.isArray(data)) {
       allCountries = data;
       const count = data.length;
+      const rcYear = await getTrackerYear('pop-countries', 'unknown');
       updateCard('pop-countries', {
         value: String(count),
-        context: 'Sovereign states and territories (live)',
+        context: `Sovereign states and territories (${rcYear})`,
         state: 'success',
       });
 
@@ -157,9 +159,10 @@ export async function refresh() {
       if (sorted.length > 0) {
         const top = sorted[0];
         const name = top.name.common || top.name;
+        const popYear = await getTrackerYear('pop-most-populous', 'unknown');
         updateCard('pop-most-populous', {
           value: name,
-          context: `Population: ${formatNumber(top.population)} (live)`,
+          context: `Population: ${formatNumber(top.population)} (${popYear})`,
           state: 'success',
         });
       }
@@ -178,9 +181,10 @@ export async function refresh() {
 
       if (withDensity.length > 0) {
         const top = withDensity[0];
+        const denseYear = await getTrackerYear('pop-dense', 'unknown');
         updateCard('pop-dense', {
           value: top.name,
-          context: `${formatNumber(Math.round(top.density))} people/km\u00B2 (live)`,
+          context: `${formatNumber(Math.round(top.density))} people/km\u00B2 (${denseYear})`,
           state: 'success',
         });
       }
@@ -190,9 +194,10 @@ export async function refresh() {
       if (byArea.length > 0) {
         const top = byArea[0];
         const name = top.name.common || top.name;
+        const areaYear = await getTrackerYear('pop-largest', 'unknown');
         updateCard('pop-largest', {
           value: name,
-          context: `Area: ${formatNumber(top.area)} km\u00B2 (live)`,
+          context: `Area: ${formatNumber(top.area)} km\u00B2 (${areaYear})`,
           state: 'success',
         });
       }

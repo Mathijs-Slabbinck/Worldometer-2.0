@@ -18,6 +18,8 @@
 - `REST/API_RESEARCH.md` — Detailed API endpoints, response formats, rate limits
 - `REST/ideas.md` — Improvement ideas (Update Existing Stats, General, New Stats)
 - `REST/questions.md` — Q&A about ideas (with user answers marked "CA.")
+- `data/last-updated.json` — Tracker for data years of non-live APIs (updated daily by GH Action)
+- `scripts/update-tracker.mjs` — Daily-gated script that detects API data year changes
 - `REST/questions2.md` — Follow-up Q&A (with user answers marked "CA.")
 
 ## Rules
@@ -66,6 +68,9 @@
   - Changed fuel mix transition from `flex` to `flex-grow` for cross-browser reliability
   - Wikipedia pageviews: added fallback to 2 days ago when yesterday's data returns 404 (API delay)
   - Next launch context: changed `Details →` to `| Details`
+- **ISS Position API switch:** Replaced HTTP-only Open Notify (`open-notify.org`) with HTTPS-capable Where The ISS At (`api.wheretheiss.at`). ISS speed + altitude now sourced live from this API instead of hardcoded values. Fallback to static values if API fails.
+- **Freshness corrections:** Moved `pop-most-populous`, `pop-dense` to `OLD_CARDS`; moved `space-apod`, `space-people` to `LIVE_CARDS`; removed `econ-debt`, `econ-forex`, `pop-countries`, `pop-largest`, `trending-wiki` from `LIVE_CARDS` (now `recent`).
+- **Update tracker system:** Added `data/last-updated.json` + `scripts/update-tracker.mjs` to track data years for APIs that don't self-report dates (e.g. REST Countries). Runs daily (gated in the 15-min ISS toilet GH Action). Frontend reads tracker via `js/utils/update-tracker.js` — replaces hardcoded year strings like `(2023)` with dynamic values. Extensible via `CHECKERS` array in the script.
 
 ## Known issues / TODO (note here when something can't be done yet)
 - **Global fuel mix API (RESEARCHED — Step 36):** No free global real-time fuel mix API exists. Electricity Maps has global data but free tier is locked to 1 zone (no country picker). EIA API is US-focused and historical only. ENTSO-E is Europe-only. Ember is monthly/yearly aggregates, not real-time. Keeping UK-only via carbonintensity.org.uk with explicit "(UK)" labels on cards.
@@ -74,7 +79,7 @@
 - **COVID API (RESOLVED — Step 39):** No actively-updated free COVID API exists in 2026. disease.sh still returns valid cumulative totals but daily figures are permanently 0 (global tracking ended ~2023). Alternatives checked: covid-api.com (stopped March 2023), OWID GitHub (stopped Aug 2024), WHO GHO OData (only prison COVID indicators, no general stats). Kept disease.sh for final cumulative totals (704M cases, 7M deaths, 231 countries). Removed "Cases Today" and "Deaths Today" cards. Added "tracking ended" notice to COVID sub-category. Labels updated to say "(Final)".
 - **API Expansion (Phase 6):** Added 8 new features — ISS position (Open Notify), NASA APOD, NASA EONET natural events, Arctic ice extent, Ocean warming anomaly, WAQI air quality (with city picker), World Bank demographics (literacy/internet/poverty), Wikipedia pageviews. Dead APIs skipped: N2O (404), OpenAQ (retired/needs key). Where The ISS At was initially DNS dead but later recovered — now used for ISS position.
 - **WAQI Air Quality:** Per-city only — no global aggregate endpoint exists. Uses auto-detected city from IP with searchable picker.
-- **ISS Position (RESOLVED):** Switched from Open Notify (HTTP-only, blocked on HTTPS pages) to Where The ISS At API (`api.wheretheiss.at`, HTTPS). Handler supports both response formats.
+- **ISS Position (RESOLVED):** Switched from Open Notify (HTTP-only, blocked on HTTPS pages) to Where The ISS At API (`api.wheretheiss.at`, HTTPS). Handler supports both response formats. ISS speed/altitude now live from same API (was hardcoded).
 - **N2O API (DEAD):** `global-warming.org/api/no2-api` returns 404 — endpoint no longer exists.
 - **OpenAQ (DEAD):** v2 retired, v3 requires API key — skipped in favor of WAQI.
 - **WHO GHO API (NOT VIABLE):** No CORS headers — blocked by browsers. Life expectancy data older (2021) than World Bank (2023). Not usable from client-side JS.
@@ -88,3 +93,4 @@
 - **Global Warming Temperature API:** May return either an array or an object keyed by decimal year. Both `earth.js` (`renderGlobalTemp`) and `climate.js` (temperature anomaly) now handle both formats.
 - **Wikipedia Pageviews API:** Data is often delayed 1-2 days. `trending.js` tries yesterday first, then falls back to 2 days ago. Context label shows the actual date used.
 - **API keys in `js/config.js`:** NASA_API_KEY and WAQI_TOKEN are hardcoded in client-side JS. Ideally should be moved to a server-side proxy. Acknowledged but not yet addressed.
+- **Update tracker:** `data/last-updated.json` tracks data years for REST Countries (and future APIs without self-reported dates). Updated daily by `scripts/update-tracker.mjs` via the ISS toilet GH Action. Uses India population thresholds to detect year changes. Frontend reads via `js/utils/update-tracker.js`.

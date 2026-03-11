@@ -26,10 +26,14 @@ jobs:
         working-directory: scripts
         run: node iss-monitor.mjs
 
+      - name: Run update tracker (daily gate)
+        working-directory: scripts
+        run: node update-tracker.mjs
+
       - name: Commit if changed
         run: |
           git config user.name "ISS Toilet Bot"
           git config user.email "actions@github.com"
-          git add TOILET_DATA.md
+          git add TOILET_DATA.md data/last-updated.json
           git diff --staged --quiet || git commit -m "Update ISS toilet telemetry data"
           git push

@@ -1,0 +1,21 @@
+{
+  "lastChecked": null,
+  "cards": {
+    "pop-countries": {
+      "year": 2023,
+      "note": "REST Countries API — same source as pop-most-populous"
+    },
+    "pop-most-populous": {
+      "year": 2023,
+      "note": "REST Countries API — no date in response, detected by comparing population values"
+    },
+    "pop-dense": {
+      "year": 2023,
+      "note": "REST Countries API — same source as pop-most-populous"
+    },
+    "pop-largest": {
+      "year": 2023,
+      "note": "REST Countries API — same source as pop-most-populous"
+    }
+  }
+}
