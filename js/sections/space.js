@@ -81,7 +81,7 @@ export async function refresh() {
     fetchData(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
     fetchData('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=1&mode=detailed', { retries: 0 }),
     fetchData(`https://api.nasa.gov/DONKI/FLR?startDate=${monthAgo}&endDate=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
-    fetchData('http://api.open-notify.org/iss-now.json', { retries: 0, timeout: 5000 }),
+    fetchData('https://api.wheretheiss.at/v1/satellites/25544', { retries: 0, timeout: 5000 }),
     fetchData(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`, { retries: 0 }),
   ]);
 
@@ -291,9 +291,11 @@ export async function refresh() {
   // ISS Position
   handleResult(results[5], (res) => {
     const { data, stale } = res;
-    if (!data || !data.iss_position) return false;
-    const lat = parseFloat(data.iss_position.latitude);
-    const lon = parseFloat(data.iss_position.longitude);
+    if (!data) return false;
+    // Support both wheretheiss.at format (top-level) and open-notify format (nested)
+    const pos = data.iss_position || data;
+    const lat = parseFloat(pos.latitude);
+    const lon = parseFloat(pos.longitude);
     if (isNaN(lat) || isNaN(lon)) return false;
 
     const latDir = lat >= 0 ? 'N' : 'S';

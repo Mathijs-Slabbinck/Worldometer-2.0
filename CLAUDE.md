@@ -42,15 +42,39 @@
 - NASA EONET: intermittently returns 503 (server-side issue, not a code bug)
 - Card context indicators: every card's context text must end with a parenthetical time indicator — `(live)`, `(YYYY)`, `(DD-MM-YYYY)`, `(mon YYYY)`, `(yesterday)`, or `(unknown)`. No card should lack a time indicator. Dates use DD-MM-YYYY format (not YYYY-MM-DD). Month-year uses lowercase 3-letter month: `(mon YYYY)` (e.g. `(dec 2026)`).
 - Freshness dot must match the context indicator. Cards fetching current/real-time data belong in `LIVE_CARDS` (in `js/utils/freshness.js`). Cards with historical/annual data belong in `OLD_CARDS`. Don't mark a card as `old` if the API returns current data.
+- **Code review fixes (Phase 8):** Applied 54 findings from frontend + accessibility review:
+  - Fixed `renderGlobalTemp` in `earth.js` and temperature anomaly in `climate.js` — both now handle API returning object (keyed by year) instead of array
+  - Fixed population ticker race condition — `setTimeout` handle now tracked and cancelled on re-entry
+  - Removed `aria-live` from `.stat-value` (caused screen reader flood during counter animations) — added separate `.sr-only` span that only receives final values
+  - Made APOD image keyboard-accessible (`tabindex`, `role="button"`, keydown handler)
+  - Added `role="button"` to all interactive `<li>` items (quakes, events, flares, asteroids)
+  - Changed `Promise.all` → `Promise.allSettled` in `health.js` so one failed endpoint doesn't break all cards
+  - Improved color contrast: `--text-secondary`/`--text-muted` lightened to `#a8b6cc`, `quake-mag-major` and `flare-class-x` changed to `#f87171`, health sub-category label lightened to `#fca5a5`, AQI hazardous badge lightened to `#fecaca`
+  - Added `::before` arrows (`↑`/`↓`) to `.stat-context.positive/.negative` so color isn't the sole indicator
+  - Replaced inline `.style` assignments with CSS classes: `.expandable-item-label--sans`, `.expandable-item-right`, `.apod-title--clickable`, `.modal-detail-grid--spaced`, `.wiki-item`, `.wiki-title`
+  - Fixed focus styles: `:focus-visible`-only → `:focus` with `:focus:not(:focus-visible)` reset for better AT support
+  - Fixed modal `outline: none` → proper `:focus/:focus:not(:focus-visible)` pattern
+  - Country picker: Escape handler now only fires when open, restores focus to trigger button; outside-click close also restores focus
+  - Added `.catch()` to floating promise in `restoreGlobalView`
+  - Added null checks to `updateCardValue`/`updateCardContext`
+  - Removed dead `escapeHtml` from `earth.js` and `space.js`
+  - Fixed earthquake date format from MM-DD to DD-MM (project convention)
+  - Fixed `iss-monitor.mjs`: stored `get()` results once instead of calling twice per field; scoped console.log to `[iss-monitor]`
+  - Added missing cards to `freshness.js`: `transport-flights`, `econ-debt`, `space-next-launch` in `LIVE_CARDS`; `climate-co2/methane/temp/arctic/ocean`, `space-apod` in `OLD_CARDS`
+  - Added `aria-hidden="true"` to fuel mix legend dots, `aria-label` to wiki rank spans, `role="alert"` to `<noscript>`, removed redundant `aria-live="off"` from `.last-updated`
+  - Added `:focus-visible` style for modal body links and APOD card image
+  - Changed fuel mix transition from `flex` to `flex-grow` for cross-browser reliability
+  - Wikipedia pageviews: added fallback to 2 days ago when yesterday's data returns 404 (API delay)
+  - Next launch context: changed `Details →` to `| Details`
 
 ## Known issues / TODO (note here when something can't be done yet)
 - **Global fuel mix API (RESEARCHED — Step 36):** No free global real-time fuel mix API exists. Electricity Maps has global data but free tier is locked to 1 zone (no country picker). EIA API is US-focused and historical only. ENTSO-E is Europe-only. Ember is monthly/yearly aggregates, not real-time. Keeping UK-only via carbonintensity.org.uk with explicit "(UK)" labels on cards.
 - **World GDP API (RESOLVED — Step 37):** Fixed World Bank API query to auto-fetch latest year instead of hardcoding 2023. Now shows 2024 data ($110.98T). IMF DataMapper API was researched but blocked by CORS (no `Access-Control-Allow-Origin` header). World Bank API is sufficient — it now has 2024 data and will auto-update as new years become available.
 - **Country debt API (RESOLVED — Step 38):** No free global debt API with CORS support exists. IMF DataMapper has 75+ countries but is CORS-blocked. World Bank `GC.DOD.TOTL.GD.ZS` has CORS but very sparse coverage (~3 countries for 2024). Implemented US Treasury Fiscal Data API (`debt_to_penny`) instead — provides daily real-time US national debt, CORS-friendly, no API key needed. Card now shows "$38.87T" with date. Country picker not feasible.
 - **COVID API (RESOLVED — Step 39):** No actively-updated free COVID API exists in 2026. disease.sh still returns valid cumulative totals but daily figures are permanently 0 (global tracking ended ~2023). Alternatives checked: covid-api.com (stopped March 2023), OWID GitHub (stopped Aug 2024), WHO GHO OData (only prison COVID indicators, no general stats). Kept disease.sh for final cumulative totals (704M cases, 7M deaths, 231 countries). Removed "Cases Today" and "Deaths Today" cards. Added "tracking ended" notice to COVID sub-category. Labels updated to say "(Final)".
-- **API Expansion (Phase 6):** Added 8 new features — ISS position (Open Notify), NASA APOD, NASA EONET natural events, Arctic ice extent, Ocean warming anomaly, WAQI air quality (with city picker), World Bank demographics (literacy/internet/poverty), Wikipedia pageviews. Dead APIs skipped: Where The ISS At (DNS dead), N2O (404), OpenAQ (retired/needs key).
+- **API Expansion (Phase 6):** Added 8 new features — ISS position (Open Notify), NASA APOD, NASA EONET natural events, Arctic ice extent, Ocean warming anomaly, WAQI air quality (with city picker), World Bank demographics (literacy/internet/poverty), Wikipedia pageviews. Dead APIs skipped: N2O (404), OpenAQ (retired/needs key). Where The ISS At was initially DNS dead but later recovered — now used for ISS position.
 - **WAQI Air Quality:** Per-city only — no global aggregate endpoint exists. Uses auto-detected city from IP with searchable picker.
-- **ISS Position (Open Notify):** HTTP-only API — may be blocked on HTTPS pages. Has error handling fallback.
+- **ISS Position (RESOLVED):** Switched from Open Notify (HTTP-only, blocked on HTTPS pages) to Where The ISS At API (`api.wheretheiss.at`, HTTPS). Handler supports both response formats.
 - **N2O API (DEAD):** `global-warming.org/api/no2-api` returns 404 — endpoint no longer exists.
 - **OpenAQ (DEAD):** v2 retired, v3 requires API key — skipped in favor of WAQI.
 - **WHO GHO API (NOT VIABLE):** No CORS headers — blocked by browsers. Life expectancy data older (2021) than World Bank (2023). Not usable from client-side JS.
@@ -61,3 +85,6 @@
 - **Global Warming API format changes:** Arctic API now returns `{ arcticData: { data: { "YYYYMM": { value, anom, monthlyMean } } } }`. Ocean API now returns `{ result: { "YEAR": { anomaly } } }`. Both were previously arrays.
 - **Cloudflare CORS on World Bank:** `api.worldbank.org` uses Cloudflare bot management. Cookie-based challenges can strip CORS headers. Fixed by using `credentials: 'omit'` in fetch handler.
 - **NASA EONET:** Intermittently returns 503. Server-side issue, no code fix needed.
+- **Global Warming Temperature API:** May return either an array or an object keyed by decimal year. Both `earth.js` (`renderGlobalTemp`) and `climate.js` (temperature anomaly) now handle both formats.
+- **Wikipedia Pageviews API:** Data is often delayed 1-2 days. `trending.js` tries yesterday first, then falls back to 2 days ago. Context label shows the actual date used.
+- **API keys in `js/config.js`:** NASA_API_KEY and WAQI_TOKEN are hardcoded in client-side JS. Ideally should be moved to a server-side proxy. Acknowledged but not yet addressed.
