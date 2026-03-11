@@ -26,7 +26,7 @@ async function _fetchWithRetry(url, timeout, retries, retryDelay) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeout);
 
-      const response = await fetch(url, { signal: controller.signal });
+      const response = await fetch(url, { signal: controller.signal, credentials: 'omit' });
       clearTimeout(timer);
 
       if (!response.ok) {

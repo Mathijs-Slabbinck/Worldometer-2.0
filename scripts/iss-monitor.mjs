@@ -1,6 +1,6 @@
 // ISS Toilet Monitor — GitHub Actions script
 // Connects to NASA Lightstreamer, reads urine tank level,
-// detects use/flush events by comparing with stored values,
+// detects flush events by comparing with stored values,
 // and updates TOILET_DATA.md.
 
 import { LightstreamerClient, Subscription } from 'lightstreamer-client-node';
@@ -13,7 +13,6 @@ const DATA_FILE = resolve(__dirname, '..', 'TOILET_DATA.md');
 
 const TIMEOUT_MS = 90_000;
 const FLUSH_THRESHOLD = -3;  // Tank drop > 3% = flush
-const USE_THRESHOLD = 0.5;   // Tank rise > 0.5% = use
 
 // ---------------------------------------------------------------------------
 // Parse existing TOILET_DATA.md
@@ -30,19 +29,20 @@ function parseData() {
       return val === 'null' ? null : val;
     };
 
+    const rawTank = get('TANK_LEVEL');
+    const rawPrev = get('PREV_TANK_LEVEL');
+
     return {
-      tankLevel: get('TANK_LEVEL') !== null ? parseFloat(get('TANK_LEVEL')) : null,
+      tankLevel: rawTank !== null ? parseFloat(rawTank) : null,
       lastUpdated: get('LAST_UPDATED'),
-      lastUse: get('LAST_USE'),
       lastFlush: get('LAST_FLUSH'),
-      prevTankLevel: get('PREV_TANK_LEVEL') !== null ? parseFloat(get('PREV_TANK_LEVEL')) : null,
+      prevTankLevel: rawPrev !== null ? parseFloat(rawPrev) : null,
       history: parseHistory(content),
     };
   } catch {
     return {
       tankLevel: null,
       lastUpdated: null,
-      lastUse: null,
       lastFlush: null,
       prevTankLevel: null,
       history: [],
@@ -94,7 +94,6 @@ function writeData(data) {
 <!-- Machine-readable data — do not edit manually -->
 <!-- TANK_LEVEL: ${tankStr} -->
 <!-- LAST_UPDATED: ${now} -->
-<!-- LAST_USE: ${data.lastUse || 'null'} -->
 <!-- LAST_FLUSH: ${data.lastFlush || 'null'} -->
 <!-- PREV_TANK_LEVEL: ${prevStr} -->
 
@@ -104,7 +103,6 @@ function writeData(data) {
 |---|---|
 | Tank Level | ${data.tankLevel !== null ? data.tankLevel.toFixed(1) + '%' : 'Unknown'} |
 | Last Updated | ${fmtDate(now)} |
-| Last Use Detected | ${fmtDate(data.lastUse)} |
 | Last Flush Detected | ${fmtDate(data.lastFlush)} |
 
 ## Recent History
@@ -149,7 +147,7 @@ function fetchTankLevel() {
 
     client.addListener({
       onStatusChange(status) {
-        console.log('Lightstreamer:', status);
+        console.log('[iss-monitor] Lightstreamer:', status);
       },
       onServerError(code, message) {
         clearTimeout(timeout);
@@ -186,24 +184,17 @@ async function main() {
   const now = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
   const fmtNow = now.replace('T', ' ').replace('Z', '').trim();
 
-  // Compare with stored level to detect events
+  // Compare with stored level to detect flush events
   if (data.tankLevel !== null) {
     const diff = newLevel - data.tankLevel;
 
+    // Detect flush: significant drop (>3%)
     if (diff < FLUSH_THRESHOLD) {
       console.log(`FLUSH detected! Tank dropped ${diff.toFixed(1)}%`);
       data.lastFlush = now;
       data.history.unshift({
         time: fmtNow,
         event: 'Flush detected',
-        change: `${data.tankLevel.toFixed(1)}% → ${newLevel.toFixed(1)}%`,
-      });
-    } else if (diff > USE_THRESHOLD) {
-      console.log(`USE detected! Tank rose +${diff.toFixed(1)}%`);
-      data.lastUse = now;
-      data.history.unshift({
-        time: fmtNow,
-        event: 'Use detected',
         change: `${data.tankLevel.toFixed(1)}% → ${newLevel.toFixed(1)}%`,
       });
     } else {

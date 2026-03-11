@@ -1,7 +1,8 @@
 "use strict";
 
 import { fetchData } from '../utils/fetch-handler.js';
-import { createCard, updateCard, setCardError } from '../utils/dom.js';
+import { createCard, updateCard, setCardError, setCardFreshness } from '../utils/dom.js';
+import { getFreshness } from '../utils/freshness.js';
 
 export const sectionId = 'health';
 
@@ -60,11 +61,18 @@ async function refreshGeneralHealth() {
     )
   );
 
-  const results = await Promise.all(fetchPromises);
+  const results = await Promise.allSettled(fetchPromises);
 
   for (let i = 0; i < indicators.length; i++) {
     const indicator = indicators[i];
-    const res = results[i];
+    const result = results[i];
+
+    if (result.status !== 'fulfilled') {
+      setCardError(indicator.id, () => refreshGeneralHealth());
+      continue;
+    }
+
+    const res = result.value;
 
     if (res.error) {
       setCardError(indicator.id, () => refreshGeneralHealth());
@@ -118,5 +126,6 @@ async function refreshGeneralHealth() {
       context: indicator.context(found.date),
       state: 'success',
     });
+    setCardFreshness(indicator.id, getFreshness(indicator.id, res.stale));
   }
 }

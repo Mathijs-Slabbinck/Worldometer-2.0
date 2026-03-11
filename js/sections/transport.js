@@ -1,6 +1,7 @@
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber } from '../utils/format.js';
-import { createCard, updateCard, setCardError, setCardStale, getCardValueEl } from '../utils/dom.js';
+import { createCard, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
+import { getFreshness } from '../utils/freshness.js';
 import { CountUp } from '../utils/counter.js';
 
 export const sectionId = 'transport';
@@ -50,8 +51,8 @@ export async function refresh() {
   }
 
   updateCard('transport-flights', {
-    context: `Based on ADS-B data from OpenSky Network${qualifier}`,
-    state: stale ? 'stale' : 'success',
+    context: `Based on ADS-B data from OpenSky Network${qualifier} (live)`,
+    state: 'success',
   });
-  if (stale) setCardStale('transport-flights');
+  setCardFreshness('transport-flights', getFreshness('transport-flights', stale));
 }

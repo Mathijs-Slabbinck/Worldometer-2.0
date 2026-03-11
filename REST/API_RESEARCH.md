@@ -161,11 +161,12 @@ All APIs are FREE or have generous free tiers. No filler (quotes, jokes, trivia,
 
 ## 5. WORLD POPULATION & DEMOGRAPHICS
 
-### disease.sh — World Population (from COVID endpoint)
-- Endpoint: https://disease.sh/v3/covid-19/all
-- Key: No | CORS: Yes
-- Returns: `{ population: 7944935131, ... }`
+### population.io — Real-Time World Population
+- Endpoint: https://d6wn6bmjj722w.population.io/1.0/population/World/today-and-tomorrow/
+- Key: No | CORS: Yes | Updated: daily
+- Returns: `{ total_population: [{ date, population }] }`
 - Display: Hero: ticking population counter (+~2.5/sec net birth rate)
+- Fallback: World Bank SP.POP.TOTL (annual, ~1 year lag)
 
 ### REST Countries — Country Data
 - Endpoint: https://restcountries.com/v3.1/all?fields=name,population,region,area
@@ -192,6 +193,21 @@ All APIs are FREE or have generous free tiers. No filler (quotes, jokes, trivia,
 - Internet users: IT.NET.USER.ZS
 - Poverty headcount: SI.POV.DDAY
 
+### UNESCO UIS — Education & Science Stats
+- Base URL: https://api.uis.unesco.org/api/public/data/indicators
+- Key: No | CORS: Yes | Rate Limit: None known
+- Global aggregate entity: `geoUnit=SDG%3A%20World`
+- Returns: `{ records: [{ indicatorId, geoUnit, year, value }] }`
+- Education indicators:
+  - `OFST.1.CP` / `OFST.2.CP` / `OFST.3.CP` — Out-of-school children (primary/lower sec/upper sec)
+  - `CR.1` / `CR.2` / `CR.3` — Completion rates (primary/lower sec/upper sec)
+  - `GER.5T8` — Tertiary enrollment ratio
+- Science indicators:
+  - `RESDEN.INHAB.TFTE` — Researchers per million inhabitants
+  - `EXPGDP.TOT` — R&D spending as % of GDP
+- Data freshness: 2023-2025 depending on indicator (updated Feb 2026)
+- Per-country support: Use ISO 3166-1 alpha-3 codes (e.g., `USA`, `GBR`)
+
 ---
 
 ## 6. HEALTH
@@ -201,7 +217,7 @@ All APIs are FREE or have generous free tiers. No filler (quotes, jokes, trivia,
 - Key: No | CORS: Yes
 - Returns: `{ cases, todayCases, deaths, todayDeaths, recovered, active, critical, tests, affectedCountries }`
 - Display: Global cases, deaths, recovered, active + today's numbers
-- Notes: todayCases/todayDeaths reset at midnight UTC
+- Notes: todayCases/todayDeaths reset at midnight UTC | api stopped updating, all statistics are final and static (no not viable)
 
 ### WHO GHO API (expansion)
 - Endpoint: https://ghoapi.azureedge.net/api/

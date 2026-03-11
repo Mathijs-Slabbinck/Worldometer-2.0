@@ -2,7 +2,7 @@ name: ISS Toilet Monitor
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
+    - cron: '*/15 * * * *'  # Every 15 minutes
   workflow_dispatch:        # Manual trigger
 
 jobs:

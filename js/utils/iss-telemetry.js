@@ -21,15 +21,11 @@ let hasSignal = false;
 // Track usage/flush events by watching value changes
 let lastUrineTankValue = null;
 let lastFlushTime = null;
-let lastUseTime = null;
 let initializedFromPersisted = false;
 let firstLiveReading = true;
 
 // Load persisted state from TOILET_DATA.md (called before connect)
 export function setInitialState(state) {
-  if (state.lastUseTime && !lastUseTime) {
-    lastUseTime = new Date(state.lastUseTime);
-  }
   if (state.lastFlushTime && !lastFlushTime) {
     lastFlushTime = new Date(state.lastFlushTime);
   }
@@ -45,7 +41,6 @@ export function getState() {
     hasSignal,
     urineTankPercent: lastValues.urineTank || null,
     lastFlushTime,
-    lastUseTime,
   };
 }
 
@@ -101,15 +96,13 @@ export function connect() {
             firstLiveReading = false;
           } else {
             const diff = numVal - lastUrineTankValue;
+            // Detect flush: significant drop in tank level (>3%)
             if (diff < -3) {
               lastFlushTime = new Date();
             }
-            // Detect use: tank level increase (>0.5%)
-            if (diff > 0.5) {
-              lastUseTime = new Date();
-            }
           }
         }
+
         lastUrineTankValue = numVal;
       }
 

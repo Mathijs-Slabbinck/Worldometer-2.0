@@ -1,6 +1,7 @@
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber } from '../utils/format.js';
-import { createCard, createSubCategory, updateCard, setCardError, setCardStale, getCardValueEl } from '../utils/dom.js';
+import { createCard, createSubCategory, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
+import { getFreshness } from '../utils/freshness.js';
 import { openModal } from '../utils/modal.js';
 import { CountUp } from '../utils/counter.js';
 
@@ -8,6 +9,8 @@ export const sectionId = 'earth';
 
 const counters = {};
 let allQuakes = [];
+let hourlyQuakes = [];
+let significantQuakes = [];
 
 // Weather location state
 let weatherLocation = null; // { lat, lon, city, country } — null means "detect via IP"
@@ -41,6 +44,12 @@ export async function init() {
       ],
     },
     {
+      title: 'Natural Events',
+      cards: [
+        { id: 'earth-events', label: 'Active Natural Events', featured: true },
+      ],
+    },
+    {
       title: 'Weather',
       cards: [
         { id: 'earth-global-temp', label: 'Estimated Global Average Temperature' },
@@ -66,6 +75,7 @@ export async function refresh() {
     fetchData('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson'),
     fetchData('https://global-warming.org/api/temperature-api'),
     resolveWeatherLocation(),
+    fetchData('https://eonet.gsfc.nasa.gov/api/v3/events?status=open&limit=50', { retries: 0 }),
   ]);
 
   // Earthquakes last hour
@@ -90,9 +100,12 @@ export async function refresh() {
       }
     }
 
-    const ctx = strongest && strongest.mag ? `Strongest: M${strongest.mag.toFixed(1)} — ${strongest.place}` : 'No significant activity';
-    updateCard('earth-quakes-hour', { context: ctx, state: stale ? 'stale' : 'success' });
-    if (stale) setCardStale('earth-quakes-hour');
+    const ctx = strongest && strongest.mag ? `Strongest: M${strongest.mag.toFixed(1)} — ${strongest.place} (live)` : 'No significant activity (live)';
+    updateCard('earth-quakes-hour', { context: ctx, state: 'success' });
+    setCardFreshness('earth-quakes-hour', getFreshness('earth-quakes-hour', stale));
+
+    hourlyQuakes = [...data.features].sort((a, b) => b.properties.time - a.properties.time);
+    buildQuakeList(hourlyQuakes, 'earth-quakes-hour', 'quake-hour-panel');
   } else {
     setCardError('earth-quakes-hour', () => refresh());
   }
@@ -114,8 +127,11 @@ export async function refresh() {
 
     const sorted = [...data.features].sort((a, b) => b.properties.mag - a.properties.mag);
     const top3 = sorted.slice(0, 3).map(f => `M${f.properties.mag.toFixed(1)} ${f.properties.place}`).join(' | ');
-    updateCard('earth-quakes-significant', { context: top3 || 'None this month', state: stale ? 'stale' : 'success' });
-    if (stale) setCardStale('earth-quakes-significant');
+    updateCard('earth-quakes-significant', { context: (top3 || 'None') + ' (live)', state: 'success' });
+    setCardFreshness('earth-quakes-significant', getFreshness('earth-quakes-significant', stale));
+
+    significantQuakes = [...data.features].sort((a, b) => b.properties.time - a.properties.time);
+    buildQuakeList(significantQuakes, 'earth-quakes-significant', 'quake-sig-panel');
   } else {
     setCardError('earth-quakes-significant', () => refresh());
   }
@@ -128,12 +144,12 @@ export async function refresh() {
 
     updateCard('earth-quakes-browse', {
       value: `${formatNumber(count)} today`,
-      context: 'Select an earthquake below to view details',
-      state: stale ? 'stale' : 'success',
+      context: 'Select an earthquake below to view details (live)',
+      state: 'success',
     });
-    if (stale) setCardStale('earth-quakes-browse');
+    setCardFreshness('earth-quakes-browse', getFreshness('earth-quakes-browse', stale));
 
-    buildQuakeList(allQuakes);
+    buildQuakeList(allQuakes, 'earth-quakes-browse', 'quake-browse-panel');
   } else {
     setCardError('earth-quakes-browse', () => refresh());
   }
@@ -159,18 +175,80 @@ export async function refresh() {
     buildLocationPicker();
     locationPickerBuilt = true;
   }
+
+  // EONET Natural Events
+  if (results[5].status === 'fulfilled' && !results[5].value.error) {
+    const { data, stale } = results[5].value;
+    const events = data.events || [];
+    const count = events.length;
+
+    if (counters['earth-events']) {
+      counters['earth-events'].update(count);
+    } else {
+      const el = getCardValueEl('earth-events');
+      if (el) {
+        counters['earth-events'] = new CountUp(el, count);
+        counters['earth-events'].start();
+      }
+    }
+
+    // Count by category
+    const catCounts = {};
+    for (const evt of events) {
+      const cat = (evt.categories && evt.categories.length > 0) ? evt.categories[0].title : 'Other';
+      catCounts[cat] = (catCounts[cat] || 0) + 1;
+    }
+    const catSummary = Object.entries(catCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4)
+      .map(([cat, n]) => `${cat}: ${n}`)
+      .join(' | ');
+
+    const contextText = catSummary
+      ? `${catSummary} (live)`
+      : `Active global natural events (live)`;
+
+    updateCard('earth-events', {
+      context: contextText,
+      state: 'success',
+    });
+    setCardFreshness('earth-events', getFreshness('earth-events', stale));
+
+    buildEventList(events);
+  } else {
+    setCardError('earth-events', () => refresh());
+  }
 }
 
 function renderGlobalTemp(data, stale) {
-  if (!data || !data.result || data.result.length === 0) {
+  // API may return an array or an object keyed by decimal year
+  const resultData = data ? data.result : null;
+  if (!resultData) {
+    setCardError('earth-global-temp', () => refresh());
+    return;
+  }
+
+  let entries;
+  if (Array.isArray(resultData)) {
+    entries = resultData;
+  } else if (typeof resultData === 'object') {
+    entries = Object.keys(resultData).sort().map(function (key) {
+      const entry = resultData[key];
+      return { time: key, station: entry.station, land: entry.land };
+    });
+  } else {
+    entries = [];
+  }
+
+  if (entries.length === 0) {
     setCardError('earth-global-temp', () => refresh());
     return;
   }
 
   // Get latest entry with valid station data
   let latest = null;
-  for (let i = data.result.length - 1; i >= 0; i--) {
-    const entry = data.result[i];
+  for (let i = entries.length - 1; i >= 0; i--) {
+    const entry = entries[i];
     if (entry.station && entry.station !== '') {
       latest = entry;
       break;
@@ -190,18 +268,18 @@ function renderGlobalTemp(data, stale) {
   const year = Math.floor(decimalYear);
   const monthFraction = decimalYear - year;
   const monthIndex = Math.round(monthFraction * 12);
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const monthLabel = monthNames[Math.min(monthIndex, 11)] || 'Jan';
+  const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  const monthLabel = monthNames[Math.min(monthIndex, 11)] || 'jan';
 
   const sign = anomaly >= 0 ? '+' : '';
-  const ctx = `${sign}${anomaly.toFixed(2)}\u00B0C anomaly vs pre-industrial baseline | ${monthLabel} ${year}`;
+  const ctx = `${sign}${anomaly.toFixed(2)}\u00B0C anomaly vs pre-industrial baseline (${monthLabel} ${year})`;
 
   updateCard('earth-global-temp', {
     value: `${estimatedTemp.toFixed(1)}\u00B0C`,
     context: ctx,
-    state: stale ? 'stale' : 'success',
+    state: 'success',
   });
-  if (stale) setCardStale('earth-global-temp');
+  setCardFreshness('earth-global-temp', getFreshness('earth-global-temp', stale));
 }
 
 async function fetchAndRenderWeather(loc) {
@@ -217,10 +295,10 @@ async function fetchAndRenderWeather(loc) {
 
     updateCard('earth-weather', {
       value: `${temp}\u00B0C`,
-      context: `${condition} | Wind: ${wind} km/h | ${loc.city}, ${loc.country}`,
-      state: weatherRes.stale ? 'stale' : 'success',
+      context: `${condition} | Wind: ${wind} km/h | ${loc.city}, ${loc.country} (live)`,
+      state: 'success',
     });
-    if (weatherRes.stale) setCardStale('earth-weather');
+    setCardFreshness('earth-weather', getFreshness('earth-weather', weatherRes.stale));
   } else {
     setCardError('earth-weather', () => refresh());
   }
@@ -417,8 +495,8 @@ async function refreshWeatherOnly() {
 }
 
 // Earthquake expandable list
-function buildQuakeList(quakes) {
-  const card = document.getElementById('earth-quakes-browse');
+function buildQuakeList(quakes, cardId, panelId) {
+  const card = document.getElementById(cardId);
   if (!card) return;
 
   // Remove any existing expandable list and detail panel
@@ -437,7 +515,7 @@ function buildQuakeList(quakes) {
   btnToggle.className = 'expandable-toggle';
   btnToggle.setAttribute('type', 'button');
   btnToggle.setAttribute('aria-expanded', 'false');
-  btnToggle.setAttribute('aria-controls', 'quake-panel');
+  btnToggle.setAttribute('aria-controls', panelId);
 
   const spnToggleText = document.createElement('span');
   spnToggleText.textContent = 'Browse earthquakes';
@@ -453,7 +531,7 @@ function buildQuakeList(quakes) {
   // Panel
   const divPanel = document.createElement('div');
   divPanel.className = 'expandable-panel';
-  divPanel.id = 'quake-panel';
+  divPanel.id = panelId;
   divPanel.setAttribute('aria-label', 'Earthquake list');
 
   // Search input
@@ -530,6 +608,7 @@ function buildQuakeList(quakes) {
       liItem.appendChild(spnPlace);
       liItem.appendChild(spnTime);
       liItem.setAttribute('tabindex', '0');
+      liItem.setAttribute('role', 'button');
       liItem.setAttribute('aria-label', `Magnitude ${props.mag !== null ? props.mag.toFixed(1) : 'unknown'} — ${props.place || 'Unknown location'}`);
 
       const selectQuake = function () {
@@ -746,15 +825,220 @@ function formatQuakeTime(timestamp) {
   if (!timestamp) return '';
   const d = new Date(timestamp);
   if (isNaN(d.getTime())) return '';
-  const month = String(d.getUTCMonth() + 1).padStart(2, '0');
   const day = String(d.getUTCDate()).padStart(2, '0');
+  const month = String(d.getUTCMonth() + 1).padStart(2, '0');
   const hours = String(d.getUTCHours()).padStart(2, '0');
   const minutes = String(d.getUTCMinutes()).padStart(2, '0');
-  return `${month}-${day} ${hours}:${minutes}`;
+  return `${day}-${month} ${hours}:${minutes}`;
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+// EONET event expandable list
+function buildEventList(events) {
+  const card = document.getElementById('earth-events');
+  if (!card) return;
+
+  const existing = card.querySelector('.expandable-list');
+  if (existing) existing.remove();
+
+  if (events.length === 0) return;
+
+  const divList = document.createElement('div');
+  divList.className = 'expandable-list';
+
+  const btnToggle = document.createElement('button');
+  btnToggle.className = 'expandable-toggle';
+  btnToggle.setAttribute('type', 'button');
+  btnToggle.setAttribute('aria-expanded', 'false');
+  btnToggle.setAttribute('aria-controls', 'event-panel');
+
+  const spnToggleText = document.createElement('span');
+  spnToggleText.textContent = 'View all events';
+
+  const spnToggleArrow = document.createElement('span');
+  spnToggleArrow.className = 'expandable-toggle-arrow';
+  spnToggleArrow.textContent = '\u25BC';
+  spnToggleArrow.setAttribute('aria-hidden', 'true');
+
+  btnToggle.appendChild(spnToggleText);
+  btnToggle.appendChild(spnToggleArrow);
+
+  const divPanel = document.createElement('div');
+  divPanel.className = 'expandable-panel';
+  divPanel.id = 'event-panel';
+  divPanel.setAttribute('aria-label', 'Natural events list');
+
+  const inpSearch = document.createElement('input');
+  inpSearch.className = 'expandable-search';
+  inpSearch.setAttribute('type', 'text');
+  inpSearch.setAttribute('placeholder', 'Search events (e.g. wildfire, storm)...');
+  inpSearch.setAttribute('autocomplete', 'off');
+  inpSearch.setAttribute('aria-label', 'Search natural events');
+
+  const ulItems = document.createElement('ul');
+  ulItems.className = 'expandable-items';
+  ulItems.setAttribute('role', 'list');
+
+  divPanel.appendChild(inpSearch);
+  divPanel.appendChild(ulItems);
+
+  divList.appendChild(btnToggle);
+  divList.appendChild(divPanel);
+  card.appendChild(divList);
+
+  function renderItems(filter) {
+    ulItems.replaceChildren();
+    const query = (filter || '').trim().toLowerCase();
+    let filtered = events;
+
+    if (query) {
+      filtered = events.filter(function (evt) {
+        const title = (evt.title || '').toLowerCase();
+        const cat = (evt.categories && evt.categories.length > 0) ? evt.categories[0].title.toLowerCase() : '';
+        return title.includes(query) || cat.includes(query);
+      });
+    }
+
+    if (filtered.length === 0) {
+      const liEmpty = document.createElement('li');
+      liEmpty.className = 'expandable-empty';
+      liEmpty.textContent = 'No matching events';
+      ulItems.appendChild(liEmpty);
+      return;
+    }
+
+    for (let i = 0; i < filtered.length; i++) {
+      const evt = filtered[i];
+      const liItem = document.createElement('li');
+      liItem.className = 'expandable-item';
+
+      const spnTitle = document.createElement('span');
+      spnTitle.className = 'expandable-item-label expandable-item-label--sans';
+      spnTitle.textContent = evt.title || 'Unknown event';
+
+      const spnCat = document.createElement('span');
+      spnCat.className = 'eonet-category';
+      const catName = (evt.categories && evt.categories.length > 0) ? evt.categories[0].title : 'Other';
+      spnCat.textContent = catName;
+
+      liItem.appendChild(spnTitle);
+      liItem.appendChild(spnCat);
+      liItem.setAttribute('tabindex', '0');
+      liItem.setAttribute('role', 'button');
+      liItem.setAttribute('aria-label', `${evt.title || 'Event'} — ${catName}`);
+
+      liItem.addEventListener('click', function () { showEventModal(evt); });
+      liItem.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showEventModal(evt);
+        }
+      });
+
+      ulItems.appendChild(liItem);
+    }
+  }
+
+  let isOpen = false;
+  btnToggle.addEventListener('click', function () {
+    isOpen = !isOpen;
+    btnToggle.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) {
+      divPanel.classList.add('open');
+      spnToggleArrow.classList.add('open');
+      spnToggleText.textContent = 'Hide events';
+      renderItems('');
+    } else {
+      divPanel.classList.remove('open');
+      spnToggleArrow.classList.remove('open');
+      spnToggleText.textContent = 'View all events';
+      inpSearch.value = '';
+    }
+  });
+
+  inpSearch.addEventListener('input', function () {
+    renderItems(inpSearch.value);
+  });
 }
+
+function showEventModal(evt) {
+  const bodyDiv = document.createElement('div');
+
+  // Category
+  const cat = (evt.categories && evt.categories.length > 0) ? evt.categories[0].title : 'Unknown';
+  const catP = document.createElement('p');
+  catP.className = 'modal-description';
+  catP.textContent = `Category: ${cat}`;
+  bodyDiv.appendChild(catP);
+
+  // Detail grid
+  const grid = document.createElement('div');
+  grid.className = 'modal-detail-grid';
+
+  function addRow(label, value) {
+    const lblEl = document.createElement('span');
+    lblEl.className = 'modal-detail-label';
+    lblEl.textContent = label;
+    const valEl = document.createElement('span');
+    valEl.className = 'modal-detail-value';
+    valEl.textContent = value;
+    grid.appendChild(lblEl);
+    grid.appendChild(valEl);
+  }
+
+  if (evt.id) addRow('Event ID', evt.id);
+
+  // Latest geometry (coordinates + date)
+  if (evt.geometry && evt.geometry.length > 0) {
+    const latest = evt.geometry[evt.geometry.length - 1];
+    if (latest.date) {
+      const d = new Date(latest.date);
+      addRow('Last Updated', d.toUTCString());
+    }
+    if (latest.coordinates && latest.coordinates.length >= 2) {
+      addRow('Longitude', latest.coordinates[0].toFixed(4) + '\u00B0');
+      addRow('Latitude', latest.coordinates[1].toFixed(4) + '\u00B0');
+    }
+  }
+
+  bodyDiv.appendChild(grid);
+
+  // Sources
+  if (evt.sources && evt.sources.length > 0) {
+    const srcLabel = document.createElement('p');
+    srcLabel.className = 'modal-section-label modal-spaced';
+    srcLabel.textContent = 'Sources:';
+    bodyDiv.appendChild(srcLabel);
+
+    const srcList = document.createElement('ul');
+    srcList.className = 'modal-linked-list';
+    for (const src of evt.sources) {
+      const li = document.createElement('li');
+      if (src.url) {
+        const a = document.createElement('a');
+        a.href = src.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = src.id || src.url;
+        li.appendChild(a);
+      } else {
+        li.textContent = src.id || 'Unknown';
+      }
+      srcList.appendChild(li);
+    }
+    bodyDiv.appendChild(srcList);
+  }
+
+  // EONET link
+  const linkP = document.createElement('p');
+  linkP.className = 'modal-link-row';
+  const link = document.createElement('a');
+  link.href = `https://eonet.gsfc.nasa.gov/api/v3/events/${encodeURIComponent(evt.id)}`;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.textContent = 'View on NASA EONET \u2192';
+  linkP.appendChild(link);
+  bodyDiv.appendChild(linkP);
+
+  openModal({ title: evt.title || 'Natural Event', body: bodyDiv });
+}
+

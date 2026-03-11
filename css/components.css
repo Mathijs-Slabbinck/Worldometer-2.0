@@ -31,6 +31,7 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
+  margin-bottom: 1rem;
   transition: transform 0.2s var(--ease-out-expo), border-color 0.2s, box-shadow 0.2s;
   position: relative;
   overflow: hidden;
@@ -72,34 +73,68 @@
   color: #10b981;
 }
 
+.stat-context.positive::before {
+  content: '\2191 ';
+}
+
 .stat-context.negative {
   color: #ef4444;
 }
 
-/* Badges */
-.badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
+.stat-context.negative::before {
+  content: '\2193 ';
 }
 
-.badge.live {
-  background: rgba(16, 185, 129, 0.2);
+/* Freshness badges */
+.freshness-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  position: relative;
+  top: -5px;
+  letter-spacing: 0.02em;
+}
+
+.freshness-badge--live {
+  background: rgba(16, 185, 129, 0.15);
   color: #10b981;
 }
 
-.badge.stale {
-  background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
-  margin-left: 0.5rem;
+.freshness-badge--live::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulse-dot 1.5s ease-in-out infinite;
 }
 
-.badge.error {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+.freshness-badge--recent {
+  background: rgba(96, 165, 250, 0.12);
+  color: #60a5fa;
+}
+
+.freshness-badge--old {
+  background: rgba(156, 163, 175, 0.1);
+  color: #9ca3af;
+}
+
+.freshness-badge--cached {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 /* Skeleton loading */
@@ -143,11 +178,6 @@
   font-size: 1rem;
   font-family: var(--font-sans);
   color: var(--text-muted);
-}
-
-/* Stale state */
-.stat-card[data-state="stale"] {
-  opacity: 0.7;
 }
 
 /* Retry button */
@@ -238,7 +268,7 @@
   font-weight: 600;
   color: #fff;
   min-width: 2px;
-  transition: flex 0.3s ease;
+  transition: flex-grow 0.3s ease;
 }
 
 .fuel-mix-legend {
@@ -382,7 +412,7 @@
 [data-accent="population"] .sub-category-label { color: #a78bfa; }
 [data-accent="population"] .sub-category-label::after { background: rgba(139, 92, 246, 0.2); }
 
-[data-accent="health"] .sub-category-label { color: #f87171; }
+[data-accent="health"] .sub-category-label { color: #fca5a5; }
 [data-accent="health"] .sub-category-label::after { background: rgba(239, 68, 68, 0.2); }
 
 [data-accent="transport"] .sub-category-label { color: var(--accent-transport); }
@@ -522,12 +552,15 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
   transform: translateY(12px) scale(0.97);
   transition: transform 0.25s var(--ease-out-expo);
-  outline: none;
 }
 
-.modal-container:focus-visible {
+.modal-container:focus {
   outline: 2px solid var(--accent-space);
   outline-offset: 2px;
+}
+
+.modal-container:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .modal-overlay.active .modal-container {
@@ -603,6 +636,11 @@
   text-decoration: underline;
 }
 
+.modal-body a:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
 /* Modal content helper classes */
 .modal-description {
   color: var(--text-muted);
@@ -616,6 +654,10 @@
   gap: 0.3rem 1rem;
   font-size: 0.85rem;
   margin-bottom: 1rem;
+}
+
+.modal-detail-grid--spaced {
+  margin-bottom: 0.75rem;
 }
 
 .modal-detail-label {
@@ -832,6 +874,17 @@
   font-family: var(--font-mono);
 }
 
+.expandable-item-label--sans {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+}
+
+.expandable-item-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .expandable-item-meta {
   color: var(--text-muted);
   font-size: 0.75rem;
@@ -859,9 +912,36 @@
   border-radius: 3px;
 }
 
+/* Asteroid hazard badges */
+.asteroid-hazard-badge {
+  display: inline-block;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.asteroid-hazard-banner {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
 /* Flare class color-coding */
 .flare-class-x {
-  color: #ef4444;
+  color: #f87171;
 }
 
 .flare-class-m {
@@ -878,7 +958,8 @@
 
 /* Earthquake magnitude color-coding */
 .quake-mag-major {
-  color: #ef4444;
+  color: #f87171;
+  font-weight: 700;
 }
 
 .quake-mag-strong {
@@ -1168,15 +1249,146 @@
   outline-offset: 2px;
 }
 
-.expandable-item:focus-visible,
-.country-picker-item:focus-visible,
-.location-picker-result:focus-visible {
+.expandable-item:focus,
+.country-picker-item:focus,
+.location-picker-result:focus {
   outline: 2px solid var(--text-primary);
   outline-offset: -2px;
   background: var(--bg-tertiary);
 }
 
+.expandable-item:focus:not(:focus-visible),
+.country-picker-item:focus:not(:focus-visible),
+.location-picker-result:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .story-list .story-title:focus-visible {
   outline: 2px solid var(--accent-trending);
   outline-offset: 2px;
+}
+
+/* ========================
+   APOD (Astronomy Picture of the Day)
+   ======================== */
+
+.apod-card-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.apod-card-image:hover {
+  opacity: 0.85;
+}
+
+.apod-card-image:focus-visible {
+  outline: 2px solid var(--accent-space);
+  outline-offset: 2px;
+}
+
+.apod-title--clickable {
+  cursor: pointer;
+}
+
+.apod-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.apod-excerpt {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ========================
+   AQI Badge (Air Quality)
+   ======================== */
+
+.aqi-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.aqi-good { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.aqi-moderate { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+.aqi-sensitive { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+.aqi-unhealthy { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+.aqi-very-unhealthy { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+.aqi-hazardous { background: rgba(127, 29, 29, 0.4); color: #fecaca; }
+
+.aqi-pollutants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.aqi-pollutant-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ========================
+   EONET Category Labels
+   ======================== */
+
+.eonet-category {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+/* ========================
+   Wikipedia View Count
+   ======================== */
+
+.wiki-item {
+  display: flex;
+  align-items: baseline;
+}
+
+.wiki-title {
+  flex: 1;
+}
+
+.wiki-views {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-left: auto;
+  padding-left: 0.5rem;
+}
+
+.wiki-rank {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 1.5rem;
+  margin-right: 0.5rem;
 }

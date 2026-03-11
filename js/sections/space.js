@@ -2,7 +2,8 @@ import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber, abbreviate } from '../utils/format.js';
 import { nowISO, monthAgoISO, weekFromNowISO, countdown, formatUTC, relativeTime } from '../utils/time.js';
 import { NASA_API_KEY } from '../config.js';
-import { createCard, createSubCategory, updateCard, updateCardContext, setCardError, setCardStale, getCardValueEl } from '../utils/dom.js';
+import { createCard, createSubCategory, updateCard, updateCardContext, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
+import { getFreshness } from '../utils/freshness.js';
 import { CountUp } from '../utils/counter.js';
 import { connect as connectISS, onUpdate as onISSUpdate, setInitialState as setISSInitialState } from '../utils/iss-telemetry.js';
 import { openModal } from '../utils/modal.js';
@@ -22,17 +23,18 @@ export async function init() {
       title: 'ISS',
       cards: [
         { id: 'space-people', label: 'People in Space Right Now', featured: true },
+        { id: 'space-iss-position', label: 'ISS Position' },
         { id: 'space-iss-speed', label: 'ISS Speed' },
         { id: 'space-iss-altitude', label: 'ISS Altitude' },
         { id: 'space-iss-toilet', label: 'ISS Urine Tank Level', featured: true },
-        { id: 'space-iss-use', label: 'Last Toilet Use' },
-        { id: 'space-iss-flush', label: 'Last Toilet Flush' },
+        { id: 'space-iss-flush', label: 'Last ISS Toilet Flush' },
       ],
     },
     {
       title: 'Near-Earth Objects',
       cards: [
         { id: 'space-asteroids', label: 'Near-Earth Asteroids Today' },
+        { id: 'space-hazardous', label: 'Potentially Hazardous' },
       ],
     },
     {
@@ -45,6 +47,12 @@ export async function init() {
       title: 'Solar Activity',
       cards: [
         { id: 'space-solar-flares', label: 'Solar Flares This Month' },
+      ],
+    },
+    {
+      title: 'Picture of the Day',
+      cards: [
+        { id: 'space-apod', label: 'NASA Astronomy Picture of the Day', featured: true },
       ],
     },
   ];
@@ -73,6 +81,8 @@ export async function refresh() {
     fetchData(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
     fetchData('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=1&mode=detailed', { retries: 0 }),
     fetchData(`https://api.nasa.gov/DONKI/FLR?startDate=${monthAgo}&endDate=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
+    fetchData('http://api.open-notify.org/iss-now.json', { retries: 0, timeout: 5000 }),
+    fetchData(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`, { retries: 0 }),
   ]);
 
   // People in space
@@ -81,7 +91,11 @@ export async function refresh() {
     if (!data) return false;
     // Support both open-notify format and SpaceDevs format
     const count = data.number ?? data.count;
-    const people = data.people || (data.results || []).map(a => ({ name: a.name, craft: a.last_flight || '' }));
+    const people = data.people || (data.results || []).map(a => {
+      // Extract current spacecraft + destination from landings array
+      const info = extractCurrentCraft(a);
+      return { name: a.name, craft: info.craft, destination: info.destination, mission: info.mission };
+    });
 
     if (counters['space-people']) {
       counters['space-people'].update(count);
@@ -103,45 +117,71 @@ export async function refresh() {
       btnAstronaut.className = 'astronaut-link';
       btnAstronaut.textContent = person.name;
       btnAstronaut.addEventListener('click', function () {
-        showAstronautModal(person.name);
+        showAstronautModal(person.name, person);
       });
       spnNames.appendChild(btnAstronaut);
       if (i < people.length - 1) {
         spnNames.appendChild(document.createTextNode(', '));
       }
     }
+    spnNames.appendChild(document.createTextNode(' (live)'));
 
-    updateCard('space-people', { state: stale ? 'stale' : 'success' });
+    updateCard('space-people', { state: 'success' });
     updateCardContext('space-people', spnNames);
-    if (stale) setCardStale('space-people');
+    setCardFreshness('space-people', getFreshness('space-people', stale));
     return true;
   }, 'space-people');
 
   // ISS orbital parameters (constant values — ISS orbit is very stable)
-  updateCard('space-iss-speed', { value: '~27,600 km/h', context: 'Orbital velocity (constant)', state: 'success' });
-  updateCard('space-iss-altitude', { value: '~408 km', context: 'Low Earth orbit', state: 'success' });
+  updateCard('space-iss-speed', { value: '~27,600 km/h', context: 'Orbital velocity (live)', state: 'success' });
+  setCardFreshness('space-iss-speed', 'old');
+  updateCard('space-iss-altitude', { value: '~408 km', context: 'Low Earth orbit (live)', state: 'success' });
+  setCardFreshness('space-iss-altitude', 'old');
 
   // Asteroids
   handleResult(results[2], (res) => {
     const { data, stale } = res;
     if (!data) return false;
     const count = data.element_count;
-    let closestName = '';
-    let closestDist = Infinity;
 
+    // Collect all asteroids into a flat array with parsed data
+    const asteroids = [];
     const days = data.near_earth_objects;
     for (const date in days) {
       for (const neo of days[date]) {
-        if (neo.close_approach_data && neo.close_approach_data.length > 0) {
-          const dist = parseFloat(neo.close_approach_data[0].miss_distance.kilometers);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closestName = neo.name;
-          }
-        }
+        const approach = neo.close_approach_data && neo.close_approach_data.length > 0
+          ? neo.close_approach_data[0]
+          : null;
+        asteroids.push({
+          name: neo.name,
+          id: neo.id,
+          hazardous: neo.is_potentially_hazardous_asteroid,
+          magnitude: neo.absolute_magnitude_h,
+          diameterMinKm: neo.estimated_diameter && neo.estimated_diameter.kilometers
+            ? neo.estimated_diameter.kilometers.estimated_diameter_min : null,
+          diameterMaxKm: neo.estimated_diameter && neo.estimated_diameter.kilometers
+            ? neo.estimated_diameter.kilometers.estimated_diameter_max : null,
+          diameterMinM: neo.estimated_diameter && neo.estimated_diameter.meters
+            ? neo.estimated_diameter.meters.estimated_diameter_min : null,
+          diameterMaxM: neo.estimated_diameter && neo.estimated_diameter.meters
+            ? neo.estimated_diameter.meters.estimated_diameter_max : null,
+          distanceKm: approach ? parseFloat(approach.miss_distance.kilometers) : Infinity,
+          distanceLunar: approach ? parseFloat(approach.miss_distance.lunar) : null,
+          velocityKmS: approach ? parseFloat(approach.relative_velocity.kilometers_per_second) : null,
+          velocityKmH: approach ? parseFloat(approach.relative_velocity.kilometers_per_hour) : null,
+          approachDate: approach ? approach.close_approach_date_full || approach.close_approach_date : null,
+          orbitingBody: approach ? approach.orbiting_body : null,
+          nasaUrl: neo.nasa_jpl_url,
+        });
       }
     }
 
+    // Sort by distance (closest first)
+    asteroids.sort(function (a, b) { return a.distanceKm - b.distanceKm; });
+
+    const hazardousCount = asteroids.filter(function (a) { return a.hazardous; }).length;
+
+    // Update asteroid count card
     if (counters['space-asteroids']) {
       counters['space-asteroids'].update(count);
     } else {
@@ -152,11 +192,38 @@ export async function refresh() {
       }
     }
 
-    const ctx = closestName ? `Closest: ${closestName} (${abbreviate(closestDist)} km)` : '';
-    updateCard('space-asteroids', { context: ctx, state: stale ? 'stale' : 'success' });
-    if (stale) setCardStale('space-asteroids');
+    const closest = asteroids.length > 0 ? asteroids[0] : null;
+    const ctx = closest ? `Closest: ${closest.name} (${abbreviate(closest.distanceKm)} km) (live)` : 'No near-Earth objects detected (live)';
+    updateCard('space-asteroids', { context: ctx, state: 'success' });
+    setCardFreshness('space-asteroids', getFreshness('space-asteroids', stale));
+
+    // Build browse list on the asteroids card
+    buildAsteroidList(asteroids);
+
+    // Update hazardous count card
+    if (counters['space-hazardous']) {
+      counters['space-hazardous'].update(hazardousCount);
+    } else {
+      const el = getCardValueEl('space-hazardous');
+      if (el) {
+        counters['space-hazardous'] = new CountUp(el, hazardousCount);
+        counters['space-hazardous'].start();
+      }
+    }
+
+    const hazCtx = hazardousCount > 0
+      ? `Out of ${count} near-Earth objects (live)`
+      : 'No hazardous objects detected (live)';
+    updateCard('space-hazardous', { context: hazCtx, state: 'success' });
+    setCardFreshness('space-hazardous', getFreshness('space-hazardous', stale));
+
     return true;
   }, 'space-asteroids');
+
+  // If asteroids failed, also error the hazardous card
+  if (results[2].status !== 'fulfilled' || results[2].value.error || !results[2].value.data) {
+    setCardError('space-hazardous', () => refresh());
+  }
 
   // Next launch
   handleResult(results[3], (res) => {
@@ -175,21 +242,22 @@ export async function refresh() {
     // Find the best external URL from the API response
     const launchUrl = getLaunchUrl(launch);
     if (launchUrl) {
-      ctxEl.appendChild(document.createTextNode(' '));
+      ctxEl.appendChild(document.createTextNode(' | '));
       const link = document.createElement('a');
       link.href = launchUrl;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.textContent = 'Details \u2192';
+      link.textContent = 'Details';
       link.className = 'launch-link';
-      link.setAttribute('aria-label', `Details for ${missionName}`);
+      link.setAttribute('aria-label', `Details for ${missionName} (opens in new tab)`);
       ctxEl.appendChild(link);
     }
+    ctxEl.appendChild(document.createTextNode(' (live)'));
 
     startCountdown();
-    updateCard('space-next-launch', { state: stale ? 'stale' : 'success' });
+    updateCard('space-next-launch', { state: 'success' });
     updateCardContext('space-next-launch', ctxEl);
-    if (stale) setCardStale('space-next-launch');
+    setCardFreshness('space-next-launch', getFreshness('space-next-launch', stale));
     return true;
   }, 'space-next-launch');
 
@@ -211,14 +279,43 @@ export async function refresh() {
     }
 
     const latest = flares.length > 0 ? flares[flares.length - 1].classType : 'None';
-    updateCard('space-solar-flares', { context: `Latest: ${latest}`, state: stale ? 'stale' : 'success' });
-    if (stale) setCardStale('space-solar-flares');
+    updateCard('space-solar-flares', { context: `Latest class: ${latest} (live)`, state: 'success' });
+    setCardFreshness('space-solar-flares', getFreshness('space-solar-flares', stale));
 
     // Build expandable flare list
     buildFlareList(flares);
 
     return true;
   }, 'space-solar-flares');
+
+  // ISS Position
+  handleResult(results[5], (res) => {
+    const { data, stale } = res;
+    if (!data || !data.iss_position) return false;
+    const lat = parseFloat(data.iss_position.latitude);
+    const lon = parseFloat(data.iss_position.longitude);
+    if (isNaN(lat) || isNaN(lon)) return false;
+
+    const latDir = lat >= 0 ? 'N' : 'S';
+    const lonDir = lon >= 0 ? 'E' : 'W';
+    const formatted = `${Math.abs(lat).toFixed(1)}°${latDir}, ${Math.abs(lon).toFixed(1)}°${lonDir}`;
+
+    updateCard('space-iss-position', {
+      value: formatted,
+      context: 'Latitude / Longitude (live)',
+      state: 'success',
+    });
+    setCardFreshness('space-iss-position', getFreshness('space-iss-position', stale));
+    return true;
+  }, 'space-iss-position');
+
+  // NASA APOD
+  handleResult(results[6], (res) => {
+    const { data, stale } = res;
+    if (!data || !data.title) return false;
+    renderAPOD(data, stale);
+    return true;
+  }, 'space-apod');
 }
 
 function getLaunchUrl(launch) {
@@ -233,6 +330,47 @@ function getLaunchUrl(launch) {
     return `https://spacelaunchnow.me/launch/${launch.slug}`;
   }
   return null;
+}
+
+// Extract current spacecraft + destination from SpaceDevs astronaut data
+function extractCurrentCraft(astronaut) {
+  const result = { craft: '', destination: '', mission: '' };
+  if (!astronaut.landings || !Array.isArray(astronaut.landings)) return result;
+
+  // Find the active flight: landing not yet completed (success is null)
+  // Fall back to most recent entry
+  let active = null;
+  for (const landing of astronaut.landings) {
+    if (landing.landing && landing.landing.success === null) {
+      active = landing;
+      break;
+    }
+  }
+  if (!active && astronaut.landings.length > 0) {
+    active = astronaut.landings[astronaut.landings.length - 1];
+  }
+  if (!active) return result;
+
+  // Spacecraft name (e.g. "Crew Dragon Freedom", "Soyuz MS-27")
+  if (active.spacecraft && active.spacecraft.name) {
+    result.craft = active.spacecraft.name;
+  } else if (active.spacecraft && active.spacecraft.spacecraft_config && active.spacecraft.spacecraft_config.name) {
+    result.craft = active.spacecraft.spacecraft_config.name;
+  }
+
+  // Destination (e.g. "International Space Station", "Tiangong Space Station")
+  if (active.destination) {
+    result.destination = active.destination;
+  }
+
+  // Mission name
+  if (active.launch && active.launch.mission && active.launch.mission.name) {
+    result.mission = active.launch.mission.name;
+  } else if (active.launch && active.launch.name) {
+    result.mission = active.launch.name;
+  }
+
+  return result;
 }
 
 function handleResult(result, onSuccess, errorCardId) {
@@ -274,7 +412,7 @@ function startCountdown() {
 }
 
 // Astronaut detail modal via Wikipedia API
-async function showAstronautModal(name) {
+async function showAstronautModal(name, personInfo) {
   // Show loading state immediately
   const loadingBody = document.createElement('p');
   loadingBody.className = 'modal-description';
@@ -302,6 +440,46 @@ async function showAstronautModal(name) {
       desc.className = 'modal-description';
       desc.textContent = wikiData.description;
       bodyEl.appendChild(desc);
+    }
+
+    // Spacecraft / location info
+    if (personInfo && (personInfo.craft || personInfo.destination)) {
+      const craftGrid = document.createElement('div');
+      craftGrid.className = 'modal-detail-grid';
+      craftGrid.classList.add('modal-detail-grid--spaced');
+
+      if (personInfo.destination) {
+        const lbl = document.createElement('span');
+        lbl.className = 'modal-detail-label';
+        lbl.textContent = 'Currently at';
+        const val = document.createElement('span');
+        val.className = 'modal-detail-value';
+        val.textContent = personInfo.destination;
+        craftGrid.appendChild(lbl);
+        craftGrid.appendChild(val);
+      }
+      if (personInfo.craft) {
+        const lbl = document.createElement('span');
+        lbl.className = 'modal-detail-label';
+        lbl.textContent = 'Spacecraft';
+        const val = document.createElement('span');
+        val.className = 'modal-detail-value';
+        val.textContent = personInfo.craft;
+        craftGrid.appendChild(lbl);
+        craftGrid.appendChild(val);
+      }
+      if (personInfo.mission) {
+        const lbl = document.createElement('span');
+        lbl.className = 'modal-detail-label';
+        lbl.textContent = 'Mission';
+        const val = document.createElement('span');
+        val.className = 'modal-detail-value';
+        val.textContent = personInfo.mission;
+        craftGrid.appendChild(lbl);
+        craftGrid.appendChild(val);
+      }
+
+      bodyEl.appendChild(craftGrid);
     }
 
     if (wikiData.extract) {
@@ -366,11 +544,6 @@ async function fetchWikiSummary(pageName) {
   return null;
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
 
 // Solar flare expandable list
 function buildFlareList(flares) {
@@ -474,6 +647,7 @@ function buildFlareList(flares) {
       liItem.appendChild(spnClass);
       liItem.appendChild(spnDate);
       liItem.setAttribute('tabindex', '0');
+      liItem.setAttribute('role', 'button');
       liItem.setAttribute('aria-label', `Solar flare ${flare.classType || 'Unknown'} on ${formatFlareDate(flare.beginTime)}`);
 
       liItem.addEventListener('click', function () {
@@ -512,6 +686,240 @@ function buildFlareList(flares) {
   inpSearch.addEventListener('input', function () {
     renderItems(inpSearch.value);
   });
+}
+
+// Asteroid expandable browse list
+function buildAsteroidList(asteroids) {
+  const card = document.getElementById('space-asteroids');
+  if (!card) return;
+
+  const existing = card.querySelector('.expandable-list');
+  if (existing) existing.remove();
+
+  if (asteroids.length === 0) return;
+
+  const divList = document.createElement('div');
+  divList.className = 'expandable-list';
+
+  const btnToggle = document.createElement('button');
+  btnToggle.className = 'expandable-toggle';
+  btnToggle.setAttribute('type', 'button');
+  btnToggle.setAttribute('aria-expanded', 'false');
+  btnToggle.setAttribute('aria-controls', 'asteroid-panel');
+
+  const spnToggleText = document.createElement('span');
+  spnToggleText.textContent = 'Browse asteroids';
+
+  const spnToggleArrow = document.createElement('span');
+  spnToggleArrow.className = 'expandable-toggle-arrow';
+  spnToggleArrow.textContent = '\u25BC';
+  spnToggleArrow.setAttribute('aria-hidden', 'true');
+
+  btnToggle.appendChild(spnToggleText);
+  btnToggle.appendChild(spnToggleArrow);
+
+  const divPanel = document.createElement('div');
+  divPanel.className = 'expandable-panel';
+  divPanel.id = 'asteroid-panel';
+  divPanel.setAttribute('aria-label', 'Asteroid list');
+
+  const inpSearch = document.createElement('input');
+  inpSearch.className = 'expandable-search';
+  inpSearch.setAttribute('type', 'text');
+  inpSearch.setAttribute('placeholder', 'Search by name, hazardous...');
+  inpSearch.setAttribute('autocomplete', 'off');
+  inpSearch.setAttribute('aria-label', 'Search asteroids');
+
+  const ulItems = document.createElement('ul');
+  ulItems.className = 'expandable-items';
+  ulItems.setAttribute('role', 'list');
+
+  divPanel.appendChild(inpSearch);
+  divPanel.appendChild(ulItems);
+
+  divList.appendChild(btnToggle);
+  divList.appendChild(divPanel);
+  card.appendChild(divList);
+
+  function renderItems(filter) {
+    ulItems.replaceChildren();
+    const query = (filter || '').trim().toLowerCase();
+    let filtered = asteroids;
+
+    if (query) {
+      filtered = asteroids.filter(function (a) {
+        const name = (a.name || '').toLowerCase();
+        const hazText = a.hazardous ? 'hazardous' : 'safe';
+        return name.includes(query) || hazText.includes(query);
+      });
+    }
+
+    if (filtered.length === 0) {
+      const liEmpty = document.createElement('li');
+      liEmpty.className = 'expandable-empty';
+      liEmpty.textContent = 'No matching asteroids';
+      ulItems.appendChild(liEmpty);
+      return;
+    }
+
+    for (let i = 0; i < filtered.length; i++) {
+      const asteroid = filtered[i];
+      const liItem = document.createElement('li');
+      liItem.className = 'expandable-item';
+
+      const spnName = document.createElement('span');
+      spnName.className = 'expandable-item-label expandable-item-label--sans';
+
+      // Clean the name — remove parentheses wrapping the designation
+      const cleanName = asteroid.name.replace(/^\(|\)$/g, '');
+      spnName.textContent = cleanName;
+
+      const spnRight = document.createElement('span');
+      spnRight.className = 'expandable-item-right';
+
+      if (asteroid.hazardous) {
+        const spnHazard = document.createElement('span');
+        spnHazard.className = 'asteroid-hazard-badge';
+        spnHazard.textContent = 'PHO';
+        spnHazard.setAttribute('aria-label', 'Potentially Hazardous Object');
+        spnRight.appendChild(spnHazard);
+      }
+
+      const spnDist = document.createElement('span');
+      spnDist.className = 'expandable-item-meta';
+      spnDist.textContent = abbreviate(asteroid.distanceKm) + ' km';
+      spnRight.appendChild(spnDist);
+
+      liItem.appendChild(spnName);
+      liItem.appendChild(spnRight);
+
+      liItem.setAttribute('tabindex', '0');
+      liItem.setAttribute('role', 'button');
+      liItem.setAttribute('aria-label', `Asteroid ${cleanName}${asteroid.hazardous ? ', potentially hazardous' : ''}`);
+
+      liItem.addEventListener('click', function () {
+        showAsteroidModal(asteroid);
+      });
+      liItem.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showAsteroidModal(asteroid);
+        }
+      });
+
+      ulItems.appendChild(liItem);
+    }
+  }
+
+  let isOpen = false;
+  btnToggle.addEventListener('click', function () {
+    isOpen = !isOpen;
+    btnToggle.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) {
+      divPanel.classList.add('open');
+      spnToggleArrow.classList.add('open');
+      spnToggleText.textContent = 'Hide asteroids';
+      renderItems('');
+    } else {
+      divPanel.classList.remove('open');
+      spnToggleArrow.classList.remove('open');
+      spnToggleText.textContent = 'Browse asteroids';
+      inpSearch.value = '';
+    }
+  });
+
+  inpSearch.addEventListener('input', function () {
+    renderItems(inpSearch.value);
+  });
+}
+
+// Asteroid detail modal
+function showAsteroidModal(asteroid) {
+  const bodyDiv = document.createElement('div');
+
+  // Hazard badge at top
+  if (asteroid.hazardous) {
+    const hazP = document.createElement('p');
+    hazP.className = 'asteroid-hazard-banner';
+    hazP.textContent = 'Potentially Hazardous Object';
+    bodyDiv.appendChild(hazP);
+  }
+
+  // Detail grid
+  const grid = document.createElement('div');
+  grid.className = 'modal-detail-grid';
+
+  function addRow(label, value) {
+    const lblEl = document.createElement('span');
+    lblEl.className = 'modal-detail-label';
+    lblEl.textContent = label;
+    const valEl = document.createElement('span');
+    valEl.className = 'modal-detail-value';
+    valEl.textContent = value;
+    grid.appendChild(lblEl);
+    grid.appendChild(valEl);
+  }
+
+  // Distance
+  if (asteroid.distanceKm !== Infinity) {
+    addRow('Miss Distance', formatNumber(Math.round(asteroid.distanceKm)) + ' km');
+  }
+  if (asteroid.distanceLunar !== null) {
+    addRow('Lunar Distance', asteroid.distanceLunar.toFixed(2) + ' LD');
+  }
+
+  // Velocity
+  if (asteroid.velocityKmS !== null) {
+    addRow('Relative Velocity', asteroid.velocityKmS.toFixed(2) + ' km/s');
+  }
+  if (asteroid.velocityKmH !== null) {
+    addRow('', formatNumber(Math.round(asteroid.velocityKmH)) + ' km/h');
+  }
+
+  // Size
+  if (asteroid.diameterMinM !== null && asteroid.diameterMaxM !== null) {
+    const minM = asteroid.diameterMinM;
+    const maxM = asteroid.diameterMaxM;
+    if (maxM >= 1000) {
+      addRow('Est. Diameter', asteroid.diameterMinKm.toFixed(2) + ' – ' + asteroid.diameterMaxKm.toFixed(2) + ' km');
+    } else {
+      addRow('Est. Diameter', Math.round(minM) + ' – ' + Math.round(maxM) + ' m');
+    }
+  }
+
+  // Magnitude
+  if (asteroid.magnitude !== null && asteroid.magnitude !== undefined) {
+    addRow('Abs. Magnitude', 'H ' + asteroid.magnitude.toFixed(1));
+  }
+
+  // Approach date
+  if (asteroid.approachDate) {
+    addRow('Close Approach', asteroid.approachDate);
+  }
+
+  // Orbiting body
+  if (asteroid.orbitingBody) {
+    addRow('Orbiting Body', asteroid.orbitingBody);
+  }
+
+  bodyDiv.appendChild(grid);
+
+  // NASA JPL link
+  if (asteroid.nasaUrl) {
+    const linkP = document.createElement('p');
+    linkP.className = 'modal-link-row';
+    const link = document.createElement('a');
+    link.href = asteroid.nasaUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'View on NASA JPL \u2192';
+    link.setAttribute('aria-label', 'View asteroid details on NASA JPL (opens in new tab)');
+    linkP.appendChild(link);
+    bodyDiv.appendChild(linkP);
+  }
+
+  const cleanName = asteroid.name.replace(/^\(|\)$/g, '');
+  openModal({ title: cleanName, body: bodyDiv });
 }
 
 function getFlareColorClass(classType) {
@@ -639,6 +1047,108 @@ function showFlareModal(flare) {
   openModal({ title: title.trim(), body: bodyDiv });
 }
 
+// Render NASA Astronomy Picture of the Day
+function renderAPOD(data, stale) {
+  const card = document.getElementById('space-apod');
+  if (!card) return;
+
+  card.dataset.state = 'success';
+
+  const valEl = card.querySelector('.stat-value');
+  valEl.textContent = '';
+  valEl.classList.add('stat-value--embed');
+
+  const isImage = data.media_type === 'image';
+
+  if (isImage && data.url) {
+    const img = document.createElement('img');
+    img.className = 'apod-card-image';
+    img.src = data.url;
+    img.alt = data.title || 'Astronomy Picture of the Day';
+    img.loading = 'lazy';
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', 'View full image: ' + (data.title || 'APOD'));
+    img.addEventListener('click', function () {
+      showAPODModal(data);
+    });
+    img.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showAPODModal(data);
+      }
+    });
+    valEl.appendChild(img);
+  }
+
+  const title = document.createElement('div');
+  title.className = 'apod-title';
+  title.textContent = data.title || '';
+  if (isImage) {
+    title.classList.add('apod-title--clickable');
+    title.addEventListener('click', function () {
+      showAPODModal(data);
+    });
+  }
+  valEl.appendChild(title);
+
+  const excerpt = document.createElement('div');
+  excerpt.className = 'apod-excerpt';
+  const explanation = data.explanation || '';
+  excerpt.textContent = explanation.length > 150 ? explanation.substring(0, 150) + '...' : explanation;
+  valEl.appendChild(excerpt);
+
+  if (!isImage && data.title) {
+    // For video type, show title + note
+    const note = document.createElement('div');
+    note.className = 'apod-excerpt';
+    note.textContent = `Today's APOD is a video: ${data.title}`;
+    valEl.appendChild(note);
+  }
+
+  const ctxEl = card.querySelector('.stat-context');
+  if (ctxEl) {
+    const dateStr = data.date ? data.date.split('-').reverse().join('-') : 'today';
+    if (isImage) {
+      ctxEl.textContent = `Click image for full view (${dateStr})`;
+    } else {
+      ctxEl.textContent = `NASA APOD (${dateStr})`;
+    }
+  }
+
+  setCardFreshness('space-apod', getFreshness('space-apod', stale));
+}
+
+function showAPODModal(data) {
+  const bodyDiv = document.createElement('div');
+
+  if (data.explanation) {
+    const p = document.createElement('p');
+    p.textContent = data.explanation;
+    bodyDiv.appendChild(p);
+  }
+
+  if (data.date) {
+    const dateP = document.createElement('p');
+    dateP.className = 'modal-description';
+    dateP.textContent = `Date: ${data.date.split('-').reverse().join('-')}`;
+    bodyDiv.appendChild(dateP);
+  }
+
+  if (data.copyright) {
+    const copyrightP = document.createElement('p');
+    copyrightP.className = 'modal-description';
+    copyrightP.textContent = `Credit: ${data.copyright}`;
+    bodyDiv.appendChild(copyrightP);
+  }
+
+  const image = data.hdurl || data.url
+    ? { src: data.hdurl || data.url, alt: data.title || 'APOD' }
+    : null;
+
+  openModal({ title: data.title || 'Astronomy Picture of the Day', body: bodyDiv, image: image });
+}
+
 // Load persisted toilet data from TOILET_DATA.md
 async function loadPersistedToiletData() {
   try {
@@ -655,7 +1165,6 @@ async function loadPersistedToiletData() {
 
     return {
       tankLevel: get('TANK_LEVEL') !== null ? parseFloat(get('TANK_LEVEL')) : null,
-      lastUse: get('LAST_USE'),
       lastFlush: get('LAST_FLUSH'),
     };
   } catch {
@@ -665,30 +1174,21 @@ async function loadPersistedToiletData() {
 
 // ISS Toilet telemetry via NASA Lightstreamer
 async function initISSToilet() {
-  updateCard('space-iss-toilet', { value: 'Connecting...', context: 'Live telemetry from ISS via Lightstreamer', state: 'loading' });
-  updateCard('space-iss-flush', { value: 'Waiting...', context: 'Detected by tank level drop >3%', state: 'loading' });
-  updateCard('space-iss-use', { value: 'Waiting...', context: 'Detected by tank level increase', state: 'loading' });
+  updateCard('space-iss-toilet', { value: 'Connecting...', context: 'ISS WHC telemetry via Lightstreamer (live)', state: 'loading' });
+  updateCard('space-iss-flush', { value: 'Waiting...', context: 'Detected by tank level drop >3% (live)', state: 'loading' });
 
   // Load persisted data so cards show last known events immediately
   const persisted = await loadPersistedToiletData();
   if (persisted) {
     setISSInitialState({
-      lastUseTime: persisted.lastUse,
       lastFlushTime: persisted.lastFlush,
       tankLevel: persisted.tankLevel,
     });
 
-    if (persisted.lastUse) {
-      updateCard('space-iss-use', {
-        value: relativeTime(persisted.lastUse),
-        context: 'From telemetry log',
-        state: 'success',
-      });
-    }
     if (persisted.lastFlush) {
       updateCard('space-iss-flush', {
-        value: relativeTime(persisted.lastFlush),
-        context: 'From telemetry log',
+        value: '~' + relativeTime(persisted.lastFlush),
+        context: 'From telemetry log (live)',
         state: 'success',
       });
     }
@@ -700,7 +1200,6 @@ async function initISSToilet() {
     console.error('Failed to connect ISS telemetry:', err);
     setCardError('space-iss-toilet', () => initISSToilet());
     setCardError('space-iss-flush', () => initISSToilet());
-    setCardError('space-iss-use', () => initISSToilet());
     return;
   }
 
@@ -712,39 +1211,27 @@ async function initISSToilet() {
       const connNote = state.connected ? signalNote : 'Disconnected';
       updateCard('space-iss-toilet', {
         value: pct.toFixed(1) + '%',
-        context: `${connNote} | Real-time ISS WHC telemetry`,
+        context: `${connNote} | ISS WHC telemetry (live)`,
         state: 'success',
       });
+      setCardFreshness('space-iss-toilet', 'live');
     }
 
     // Last flush
     if (state.lastFlushTime) {
       updateCard('space-iss-flush', {
-        value: relativeTime(state.lastFlushTime),
-        context: 'Tank level dropped >3%',
+        value: '~' + relativeTime(state.lastFlushTime),
+        context: 'Tank level dropped >3% (live)',
         state: 'success',
       });
     } else {
       updateCard('space-iss-flush', {
         value: 'No flush detected yet',
-        context: 'Monitoring for tank level drops',
+        context: 'Monitoring for tank level drops (live)',
         state: 'success',
       });
     }
+    setCardFreshness('space-iss-flush', 'live');
 
-    // Last use
-    if (state.lastUseTime) {
-      updateCard('space-iss-use', {
-        value: relativeTime(state.lastUseTime),
-        context: 'Tank level increased',
-        state: 'success',
-      });
-    } else {
-      updateCard('space-iss-use', {
-        value: 'No use detected yet',
-        context: 'Monitoring for tank level increases',
-        state: 'success',
-      });
-    }
   });
 }

@@ -1,6 +1,7 @@
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatCurrency, formatPercent, formatNumber, abbreviate } from '../utils/format.js';
-import { createCard, createSubCategory, updateCard, setCardError, setCardStale, getCardValueEl } from '../utils/dom.js';
+import { createCard, createSubCategory, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
+import { getFreshness } from '../utils/freshness.js';
 import { CountUp } from '../utils/counter.js';
 
 export const sectionId = 'economy';
@@ -65,11 +66,11 @@ export async function refresh() {
       const change = data.data.market_cap_change_percentage_24h_usd;
       updateCard('econ-marketcap', {
         value: formatCurrency(mcap),
-        context: `24h change: ${change >= 0 ? '+' : ''}${change.toFixed(2)}%`,
+        context: `24h change: ${change >= 0 ? '+' : ''}${change.toFixed(2)}% (live)`,
         contextClass: change >= 0 ? 'positive' : 'negative',
-        state: stale ? 'stale' : 'success',
+        state: 'success',
       });
-      if (stale) setCardStale('econ-marketcap');
+      setCardFreshness('econ-marketcap', getFreshness('econ-marketcap', stale));
     }
   } else {
     setCardError('econ-marketcap', () => refresh());
@@ -82,18 +83,16 @@ export async function refresh() {
     if (d) {
       updateCard('econ-btc-dom', {
         value: formatPercent(parseFloat(d.btc_d)),
-        context: 'Bitcoin market dominance',
-        state: stale ? 'stale' : 'success',
+        context: 'Bitcoin market dominance (live)',
+        state: 'success',
       });
       updateCard('econ-eth-dom', {
         value: formatPercent(parseFloat(d.eth_d)),
-        context: 'Ethereum market dominance',
-        state: stale ? 'stale' : 'success',
+        context: 'Ethereum market dominance (live)',
+        state: 'success',
       });
-      if (stale) {
-        setCardStale('econ-btc-dom');
-        setCardStale('econ-eth-dom');
-      }
+      setCardFreshness('econ-btc-dom', getFreshness('econ-btc-dom', stale));
+      setCardFreshness('econ-eth-dom', getFreshness('econ-eth-dom', stale));
     }
   } else {
     setCardError('econ-btc-dom', () => refresh());
@@ -140,9 +139,10 @@ export async function refresh() {
         valEl.appendChild(table);
       }
       const card = document.getElementById('econ-forex');
-      if (card) card.dataset.state = stale ? 'stale' : 'success';
-      updateCard('econ-forex', { context: `Base: USD | ${data.date}`, state: stale ? 'stale' : 'success' });
-      if (stale) setCardStale('econ-forex');
+      if (card) card.dataset.state = 'success';
+      const forexDate = data.date.split('-').reverse().join('-');
+      updateCard('econ-forex', { context: `Base: USD (${forexDate})`, state: 'success' });
+      setCardFreshness('econ-forex', getFreshness('econ-forex', stale));
     }
   } else {
     setCardError('econ-forex', () => refresh());
@@ -161,8 +161,8 @@ export async function refresh() {
           counters['econ-mempool'].start();
         }
       }
-      updateCard('econ-mempool', { context: 'Waiting for confirmation', state: stale ? 'stale' : 'success' });
-      if (stale) setCardStale('econ-mempool');
+      updateCard('econ-mempool', { context: 'Waiting for confirmation (live)', state: 'success' });
+      setCardFreshness('econ-mempool', getFreshness('econ-mempool', stale));
     }
   } else {
     setCardError('econ-mempool', () => refresh());
@@ -175,10 +175,10 @@ export async function refresh() {
       const ehps = (data.currentHashrate / 1e18).toFixed(1);
       updateCard('econ-hashrate', {
         value: `${ehps} EH/s`,
-        context: 'Bitcoin network hashrate',
-        state: stale ? 'stale' : 'success',
+        context: 'Bitcoin network hashrate (live)',
+        state: 'success',
       });
-      if (stale) setCardStale('econ-hashrate');
+      setCardFreshness('econ-hashrate', getFreshness('econ-hashrate', stale));
     }
   } else {
     setCardError('econ-hashrate', () => refresh());
@@ -192,10 +192,10 @@ export async function refresh() {
       if (gdpEntry) {
         updateCard('econ-gdp', {
           value: formatCurrency(gdpEntry.value),
-          context: `Year: ${gdpEntry.date} (World Bank)`,
-          state: stale ? 'stale' : 'success',
+          context: `World Bank (${gdpEntry.date})`,
+          state: 'success',
         });
-        if (stale) setCardStale('econ-gdp');
+        setCardFreshness('econ-gdp', getFreshness('econ-gdp', stale));
       }
     }
   } else {
@@ -208,13 +208,13 @@ export async function refresh() {
     if (data.data && data.data.length > 0) {
       const entry = data.data[0];
       const totalDebt = parseFloat(entry.tot_pub_debt_out_amt);
-      const recordDate = entry.record_date;
+      const recordDate = entry.record_date.split('-').reverse().join('-');
       updateCard('econ-debt', {
         value: formatCurrency(totalDebt),
-        context: `As of ${recordDate} (US Treasury)`,
-        state: stale ? 'stale' : 'success',
+        context: `US Treasury (${recordDate})`,
+        state: 'success',
       });
-      if (stale) setCardStale('econ-debt');
+      setCardFreshness('econ-debt', getFreshness('econ-debt', stale));
     }
   } else {
     setCardError('econ-debt', () => refresh());

@@ -1,12 +1,14 @@
 import { fetchData } from '../utils/fetch-handler.js';
-import { formatNumber, abbreviate } from '../utils/format.js';
-import { createCard, updateCard, setCardError, setCardStale, getCardValueEl } from '../utils/dom.js';
+import { formatNumber, abbreviate, formatPercent } from '../utils/format.js';
+import { createCard, createSubCategory, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
+import { getFreshness } from '../utils/freshness.js';
 import { CountUp } from '../utils/counter.js';
 
 export const sectionId = 'population';
 
 const counters = {};
 let tickerInterval = null;
+let tickerTimeout = null;
 let currentPopulation = 0;
 let allCountries = [];
 let selectedCountry = null; // null = Global
@@ -34,28 +36,103 @@ export async function init() {
     grid.appendChild(createCard(cfg));
   }
 
+  // Demographics sub-category
+  grid.appendChild(createSubCategory('Demographics'));
+  const demoCards = [
+    { id: 'pop-literacy', label: 'Global Literacy Rate' },
+    { id: 'pop-internet', label: 'Global Internet Users' },
+    { id: 'pop-poverty', label: 'Global Poverty Rate' },
+  ];
+  for (const cfg of demoCards) {
+    grid.appendChild(createCard(cfg));
+  }
+
+  // Education sub-category (UNESCO UIS)
+  grid.appendChild(createSubCategory('Education'));
+  const eduCards = [
+    { id: 'pop-out-of-school', label: 'Children Out of School', featured: true },
+    { id: 'pop-completion-primary', label: 'Primary Completion Rate' },
+    { id: 'pop-completion-secondary', label: 'Lower Secondary Completion Rate' },
+    { id: 'pop-completion-upper', label: 'Upper Secondary Completion Rate' },
+    { id: 'pop-tertiary', label: 'Global Tertiary Enrollment Ratio' },
+  ];
+  for (const cfg of eduCards) {
+    grid.appendChild(createCard(cfg));
+  }
+
+  // Science sub-category (UNESCO UIS)
+  grid.appendChild(createSubCategory('Science'));
+  const sciCards = [
+    { id: 'pop-researchers', label: 'Researchers per Million People' },
+    { id: 'pop-rd-spending', label: 'Global R&D Spending (% of GDP)' },
+  ];
+  for (const cfg of sciCards) {
+    grid.appendChild(createCard(cfg));
+  }
+
   await refresh();
 }
 
+async function fetchPopulation() {
+  // Primary: population.io — real-time daily estimates
+  try {
+    const res = await fetchData(
+      'https://d6wn6bmjj722w.population.io/1.0/population/World/today-and-tomorrow/',
+      { timeout: 8000 }
+    );
+    if (!res.error && res.data && res.data.total_population) {
+      const today = res.data.total_population[0];
+      if (today && today.population > 0) {
+        return { population: today.population, stale: res.stale };
+      }
+    }
+  } catch {
+    // Fall through to World Bank
+  }
+
+  // Fallback: World Bank annual data
+  const res = await fetchData(
+    'https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&per_page=1&mrnev=1'
+  );
+  if (!res.error) {
+    const pop = extractWorldBankValue(res.data);
+    if (pop !== null) {
+      return { population: pop, stale: res.stale };
+    }
+  }
+
+  return { population: 0, stale: false };
+}
+
 export async function refresh() {
+  const unescoBase = 'https://api.uis.unesco.org/api/public/data/indicators';
+  const unescoWorld = 'SDG%3A%20World';
+  const currentYear = new Date().getFullYear();
+
   const results = await Promise.allSettled([
-    fetchData('https://api.worldbank.org/v2/country/WLD/indicator/SP.POP.TOTL?format=json&per_page=1&mrnev=1'),
+    fetchPopulation(),
     fetchData('https://restcountries.com/v3.1/all?fields=name,population,region,area,cca3'),
     fetchData('https://api.worldbank.org/v2/country/WLD/indicator/SP.DYN.CBRT.IN?format=json&per_page=1&mrnev=1'),
     fetchData('https://api.worldbank.org/v2/country/WLD/indicator/SP.DYN.CDRT.IN?format=json&per_page=1&mrnev=1'),
+    fetchData('https://api.worldbank.org/v2/country/WLD/indicator/SE.ADT.LITR.ZS?format=json&per_page=1&mrnev=1'),
+    fetchData('https://api.worldbank.org/v2/country/WLD/indicator/IT.NET.USER.ZS?format=json&per_page=1&mrnev=1'),
+    fetchData('https://api.worldbank.org/v2/country/WLD/indicator/SI.POV.DDAY?format=json&per_page=1&mrnev=1'),
+    // UNESCO UIS: Education
+    fetchData(`${unescoBase}?indicator=OFST.1.CP,OFST.2.CP,OFST.3.CP&geoUnit=${unescoWorld}&start=2020&end=${currentYear}`, { timeout: 12000 }),
+    fetchData(`${unescoBase}?indicator=CR.1,CR.2,CR.3&geoUnit=${unescoWorld}&start=2020&end=${currentYear}`, { timeout: 12000 }),
+    fetchData(`${unescoBase}?indicator=GER.5T8&geoUnit=${unescoWorld}&start=2020&end=${currentYear}`, { timeout: 12000 }),
+    // UNESCO UIS: Science
+    fetchData(`${unescoBase}?indicator=RESDEN.INHAB.TFTE&geoUnit=${unescoWorld}&start=2018&end=${currentYear}`, { timeout: 12000 }),
+    fetchData(`${unescoBase}?indicator=EXPGDP.TOT&geoUnit=${unescoWorld}&start=2018&end=${currentYear}`, { timeout: 12000 }),
   ]);
 
-  // World population from World Bank
-  if (results[0].status === 'fulfilled' && !results[0].value.error) {
-    const { data, stale } = results[0].value;
-    const pop = extractWorldBankValue(data);
-    if (pop !== null) {
-      worldPopulation = pop;
+  // World population from population.io (with World Bank fallback)
+  if (results[0].status === 'fulfilled' && results[0].value.population > 0) {
+    const { population, stale } = results[0].value;
+    worldPopulation = population;
 
-      // Only update the ticker if viewing Global
-      if (!selectedCountry) {
-        startPopulationTicker(worldPopulation, stale);
-      }
+    if (!selectedCountry) {
+      startPopulationTicker(worldPopulation, stale);
     }
   } else {
     if (!selectedCountry) {
@@ -71,8 +148,8 @@ export async function refresh() {
       const count = data.length;
       updateCard('pop-countries', {
         value: String(count),
-        context: 'Sovereign states and territories',
-        state: stale ? 'stale' : 'success',
+        context: 'Sovereign states and territories (live)',
+        state: 'success',
       });
 
       // Most populous (always global)
@@ -82,8 +159,8 @@ export async function refresh() {
         const name = top.name.common || top.name;
         updateCard('pop-most-populous', {
           value: name,
-          context: `Population: ${formatNumber(top.population)}`,
-          state: stale ? 'stale' : 'success',
+          context: `Population: ${formatNumber(top.population)} (live)`,
+          state: 'success',
         });
       }
 
@@ -103,8 +180,8 @@ export async function refresh() {
         const top = withDensity[0];
         updateCard('pop-dense', {
           value: top.name,
-          context: `${formatNumber(Math.round(top.density))} people/km\u00B2`,
-          state: stale ? 'stale' : 'success',
+          context: `${formatNumber(Math.round(top.density))} people/km\u00B2 (live)`,
+          state: 'success',
         });
       }
 
@@ -115,17 +192,15 @@ export async function refresh() {
         const name = top.name.common || top.name;
         updateCard('pop-largest', {
           value: name,
-          context: `Area: ${formatNumber(top.area)} km\u00B2`,
-          state: stale ? 'stale' : 'success',
+          context: `Area: ${formatNumber(top.area)} km\u00B2 (live)`,
+          state: 'success',
         });
       }
 
-      if (stale) {
-        setCardStale('pop-countries');
-        setCardStale('pop-most-populous');
-        setCardStale('pop-dense');
-        setCardStale('pop-largest');
-      }
+      setCardFreshness('pop-countries', getFreshness('pop-countries', stale));
+      setCardFreshness('pop-most-populous', getFreshness('pop-most-populous', stale));
+      setCardFreshness('pop-dense', getFreshness('pop-dense', stale));
+      setCardFreshness('pop-largest', getFreshness('pop-largest', stale));
     }
   } else {
     setCardError('pop-countries', () => refresh());
@@ -143,6 +218,198 @@ export async function refresh() {
   if (allCountries.length > 0) {
     populateCountryList();
   }
+
+  // Demographics: Literacy
+  if (results[4].status === 'fulfilled' && !results[4].value.error) {
+    const { data, stale } = results[4].value;
+    const val = extractWorldBankValue(data);
+    const year = extractWorldBankYear(data);
+    if (val !== null) {
+      updateCard('pop-literacy', {
+        value: formatPercent(val),
+        context: `Adult literacy rate (${year || 'unknown'})`,
+        state: 'success',
+      });
+      setCardFreshness('pop-literacy', getFreshness('pop-literacy', stale));
+    }
+  } else {
+    setCardError('pop-literacy', () => refresh());
+  }
+
+  // Demographics: Internet users
+  if (results[5].status === 'fulfilled' && !results[5].value.error) {
+    const { data, stale } = results[5].value;
+    const val = extractWorldBankValue(data);
+    const year = extractWorldBankYear(data);
+    if (val !== null) {
+      updateCard('pop-internet', {
+        value: formatPercent(val),
+        context: `Percentage of population (${year || 'unknown'})`,
+        state: 'success',
+      });
+      setCardFreshness('pop-internet', getFreshness('pop-internet', stale));
+    }
+  } else {
+    setCardError('pop-internet', () => refresh());
+  }
+
+  // Demographics: Poverty rate
+  if (results[6].status === 'fulfilled' && !results[6].value.error) {
+    const { data, stale } = results[6].value;
+    const val = extractWorldBankValue(data);
+    const year = extractWorldBankYear(data);
+    if (val !== null) {
+      updateCard('pop-poverty', {
+        value: formatPercent(val),
+        context: `Living on less than $2.15/day (${year || 'unknown'})`,
+        state: 'success',
+      });
+      setCardFreshness('pop-poverty', getFreshness('pop-poverty', stale));
+    }
+  } else {
+    setCardError('pop-poverty', () => refresh());
+  }
+
+  // Education: Out-of-school children (UNESCO UIS)
+  handleUnescoOutOfSchool(results[7]);
+
+  // Education: Completion rates (UNESCO UIS)
+  handleUnescoCompletionRates(results[8]);
+
+  // Education: Tertiary enrollment ratio (UNESCO UIS)
+  handleUnescoSingleIndicator(results[9], 'GER.5T8', 'pop-tertiary', {
+    format: (val) => formatPercent(val),
+    context: (year) => `Gross enrollment ratio, tertiary (${year})`,
+  });
+
+  // Science: Researchers per million (UNESCO UIS)
+  handleUnescoSingleIndicator(results[10], 'RESDEN.INHAB.TFTE', 'pop-researchers', {
+    format: (val) => formatNumber(Math.round(val)),
+    context: (year) => `Full-time equivalent, global (${year})`,
+  });
+
+  // Science: R&D spending (UNESCO UIS)
+  handleUnescoSingleIndicator(results[11], 'EXPGDP.TOT', 'pop-rd-spending', {
+    format: (val) => val.toFixed(2) + '%',
+    context: (year) => `Gross domestic expenditure on R&D (${year})`,
+  });
+}
+
+// Get the latest record for a given indicator from UNESCO UIS response
+function getUnescoLatest(records, indicatorId) {
+  const matching = records.filter(r => r.indicatorId === indicatorId && r.value !== null);
+  if (matching.length === 0) return null;
+  // Sort by year descending, return most recent
+  matching.sort((a, b) => b.year - a.year);
+  return matching[0];
+}
+
+function handleUnescoOutOfSchool(result) {
+  if (result.status !== 'fulfilled') {
+    setCardError('pop-out-of-school', () => refresh());
+    return;
+  }
+  const res = result.value;
+  if (res.error || !res.data || !res.data.records) {
+    setCardError('pop-out-of-school', () => refresh());
+    return;
+  }
+
+  const records = res.data.records;
+  const primary = getUnescoLatest(records, 'OFST.1.CP');
+  const lowerSec = getUnescoLatest(records, 'OFST.2.CP');
+  const upperSec = getUnescoLatest(records, 'OFST.3.CP');
+
+  if (!primary && !lowerSec && !upperSec) {
+    setCardError('pop-out-of-school', () => refresh());
+    return;
+  }
+
+  const total = (primary ? primary.value : 0)
+    + (lowerSec ? lowerSec.value : 0)
+    + (upperSec ? upperSec.value : 0);
+  const year = primary ? primary.year : (lowerSec ? lowerSec.year : upperSec.year);
+
+  const parts = [];
+  if (primary) parts.push(`Primary: ${abbreviate(primary.value)}`);
+  if (lowerSec) parts.push(`Lower sec: ${abbreviate(lowerSec.value)}`);
+  if (upperSec) parts.push(`Upper sec: ${abbreviate(upperSec.value)}`);
+
+  updateCard('pop-out-of-school', {
+    value: abbreviate(total),
+    context: `${parts.join(' | ')} (${year})`,
+    state: 'success',
+  });
+  setCardFreshness('pop-out-of-school', getFreshness('pop-out-of-school', res.stale));
+}
+
+function handleUnescoCompletionRates(result) {
+  const cardMap = {
+    'CR.1': 'pop-completion-primary',
+    'CR.2': 'pop-completion-secondary',
+    'CR.3': 'pop-completion-upper',
+  };
+
+  if (result.status !== 'fulfilled') {
+    for (const cardId of Object.values(cardMap)) {
+      setCardError(cardId, () => refresh());
+    }
+    return;
+  }
+
+  const res = result.value;
+  if (res.error || !res.data || !res.data.records) {
+    for (const cardId of Object.values(cardMap)) {
+      setCardError(cardId, () => refresh());
+    }
+    return;
+  }
+
+  const records = res.data.records;
+  const labels = {
+    'CR.1': 'Primary school completion rate',
+    'CR.2': 'Lower secondary completion rate',
+    'CR.3': 'Upper secondary completion rate',
+  };
+
+  for (const [indicator, cardId] of Object.entries(cardMap)) {
+    const latest = getUnescoLatest(records, indicator);
+    if (latest) {
+      updateCard(cardId, {
+        value: formatPercent(latest.value),
+        context: `${labels[indicator]} (${latest.year})`,
+        state: 'success',
+      });
+      setCardFreshness(cardId, getFreshness(cardId, res.stale));
+    } else {
+      setCardError(cardId, () => refresh());
+    }
+  }
+}
+
+function handleUnescoSingleIndicator(result, indicatorId, cardId, opts) {
+  if (result.status !== 'fulfilled') {
+    setCardError(cardId, () => refresh());
+    return;
+  }
+  const res = result.value;
+  if (res.error || !res.data || !res.data.records) {
+    setCardError(cardId, () => refresh());
+    return;
+  }
+
+  const latest = getUnescoLatest(res.data.records, indicatorId);
+  if (!latest) {
+    setCardError(cardId, () => refresh());
+    return;
+  }
+
+  updateCard(cardId, {
+    value: opts.format(latest.value),
+    context: opts.context(latest.year),
+    state: 'success',
+  });
+  setCardFreshness(cardId, getFreshness(cardId, res.stale));
 }
 
 function updateBirthsDeaths(birthResult, deathResult, population) {
@@ -150,14 +417,15 @@ function updateBirthsDeaths(birthResult, deathResult, population) {
   if (birthResult.status === 'fulfilled' && !birthResult.value.error) {
     const { data, stale } = birthResult.value;
     const rate = extractWorldBankValue(data);
+    const year = extractWorldBankYear(data);
     if (rate !== null && population > 0) {
       const dailyBirths = Math.round((rate / 1000) * population / 365);
       updateCard('pop-births', {
         value: formatNumber(dailyBirths),
-        context: `${rate.toFixed(1)} per 1,000 people/year`,
-        state: stale ? 'stale' : 'success',
+        context: `${rate.toFixed(1)} per 1,000 people/year (${year || 'unknown'})`,
+        state: 'success',
       });
-      if (stale) setCardStale('pop-births');
+      setCardFreshness('pop-births', getFreshness('pop-births', stale));
     }
   } else {
     setCardError('pop-births', () => refresh());
@@ -167,14 +435,15 @@ function updateBirthsDeaths(birthResult, deathResult, population) {
   if (deathResult.status === 'fulfilled' && !deathResult.value.error) {
     const { data, stale } = deathResult.value;
     const rate = extractWorldBankValue(data);
+    const year = extractWorldBankYear(data);
     if (rate !== null && population > 0) {
       const dailyDeaths = Math.round((rate / 1000) * population / 365);
       updateCard('pop-deaths', {
         value: formatNumber(dailyDeaths),
-        context: `${rate.toFixed(1)} per 1,000 people/year`,
-        state: stale ? 'stale' : 'success',
+        context: `${rate.toFixed(1)} per 1,000 people/year (${year || 'unknown'})`,
+        state: 'success',
       });
-      if (stale) setCardStale('pop-deaths');
+      setCardFreshness('pop-deaths', getFreshness('pop-deaths', stale));
     }
   } else {
     setCardError('pop-deaths', () => refresh());
@@ -191,6 +460,13 @@ function extractWorldBankValue(data) {
   return null;
 }
 
+function extractWorldBankYear(data) {
+  if (Array.isArray(data) && data.length >= 2 && Array.isArray(data[1]) && data[1].length > 0) {
+    return data[1][0].date || null;
+  }
+  return null;
+}
+
 function startPopulationTicker(population, stale) {
   currentPopulation = population;
   const el = getCardValueEl('pop-world');
@@ -202,9 +478,10 @@ function startPopulationTicker(population, stale) {
     counters['pop-world'].start();
 
     // Start ticker after initial animation
-    if (!tickerInterval) {
-      setTimeout(() => {
-        tickerInterval = setInterval(() => {
+    if (!tickerInterval && !tickerTimeout) {
+      tickerTimeout = setTimeout(function () {
+        tickerTimeout = null;
+        tickerInterval = setInterval(function () {
           currentPopulation += 1;
           if (counters['pop-world']) {
             counters['pop-world'].setDirect(currentPopulation);
@@ -214,8 +491,8 @@ function startPopulationTicker(population, stale) {
     }
   }
 
-  updateCard('pop-world', { context: 'Net growth ~2.5 people/second', state: stale ? 'stale' : 'success' });
-  if (stale) setCardStale('pop-world');
+  updateCard('pop-world', { context: 'Net growth ~2.5 people/sec (live)', state: 'success' });
+  setCardFreshness('pop-world', stale ? 'cached' : 'live');
 }
 
 async function loadCountryData(countryName) {
@@ -226,6 +503,10 @@ async function loadCountryData(countryName) {
   const countryCode = country.cca3;
 
   // Stop world ticker
+  if (tickerTimeout) {
+    clearTimeout(tickerTimeout);
+    tickerTimeout = null;
+  }
   if (tickerInterval) {
     clearInterval(tickerInterval);
     tickerInterval = null;
@@ -241,7 +522,7 @@ async function loadCountryData(countryName) {
   }
   updateCard('pop-world', {
     value: formatNumber(countryPop),
-    context: `Population of ${countryName}`,
+    context: `Population of ${countryName} (live)`,
     state: 'success',
   });
 
@@ -267,8 +548,10 @@ function restoreGlobalView() {
   Promise.allSettled([
     fetchData('https://api.worldbank.org/v2/country/WLD/indicator/SP.DYN.CBRT.IN?format=json&per_page=1&mrnev=1'),
     fetchData('https://api.worldbank.org/v2/country/WLD/indicator/SP.DYN.CDRT.IN?format=json&per_page=1&mrnev=1'),
-  ]).then(results => {
+  ]).then(function (results) {
     updateBirthsDeaths(results[0], results[1], worldPopulation);
+  }).catch(function () {
+    // Silently handle — cards will show stale data
   });
 }
 
@@ -371,11 +654,12 @@ function buildCountryPicker() {
     }
   });
 
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    if (!wrapper.contains(e.target)) {
+  // Close on outside click — restore focus to trigger button
+  document.addEventListener('click', function (e) {
+    if (!wrapper.contains(e.target) && !dropdown.hidden) {
       dropdown.hidden = true;
       btn.setAttribute('aria-expanded', 'false');
+      btn.focus();
     }
   });
 
@@ -405,11 +689,12 @@ function buildCountryPicker() {
     }
   });
 
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
+  // Close on Escape — only when dropdown is open, restore focus
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !dropdown.hidden) {
       dropdown.hidden = true;
       btn.setAttribute('aria-expanded', 'false');
+      btn.focus();
     }
   });
 
