@@ -1,30 +1,31 @@
 # ISS Toilet Telemetry
 
 <!-- Machine-readable data — do not edit manually -->
-<!-- TANK_LEVEL: 67.0 -->
-<!-- LAST_UPDATED: 2026-03-30T14:12:11Z -->
-<!-- LAST_FLUSH: 2026-03-30T02:24:04Z -->
-<!-- PREV_TANK_LEVEL: 55.0 -->
+<!-- TANK_LEVEL: 63.0 -->
+<!-- LAST_UPDATED: 2026-03-30T15:41:30Z -->
+<!-- LAST_FLUSH: 2026-03-30T15:41:30Z -->
+<!-- PREV_TANK_LEVEL: 67.0 -->
 
 ## Current Status
 
 | Metric | Value |
 |---|---|
-| Tank Level | 67.0% |
-| Last Updated | 2026-03-30 14:12:11 UTC |
-| Last Flush Detected | 2026-03-30 02:24:04 UTC |
+| Tank Level | 63.0% |
+| Last Updated | 2026-03-30 15:41:30 UTC |
+| Last Flush Detected | 2026-03-30 15:41:30 UTC |
 
 ## Recent History
 
 | Time (UTC) | Event | Change |
 |---|---|---|
-| 2026-03-30 02:24:04 | Flush detected | 38.0% → 6.0%  |
+| 2026-03-30 15:41:30 | Flush detected | 67.0% → 63.0% |
+| 2026-03-30 02:24:04 | Flush detected | 38.0% → 6.0% |
 | 2026-03-29 23:48:09 | Flush detected | 43.0% → 38.0% |
 | 2026-03-29 23:00:56 | Flush detected | 49.0% → 43.0% |
 | 2026-03-29 22:29:31 | Flush detected | 54.0% → 49.0% |
 | 2026-03-29 21:03:52 | Flush detected | 62.0% → 57.0% |
 | 2026-03-29 20:30:15 | Flush detected | 68.0% → 62.0% |
-| 2026-03-29 02:13:55 | Flush detected | 23.0% → 9.0%  |
+| 2026-03-29 02:13:55 | Flush detected | 23.0% → 9.0% |
 | 2026-03-28 23:45:55 | Flush detected | 28.0% → 23.0% |
 | 2026-03-28 23:02:27 | Flush detected | 33.0% → 28.0% |
 | 2026-03-28 21:59:13 | Flush detected | 39.0% → 34.0% |
@@ -32,7 +33,7 @@
 | 2026-03-28 20:57:39 | Flush detected | 53.0% → 45.0% |
 | 2026-03-28 20:28:30 | Flush detected | 58.0% → 53.0% |
 | 2026-03-28 19:51:53 | Flush detected | 64.0% → 58.0% |
-| 2026-03-28 02:54:17 | Flush detected | 16.0% → 8.0%  |
+| 2026-03-28 02:54:17 | Flush detected | 16.0% → 8.0% |
 | 2026-03-28 00:00:06 | Flush detected | 22.0% → 16.0% |
 | 2026-03-27 22:51:55 | Flush detected | 29.0% → 25.0% |
 | 2026-03-27 22:02:01 | Flush detected | 34.0% → 29.0% |
@@ -40,14 +41,14 @@
 | 2026-03-27 20:55:29 | Flush detected | 50.0% → 42.0% |
 | 2026-03-27 20:00:36 | Flush detected | 56.0% → 50.0% |
 | 2026-03-27 19:28:45 | Flush detected | 67.0% → 56.0% |
-| 2026-03-27 04:42:07 | Flush detected | 14.0% → 8.0%  |
+| 2026-03-27 04:42:07 | Flush detected | 14.0% → 8.0% |
 | 2026-03-27 02:11:15 | Flush detected | 44.0% → 14.0% |
 | 2026-03-26 23:47:25 | Flush detected | 51.0% → 44.0% |
 | 2026-03-26 21:30:38 | Flush detected | 42.0% → 34.0% |
 | 2026-03-26 20:51:07 | Flush detected | 49.0% → 42.0% |
 | 2026-03-26 20:00:59 | Flush detected | 54.0% → 49.0% |
 | 2026-03-26 19:20:16 | Flush detected | 68.0% → 54.0% |
-| 2026-03-26 02:50:30 | Flush detected | 13.0% → 8.0%  |
+| 2026-03-26 02:50:30 | Flush detected | 13.0% → 8.0% |
 | 2026-03-25 23:57:51 | Flush detected | 21.0% → 13.0% |
 | 2026-03-25 23:18:48 | Flush detected | 27.0% → 21.0% |
 | 2026-03-25 22:34:38 | Flush detected | 35.0% → 27.0% |
@@ -55,7 +56,7 @@
 | 2026-03-25 20:21:36 | Flush detected | 50.0% → 45.0% |
 | 2026-03-25 18:35:12 | Flush detected | 54.0% → 43.0% |
 | 2026-03-25 17:34:10 | Flush detected | 66.0% → 54.0% |
-| 2026-03-24 21:03:26 | Flush detected | 13.0% → 7.0%  |
+| 2026-03-24 21:03:26 | Flush detected | 13.0% → 7.0% |
 | 2026-03-24 20:23:42 | Flush detected | 19.0% → 13.0% |
 | 2026-03-24 19:40:41 | Flush detected | 27.0% → 19.0% |
 | 2026-03-24 18:39:03 | Flush detected | 36.0% → 27.0% |
@@ -63,8 +64,7 @@
 | 2026-03-24 16:35:55 | Flush detected | 55.0% → 42.0% |
 | 2026-03-24 15:19:33 | Flush detected | 62.0% → 55.0% |
 | 2026-03-24 14:04:40 | Flush detected | 67.0% → 62.0% |
-| 2026-03-23 21:20:54 | Flush detected | 40.0% → 6.0%  |
+| 2026-03-23 21:20:54 | Flush detected | 40.0% → 6.0% |
 | 2026-03-23 20:39:53 | Flush detected | 69.0% → 40.0% |
 | 2026-03-21 04:04:54 | Flush detected | 14.0% → 10.0% |
 | 2026-03-21 01:53:31 | Flush detected | 35.0% → 14.0% |
-| 2026-03-20 23:52:27 | Flush detected | 39.0% → 35.0% |
