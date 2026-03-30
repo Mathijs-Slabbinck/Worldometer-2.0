@@ -21,3 +21,11 @@ Desktop.ini
 
 # Logs
 *.log
+
+# Secrets & credentials
+.env
+.env.*
+*.pfx
+*.pem
+*.key
+secrets.json

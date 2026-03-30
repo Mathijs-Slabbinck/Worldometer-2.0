@@ -1,8 +1,10 @@
+"use strict";
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatCurrency, formatPercent, formatNumber, abbreviate } from '../utils/format.js';
 import { createCard, createSubCategory, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
 import { getFreshness } from '../utils/freshness.js';
 import { CountUp } from '../utils/counter.js';
+import { reverseDateStr } from '../utils/time.js';
 
 export const sectionId = 'economy';
 
@@ -33,6 +35,14 @@ export async function init() {
       cards: [
         { id: 'econ-gdp', label: 'World GDP' },
         { id: 'econ-debt', label: 'US National Debt' },
+        { id: 'econ-inflation', label: 'World Inflation Rate' },
+        { id: 'econ-unemployment', label: 'World Unemployment Rate' },
+      ],
+    },
+    {
+      title: 'Commodities',
+      cards: [
+        { id: 'econ-gold', label: 'Gold Price' },
       ],
     },
   ];
@@ -48,7 +58,18 @@ export async function init() {
 }
 
 export async function refresh() {
-  const results = await Promise.allSettled([
+  const [
+    cryptoMarketResult,
+    coinloreResult,
+    forexResult,
+    mempoolResult,
+    hashrateResult,
+    gdpResult,
+    debtResult,
+    goldResult,
+    inflationResult,
+    unemploymentResult,
+  ] = await Promise.allSettled([
     fetchData('https://api.coingecko.com/api/v3/global'),
     fetchData('https://api.coinlore.net/api/global/'),
     fetchData('https://api.frankfurter.dev/v1/latest?base=USD'),
@@ -56,11 +77,14 @@ export async function refresh() {
     fetchData('https://mempool.space/api/v1/mining/hashrate/1m'),
     fetchData('https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.MKTP.CD?format=json&per_page=5'),
     fetchData('https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny?sort=-record_date&page[size]=1'),
+    fetchData('https://freegoldapi.com/data/latest.json'),
+    fetchData('https://api.worldbank.org/v2/country/WLD/indicator/FP.CPI.TOTL.ZG?format=json&per_page=5'),
+    fetchData('https://api.worldbank.org/v2/country/WLD/indicator/SL.UEM.TOTL.ZS?format=json&per_page=5'),
   ]);
 
   // Crypto market cap
-  if (results[0].status === 'fulfilled' && !results[0].value.error) {
-    const { data, stale } = results[0].value;
+  if (cryptoMarketResult.status === 'fulfilled' && !cryptoMarketResult.value.error) {
+    const { data, stale } = cryptoMarketResult.value;
     if (data.data) {
       const mcap = data.data.total_market_cap.usd;
       const change = data.data.market_cap_change_percentage_24h_usd;
@@ -77,8 +101,8 @@ export async function refresh() {
   }
 
   // BTC/ETH dominance
-  if (results[1].status === 'fulfilled' && !results[1].value.error) {
-    const { data, stale } = results[1].value;
+  if (coinloreResult.status === 'fulfilled' && !coinloreResult.value.error) {
+    const { data, stale } = coinloreResult.value;
     const d = Array.isArray(data) ? data[0] : data;
     if (d) {
       updateCard('econ-btc-dom', {
@@ -100,8 +124,8 @@ export async function refresh() {
   }
 
   // Exchange rates
-  if (results[2].status === 'fulfilled' && !results[2].value.error) {
-    const { data, stale } = results[2].value;
+  if (forexResult.status === 'fulfilled' && !forexResult.value.error) {
+    const { data, stale } = forexResult.value;
     if (data.rates) {
       const pairs = ['EUR', 'GBP', 'JPY', 'CNY'];
       const valEl = getCardValueEl('econ-forex');
@@ -140,7 +164,7 @@ export async function refresh() {
       }
       const card = document.getElementById('econ-forex');
       if (card) card.dataset.state = 'success';
-      const forexDate = data.date.split('-').reverse().join('-');
+      const forexDate = reverseDateStr(data.date);
       updateCard('econ-forex', { context: `Base: USD (${forexDate})`, state: 'success' });
       setCardFreshness('econ-forex', getFreshness('econ-forex', stale));
     }
@@ -149,8 +173,8 @@ export async function refresh() {
   }
 
   // BTC mempool
-  if (results[3].status === 'fulfilled' && !results[3].value.error) {
-    const { data, stale } = results[3].value;
+  if (mempoolResult.status === 'fulfilled' && !mempoolResult.value.error) {
+    const { data, stale } = mempoolResult.value;
     if (data.count !== undefined) {
       if (counters['econ-mempool']) {
         counters['econ-mempool'].update(data.count);
@@ -169,8 +193,8 @@ export async function refresh() {
   }
 
   // BTC hashrate
-  if (results[4].status === 'fulfilled' && !results[4].value.error) {
-    const { data, stale } = results[4].value;
+  if (hashrateResult.status === 'fulfilled' && !hashrateResult.value.error) {
+    const { data, stale } = hashrateResult.value;
     if (data.currentHashrate !== undefined) {
       const ehps = (data.currentHashrate / 1e18).toFixed(1);
       updateCard('econ-hashrate', {
@@ -185,30 +209,15 @@ export async function refresh() {
   }
 
   // World GDP (World Bank — fetch latest available year)
-  if (results[5].status === 'fulfilled' && !results[5].value.error) {
-    const { data, stale } = results[5].value;
-    if (Array.isArray(data) && data.length >= 2 && Array.isArray(data[1])) {
-      const gdpEntry = data[1].find((entry) => entry.value !== null);
-      if (gdpEntry) {
-        updateCard('econ-gdp', {
-          value: formatCurrency(gdpEntry.value),
-          context: `World Bank (${gdpEntry.date})`,
-          state: 'success',
-        });
-        setCardFreshness('econ-gdp', getFreshness('econ-gdp', stale));
-      }
-    }
-  } else {
-    setCardError('econ-gdp', () => refresh());
-  }
+  handleWorldBankIndicator(gdpResult, 'econ-gdp', 'World Bank', formatCurrency);
 
   // US National Debt (Treasury Fiscal Data API)
-  if (results[6].status === 'fulfilled' && !results[6].value.error) {
-    const { data, stale } = results[6].value;
+  if (debtResult.status === 'fulfilled' && !debtResult.value.error) {
+    const { data, stale } = debtResult.value;
     if (data.data && data.data.length > 0) {
       const entry = data.data[0];
       const totalDebt = parseFloat(entry.tot_pub_debt_out_amt);
-      const recordDate = entry.record_date.split('-').reverse().join('-');
+      const recordDate = reverseDateStr(entry.record_date);
       updateCard('econ-debt', {
         value: formatCurrency(totalDebt),
         context: `US Treasury (${recordDate})`,
@@ -218,5 +227,48 @@ export async function refresh() {
     }
   } else {
     setCardError('econ-debt', () => refresh());
+  }
+
+  // Gold Price (FreeGoldAPI)
+  if (goldResult.status === 'fulfilled' && !goldResult.value.error) {
+    const { data, stale } = goldResult.value;
+    if (Array.isArray(data) && data.length > 0) {
+      const latest = data[data.length - 1];
+      const price = parseFloat(latest.price);
+      if (!isNaN(price)) {
+        const goldDate = reverseDateStr(latest.date);
+        updateCard('econ-gold', {
+          value: `$${formatNumber(price, 2)}`,
+          context: `Per troy ounce (${goldDate})`,
+          state: 'success',
+        });
+        setCardFreshness('econ-gold', getFreshness('econ-gold', stale));
+      }
+    }
+  } else {
+    setCardError('econ-gold', () => refresh());
+  }
+
+  // World Bank percentage indicators
+  handleWorldBankIndicator(inflationResult, 'econ-inflation', 'Consumer prices, World Bank', formatPercent);
+  handleWorldBankIndicator(unemploymentResult, 'econ-unemployment', 'ILO modeled, World Bank', formatPercent);
+}
+
+function handleWorldBankIndicator(result, cardId, label, formatFn) {
+  if (result.status === 'fulfilled' && !result.value.error) {
+    const { data, stale } = result.value;
+    if (Array.isArray(data) && data.length >= 2 && Array.isArray(data[1])) {
+      const entry = data[1].find((e) => e.value !== null);
+      if (entry) {
+        updateCard(cardId, {
+          value: formatFn(entry.value),
+          context: `${label} (${entry.date})`,
+          state: 'success',
+        });
+        setCardFreshness(cardId, getFreshness(cardId, stale));
+      }
+    }
+  } else {
+    setCardError(cardId, () => refresh());
   }
 }

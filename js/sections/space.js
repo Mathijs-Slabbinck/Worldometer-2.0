@@ -1,6 +1,7 @@
+"use strict";
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber, abbreviate } from '../utils/format.js';
-import { nowISO, monthAgoISO, weekFromNowISO, countdown, formatUTC, relativeTime } from '../utils/time.js';
+import { nowISO, monthAgoISO, weekFromNowISO, countdown, formatUTC, relativeTime, reverseDateStr } from '../utils/time.js';
 import { NASA_API_KEY } from '../config.js';
 import { createCard, createSubCategory, updateCard, updateCardContext, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
 import { getFreshness } from '../utils/freshness.js';
@@ -50,6 +51,42 @@ export async function init() {
       ],
     },
     {
+      title: 'Satellites',
+      cards: [
+        { id: 'space-satellites', label: 'Satellites in Orbit' },
+        { id: 'space-sat-launched', label: 'Total Objects Launched' },
+        { id: 'space-sat-decayed', label: 'Decommissioned / Decayed' },
+        { id: 'space-sat-failures', label: 'Launch Failures' },
+      ],
+    },
+    {
+      title: 'Starlink',
+      cards: [
+        { id: 'space-starlink', label: 'Starlink Constellation' },
+        { id: 'space-starlink-total', label: 'Total Starlink Launched' },
+        { id: 'space-starlink-decayed', label: 'Starlink Decommissioned' },
+        { id: 'space-starlink-failures', label: 'Starlink Launch Failures' },
+      ],
+    },
+    {
+      title: 'Rocket Bodies',
+      cards: [
+        { id: 'space-rocket-bodies', label: 'Rocket Bodies in Orbit' },
+      ],
+    },
+    {
+      title: 'Debris',
+      cards: [
+        { id: 'space-debris', label: 'Debris Objects in Orbit' },
+      ],
+    },
+    {
+      title: 'Unknown Objects',
+      cards: [
+        { id: 'space-unknown', label: 'Unknown Objects in Orbit' },
+      ],
+    },
+    {
       title: 'Picture of the Day',
       cards: [
         { id: 'space-apod', label: 'NASA Astronomy Picture of the Day', featured: true },
@@ -65,7 +102,9 @@ export async function init() {
   }
 
   // Start ISS live telemetry (Lightstreamer)
-  initISSToilet();
+  initISSToilet().catch(function (err) {
+    console.error('[space] ISS toilet init failed:', err);
+  });
 
   await refresh();
 }
@@ -83,6 +122,9 @@ export async function refresh() {
     fetchData(`https://api.nasa.gov/DONKI/FLR?startDate=${monthAgo}&endDate=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
     fetchData('https://api.wheretheiss.at/v1/satellites/25544', { retries: 0, timeout: 5000 }),
     fetchData(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`, { retries: 0 }),
+    fetchData('https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=json', { retries: 0, timeout: 15000 }),
+    fetchData('https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=json', { retries: 0, timeout: 15000 }),
+    fetchData('data/satellite-stats.json', { retries: 0, timeout: 5000 }),
   ]);
 
   // People in space
@@ -136,9 +178,9 @@ export async function refresh() {
   // Fallback to static values if the API call failed
   if (results[5].status !== 'fulfilled' || results[5].value.error || !results[5].value.data) {
     updateCard('space-iss-speed', { value: '~27,600 km/h', context: 'Orbital velocity (live)', state: 'success' });
-    setCardFreshness('space-iss-speed', 'old');
+    setCardFreshness('space-iss-speed', 'cached');
     updateCard('space-iss-altitude', { value: '~408 km', context: 'Low Earth orbit (live)', state: 'success' });
-    setCardFreshness('space-iss-altitude', 'old');
+    setCardFreshness('space-iss-altitude', 'cached');
   }
 
   // Asteroids
@@ -342,6 +384,60 @@ export async function refresh() {
     renderAPOD(data, stale);
     return true;
   }, 'space-apod');
+
+  // CelesTrak satellite counts
+  handleResult(results[7], makeArrayCountHandler('space-satellites', 'Tracked active objects (live)'), 'space-satellites');
+  handleResult(results[8], makeArrayCountHandler('space-starlink', 'SpaceX constellation (live)'), 'space-starlink');
+
+  // SATCAT aggregate stats (from GH Action cache)
+  handleResult(results[9], function (res) {
+    const { data, stale } = res;
+    if (!data || !data.overview) return false;
+
+    const o = data.overview;
+    const s = data.starlink;
+    const rb = data.rocketBodies;
+    const deb = data.debris;
+    const unk = data.unknown;
+
+    // Overview cards
+    renderStatCard('space-sat-launched', o.totalLaunched, `${formatNumber(o.payloads)} payloads (updates every 6h)`);
+    renderStatCard('space-sat-decayed', o.decayed, 'No longer in orbit (updates every 6h)');
+    if (o.launchFailures > 0) {
+      renderStatCard('space-sat-failures', o.launchFailures, `+ ${o.partialFailures} partial (updates every 6h)`);
+    } else {
+      renderStatCard('space-sat-failures', o.launchFailures, 'Historical launch failures (updates every 6h)');
+    }
+
+    // Starlink cards
+    renderStatCard('space-starlink-total', s.total, 'All Starlink satellites (updates every 6h)');
+    renderStatCard('space-starlink-decayed', s.decayed, 'Deorbited (updates every 6h)');
+    renderStatCard('space-starlink-failures', s.launchFailures, 'Failed Starlink launches (updates every 6h)');
+
+    // Object type counts
+    renderStatCard('space-rocket-bodies', rb.inOrbit, `${formatNumber(rb.total)} total catalogued (updates every 6h)`);
+    renderStatCard('space-debris', deb.inOrbit, `${formatNumber(deb.total)} total catalogued (updates every 6h)`);
+    renderStatCard('space-unknown', unk.inOrbit, `${formatNumber(unk.total)} total catalogued (updates every 6h)`);
+
+    // Freshness — updated every 6h, tagged as live
+    const satCards = [
+      'space-sat-launched', 'space-sat-decayed', 'space-sat-failures',
+      'space-starlink-total', 'space-starlink-decayed', 'space-starlink-failures',
+      'space-rocket-bodies', 'space-debris', 'space-unknown',
+    ];
+    for (const id of satCards) {
+      setCardFreshness(id, getFreshness(id, stale));
+    }
+
+    // Build browse lists (lazy-loaded on toggle click)
+    buildSatelliteList('space-satellites', 'sat-pay-panel', 'data/satcat-pay.json', 'satellites');
+    buildSatelliteList('space-starlink', 'sat-starlink-panel', 'data/satcat-starlink.json', 'Starlink satellites');
+    buildSatelliteList('space-rocket-bodies', 'sat-rb-panel', 'data/satcat-rb.json', 'rocket bodies');
+    buildSatelliteList('space-debris', 'sat-deb-panel', 'data/satcat-deb.json', 'debris objects');
+    buildSatelliteList('space-unknown', 'sat-unk-panel', 'data/satcat-unk.json', 'unknown objects');
+
+    return true;
+  }, 'space-sat-launched');
 }
 
 function getLaunchUrl(launch) {
@@ -397,6 +493,29 @@ function extractCurrentCraft(astronaut) {
   }
 
   return result;
+}
+
+function makeArrayCountHandler(cardId, contextLabel) {
+  return function (res) {
+    const { data, stale } = res;
+    if (!Array.isArray(data) || data.length === 0) return false;
+    renderStatCard(cardId, data.length, contextLabel);
+    setCardFreshness(cardId, getFreshness(cardId, stale));
+    return true;
+  };
+}
+
+function renderStatCard(cardId, count, contextLabel) {
+  if (counters[cardId]) {
+    counters[cardId].update(count);
+  } else {
+    const el = getCardValueEl(cardId);
+    if (el) {
+      counters[cardId] = new CountUp(el, count);
+      counters[cardId].start();
+    }
+  }
+  updateCard(cardId, { context: contextLabel, state: 'success' });
 }
 
 function handleResult(result, onSuccess, errorCardId) {
@@ -612,10 +731,12 @@ function buildFlareList(flares) {
   const divPanel = document.createElement('div');
   divPanel.className = 'expandable-panel';
   divPanel.id = 'flare-panel';
+  divPanel.setAttribute('role', 'region');
   divPanel.setAttribute('aria-label', 'Solar flare list');
 
   // Search input
   const inpSearch = document.createElement('input');
+  inpSearch.id = 'flare-panel-search';
   inpSearch.className = 'expandable-search';
   inpSearch.setAttribute('type', 'text');
   inpSearch.setAttribute('placeholder', 'Search flares (e.g. X1, M2)...');
@@ -663,7 +784,7 @@ function buildFlareList(flares) {
       liItem.className = 'expandable-item';
 
       const spnClass = document.createElement('span');
-      spnClass.className = 'expandable-item-label ' + getFlareColorClass(flare.classType);
+      spnClass.className = `expandable-item-label ${getFlareColorClass(flare.classType)}`;
       spnClass.textContent = flare.classType || 'Unknown';
 
       const spnDate = document.createElement('span');
@@ -700,6 +821,7 @@ function buildFlareList(flares) {
       spnToggleArrow.classList.add('open');
       spnToggleText.textContent = 'Hide flares';
       renderItems('');
+      inpSearch.focus();
     } else {
       divPanel.classList.remove('open');
       spnToggleArrow.classList.remove('open');
@@ -712,6 +834,10 @@ function buildFlareList(flares) {
   inpSearch.addEventListener('input', function () {
     renderItems(inpSearch.value);
   });
+}
+
+function cleanAsteroidName(name) {
+  return (name || '').replace(/^\(|\)$/g, '');
 }
 
 // Asteroid expandable browse list
@@ -747,9 +873,11 @@ function buildAsteroidList(asteroids) {
   const divPanel = document.createElement('div');
   divPanel.className = 'expandable-panel';
   divPanel.id = 'asteroid-panel';
+  divPanel.setAttribute('role', 'region');
   divPanel.setAttribute('aria-label', 'Asteroid list');
 
   const inpSearch = document.createElement('input');
+  inpSearch.id = 'asteroid-panel-search';
   inpSearch.className = 'expandable-search';
   inpSearch.setAttribute('type', 'text');
   inpSearch.setAttribute('placeholder', 'Search by name, hazardous...');
@@ -796,8 +924,7 @@ function buildAsteroidList(asteroids) {
       const spnName = document.createElement('span');
       spnName.className = 'expandable-item-label expandable-item-label--sans';
 
-      // Clean the name — remove parentheses wrapping the designation
-      const cleanName = asteroid.name.replace(/^\(|\)$/g, '');
+      const cleanName = cleanAsteroidName(asteroid.name);
       spnName.textContent = cleanName;
 
       const spnRight = document.createElement('span');
@@ -846,6 +973,7 @@ function buildAsteroidList(asteroids) {
       spnToggleArrow.classList.add('open');
       spnToggleText.textContent = 'Hide asteroids';
       renderItems('');
+      inpSearch.focus();
     } else {
       divPanel.classList.remove('open');
       spnToggleArrow.classList.remove('open');
@@ -899,7 +1027,7 @@ function showAsteroidModal(asteroid) {
     addRow('Relative Velocity', asteroid.velocityKmS.toFixed(2) + ' km/s');
   }
   if (asteroid.velocityKmH !== null) {
-    addRow('', formatNumber(Math.round(asteroid.velocityKmH)) + ' km/h');
+    addRow('(km/h)', formatNumber(Math.round(asteroid.velocityKmH)));
   }
 
   // Size
@@ -944,8 +1072,7 @@ function showAsteroidModal(asteroid) {
     bodyDiv.appendChild(linkP);
   }
 
-  const cleanName = asteroid.name.replace(/^\(|\)$/g, '');
-  openModal({ title: cleanName, body: bodyDiv });
+  openModal({ title: cleanAsteroidName(asteroid.name), body: bodyDiv });
 }
 
 function getFlareColorClass(classType) {
@@ -966,7 +1093,7 @@ function formatFlareDate(dateStr) {
   const day = String(d.getUTCDate()).padStart(2, '0');
   const hours = String(d.getUTCHours()).padStart(2, '0');
   const minutes = String(d.getUTCMinutes()).padStart(2, '0');
-  return `${month}-${day} ${hours}:${minutes}`;
+  return `${day}-${month} ${hours}:${minutes}`;
 }
 
 // Solar flare detail modal
@@ -1112,8 +1239,17 @@ function renderAPOD(data, stale) {
   title.textContent = data.title || '';
   if (isImage) {
     title.classList.add('apod-title--clickable');
+    title.setAttribute('tabindex', '0');
+    title.setAttribute('role', 'button');
+    title.setAttribute('aria-label', 'View full image: ' + (data.title || 'APOD'));
     title.addEventListener('click', function () {
       showAPODModal(data);
+    });
+    title.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showAPODModal(data);
+      }
     });
   }
   valEl.appendChild(title);
@@ -1134,7 +1270,7 @@ function renderAPOD(data, stale) {
 
   const ctxEl = card.querySelector('.stat-context');
   if (ctxEl) {
-    const dateStr = data.date ? data.date.split('-').reverse().join('-') : 'today';
+    const dateStr = data.date ? reverseDateStr(data.date) : 'today';
     if (isImage) {
       ctxEl.textContent = `Click image for full view (${dateStr})`;
     } else {
@@ -1157,7 +1293,7 @@ function showAPODModal(data) {
   if (data.date) {
     const dateP = document.createElement('p');
     dateP.className = 'modal-description';
-    dateP.textContent = `Date: ${data.date.split('-').reverse().join('-')}`;
+    dateP.textContent = `Date: ${reverseDateStr(data.date)}`;
     bodyDiv.appendChild(dateP);
   }
 
@@ -1175,6 +1311,318 @@ function showAPODModal(data) {
   openModal({ title: data.title || 'Astronomy Picture of the Day', body: bodyDiv, image: image });
 }
 
+// Satellite browse list (lazy-loaded, batch-loaded like earthquakes)
+function buildSatelliteList(cardId, panelId, dataUrl, typeName) {
+  const card = document.getElementById(cardId);
+  if (!card) return;
+
+  // Skip if already built (refresh calls this repeatedly)
+  if (card.querySelector('.expandable-list')) return;
+
+  const divList = document.createElement('div');
+  divList.className = 'expandable-list';
+
+  // Toggle button
+  const btnToggle = document.createElement('button');
+  btnToggle.className = 'expandable-toggle';
+  btnToggle.setAttribute('type', 'button');
+  btnToggle.setAttribute('aria-expanded', 'false');
+  btnToggle.setAttribute('aria-controls', panelId);
+
+  const spnToggleText = document.createElement('span');
+  spnToggleText.textContent = `Browse ${typeName}`;
+
+  const spnToggleArrow = document.createElement('span');
+  spnToggleArrow.className = 'expandable-toggle-arrow';
+  spnToggleArrow.textContent = '\u25BC';
+  spnToggleArrow.setAttribute('aria-hidden', 'true');
+
+  btnToggle.appendChild(spnToggleText);
+  btnToggle.appendChild(spnToggleArrow);
+
+  // Panel
+  const divPanel = document.createElement('div');
+  divPanel.className = 'expandable-panel';
+  divPanel.id = panelId;
+  divPanel.setAttribute('role', 'region');
+  divPanel.setAttribute('aria-label', `${typeName} list`);
+
+  // Search input
+  const inpSearch = document.createElement('input');
+  inpSearch.id = `${panelId}-search`;
+  inpSearch.className = 'expandable-search';
+  inpSearch.setAttribute('type', 'text');
+  inpSearch.setAttribute('placeholder', `Search by name, owner, NORAD ID...`);
+  inpSearch.setAttribute('autocomplete', 'off');
+  inpSearch.setAttribute('aria-label', `Search ${typeName}`);
+
+  // Column headers
+  const divHeader = document.createElement('div');
+  divHeader.className = 'sat-header';
+  divHeader.setAttribute('aria-hidden', 'true');
+
+  const hdrName = document.createElement('span');
+  hdrName.className = 'sat-header-name';
+  hdrName.textContent = 'Name';
+
+  const hdrOwner = document.createElement('span');
+  hdrOwner.className = 'sat-header-owner';
+  hdrOwner.textContent = 'Country';
+
+  const hdrDate = document.createElement('span');
+  hdrDate.className = 'sat-header-date';
+  hdrDate.textContent = 'Launch Date';
+
+  divHeader.appendChild(hdrName);
+  divHeader.appendChild(hdrOwner);
+  divHeader.appendChild(hdrDate);
+
+  // Items list
+  const ulItems = document.createElement('ul');
+  ulItems.className = 'expandable-items';
+  ulItems.setAttribute('role', 'list');
+
+  divPanel.appendChild(inpSearch);
+  divPanel.appendChild(divHeader);
+  divPanel.appendChild(ulItems);
+
+  divList.appendChild(btnToggle);
+  divList.appendChild(divPanel);
+  card.appendChild(divList);
+
+  const BATCH_SIZE = 100;
+  let allItems = null;
+  let loaded = false;
+
+  function createSatItem(item) {
+    const liItem = document.createElement('li');
+    liItem.className = 'expandable-item';
+
+    const spnName = document.createElement('span');
+    spnName.className = 'expandable-item-label expandable-item-label--sans';
+    spnName.textContent = item.n || 'Unknown';
+
+    const spnOwner = document.createElement('span');
+    spnOwner.className = 'sat-item-owner';
+    spnOwner.textContent = item.owner || '??';
+
+    const spnDate = document.createElement('span');
+    spnDate.className = 'expandable-item-meta';
+    spnDate.textContent = item.launch ? reverseDateStr(item.launch) : '';
+
+    liItem.appendChild(spnName);
+    liItem.appendChild(spnOwner);
+    liItem.appendChild(spnDate);
+    liItem.setAttribute('tabindex', '0');
+    liItem.setAttribute('role', 'button');
+    liItem.setAttribute('aria-label', `${item.n || 'Unknown'} — ${item.owner || 'Unknown owner'}`);
+
+    liItem.addEventListener('click', function () { showSatelliteModal(item); });
+    liItem.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showSatelliteModal(item);
+      }
+    });
+
+    return liItem;
+  }
+
+  function appendLoadMore(filtered, shownCount) {
+    const existingMore = ulItems.querySelector('.expandable-load-more');
+    if (existingMore) existingMore.remove();
+
+    const remaining = filtered.length - shownCount;
+    if (remaining <= 0) return;
+
+    const liMore = document.createElement('li');
+    liMore.className = 'expandable-load-more';
+
+    const btn = document.createElement('button');
+    btn.className = 'expandable-load-more-btn';
+    btn.setAttribute('type', 'button');
+    const nextBatch = Math.min(remaining, BATCH_SIZE);
+    btn.textContent = `Load ${nextBatch} more (${remaining} remaining)`;
+
+    btn.addEventListener('click', function () {
+      liMore.remove();
+      const nextSlice = filtered.slice(shownCount, shownCount + BATCH_SIZE);
+      for (const sat of nextSlice) {
+        ulItems.appendChild(createSatItem(sat));
+      }
+      appendLoadMore(filtered, shownCount + nextSlice.length);
+    });
+
+    liMore.appendChild(btn);
+    ulItems.appendChild(liMore);
+  }
+
+  function renderItems(filter) {
+    ulItems.replaceChildren();
+    if (!allItems) return;
+
+    const query = (filter || '').trim().toLowerCase();
+    let filtered = allItems;
+
+    if (query) {
+      filtered = allItems.filter(function (item) {
+        const name = (item.n || '').toLowerCase();
+        const owner = (item.owner || '').toLowerCase();
+        const noradId = String(item.id || '');
+        const intl = (item.intl || '').toLowerCase();
+        return name.includes(query) || owner.includes(query) ||
+               noradId.includes(query) || intl.includes(query);
+      });
+    }
+
+    if (filtered.length === 0) {
+      const liEmpty = document.createElement('li');
+      liEmpty.className = 'expandable-empty';
+      liEmpty.textContent = `No matching ${typeName}`;
+      ulItems.appendChild(liEmpty);
+      return;
+    }
+
+    const initial = filtered.slice(0, BATCH_SIZE);
+    for (const sat of initial) {
+      ulItems.appendChild(createSatItem(sat));
+    }
+    appendLoadMore(filtered, initial.length);
+  }
+
+  // Toggle open/close — lazy-loads data on first open
+  let isOpen = false;
+  btnToggle.addEventListener('click', function () {
+    isOpen = !isOpen;
+    btnToggle.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) {
+      divPanel.classList.add('open');
+      spnToggleArrow.classList.add('open');
+      spnToggleText.textContent = `Hide ${typeName}`;
+
+      if (!loaded) {
+        // Show loading state
+        ulItems.replaceChildren();
+        const liLoading = document.createElement('li');
+        liLoading.className = 'expandable-empty';
+        liLoading.textContent = `Loading ${typeName}...`;
+        ulItems.appendChild(liLoading);
+
+        fetch(dataUrl)
+          .then(function (r) { return r.json(); })
+          .then(function (items) {
+            loaded = true;
+            allItems = items;
+            renderItems('');
+          })
+          .catch(function () {
+            ulItems.replaceChildren();
+            const liErr = document.createElement('li');
+            liErr.className = 'expandable-empty';
+            liErr.textContent = `Failed to load ${typeName}`;
+            ulItems.appendChild(liErr);
+          });
+      } else {
+        renderItems(inpSearch.value);
+      }
+      inpSearch.focus();
+    } else {
+      divPanel.classList.remove('open');
+      spnToggleArrow.classList.remove('open');
+      spnToggleText.textContent = `Browse ${typeName}`;
+      inpSearch.value = '';
+    }
+  });
+
+  // Search handler (debounced — lists can have 18K+ items)
+  let searchTimer = null;
+  inpSearch.addEventListener('input', function () {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function () {
+      renderItems(inpSearch.value);
+    }, 150);
+  });
+}
+
+// Satellite detail modal
+function showSatelliteModal(item) {
+  const bodyDiv = document.createElement('div');
+
+  // Status badge (for payloads only)
+  if (item.status) {
+    const statusP = document.createElement('p');
+    const statusSpan = document.createElement('span');
+    statusSpan.className = getSatStatusColorClass(item.status);
+    statusSpan.textContent = getSatStatusLabel(item.status);
+    statusP.appendChild(statusSpan);
+    bodyDiv.appendChild(statusP);
+  }
+
+  // Detail grid
+  const grid = document.createElement('div');
+  grid.className = 'modal-detail-grid';
+
+  function addGridRow(label, value) {
+    if (!value) return;
+    const lblEl = document.createElement('span');
+    lblEl.className = 'modal-detail-label';
+    lblEl.textContent = label;
+    const valEl = document.createElement('span');
+    valEl.className = 'modal-detail-value';
+    valEl.textContent = value;
+    grid.appendChild(lblEl);
+    grid.appendChild(valEl);
+  }
+
+  addGridRow('NORAD ID', String(item.id || ''));
+  addGridRow('Designator', item.intl || '');
+  addGridRow('Owner', item.owner || '');
+  addGridRow('Launch Date', item.launch ? reverseDateStr(item.launch) : 'Unknown');
+  if (item.perigee) addGridRow('Perigee', `${item.perigee} km`);
+  if (item.apogee) addGridRow('Apogee', `${item.apogee} km`);
+
+  bodyDiv.appendChild(grid);
+
+  // N2YO tracking link
+  if (item.id) {
+    const linkP = document.createElement('p');
+    linkP.className = 'modal-link-row';
+    const link = document.createElement('a');
+    link.href = `https://www.n2yo.com/satellite/?s=${item.id}`;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Track on N2YO \u2192';
+    link.setAttribute('aria-label', `Track ${item.n || 'satellite'} on N2YO (opens in new tab)`);
+    linkP.appendChild(link);
+    bodyDiv.appendChild(linkP);
+  }
+
+  openModal({ title: item.n || 'Satellite Details', body: bodyDiv });
+}
+
+// Satellite status color/label helpers
+function getSatStatusColorClass(status) {
+  switch (status) {
+    case '+': return 'sat-status-active';
+    case 'P': case 'B': case 'S': case 'X': return 'sat-status-partial';
+    case 'D': return 'sat-status-decayed';
+    default: return 'sat-status-inactive';
+  }
+}
+
+function getSatStatusLabel(status) {
+  switch (status) {
+    case '+': return 'Operational';
+    case '-': return 'Non-operational';
+    case 'D': return 'Decayed';
+    case 'P': return 'Partially Operational';
+    case 'B': return 'Backup / Standby';
+    case 'S': return 'Spare';
+    case 'X': return 'Extended Mission';
+    default: return 'Unknown';
+  }
+}
+
 // Load persisted toilet data from TOILET_DATA.md
 async function loadPersistedToiletData() {
   try {
@@ -1189,8 +1637,10 @@ async function loadPersistedToiletData() {
       return val === 'null' ? null : val;
     };
 
+    const tankLevelRaw = get('TANK_LEVEL');
+
     return {
-      tankLevel: get('TANK_LEVEL') !== null ? parseFloat(get('TANK_LEVEL')) : null,
+      tankLevel: tankLevelRaw !== null ? parseFloat(tankLevelRaw) : null,
       lastFlush: get('LAST_FLUSH'),
     };
   } catch {

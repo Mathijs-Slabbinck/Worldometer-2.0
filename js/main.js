@@ -28,20 +28,52 @@ document.addEventListener('DOMContentLoaded', () => {
   updateTimestamp();
   setInterval(updateTimestamp, 30000);
 
-  // Init all sections in parallel (don't block each other)
-  for (const s of SECTIONS) {
-    s.module.init().catch(err => {
-      console.error(`Failed to init ${s.module.sectionId}:`, err);
-    });
+  // Init all sections in parallel and track readiness
+  const LOADER_MIN_MS = 2000;
+  const LOADER_MAX_MS = 5000;
+  const elLoader = $('#loader-overlay');
 
-    // Set up refresh intervals
+  const initPromises = SECTIONS.map(s => {
+    const p = s.module.init();
+
     setInterval(() => {
       s.module.refresh().catch(err => {
         console.error(`Failed to refresh ${s.module.sectionId}:`, err);
       });
     }, s.refreshMs);
-  }
+
+    return p;
+  });
+
+  const allReady = Promise.allSettled(initPromises);
+  const minDelay = new Promise(resolve => setTimeout(resolve, LOADER_MIN_MS));
+  const maxDelay = new Promise(resolve => setTimeout(resolve, LOADER_MAX_MS));
+
+  // Wait for both APIs and minimum delay, but cap at max delay
+  const readyAfterMin = Promise.all([allReady, minDelay]);
+  Promise.race([readyAfterMin, maxDelay]).then(() => {
+    dismissLoader(elLoader);
+  });
 });
+
+function dismissLoader(elLoader) {
+  if (!elLoader || !elLoader.parentNode) return;
+
+  document.body.classList.remove('is-loading');
+  elLoader.classList.add('dismiss');
+
+  // Fallback removal if animationend doesn't fire (reduced-motion)
+  const fallbackTimer = setTimeout(() => {
+    if (elLoader.parentNode) {
+      elLoader.remove();
+    }
+  }, 600);
+
+  elLoader.addEventListener('animationend', () => {
+    clearTimeout(fallbackTimer);
+    elLoader.remove();
+  }, { once: true });
+}
 
 function setupCardAnimations() {
   const observer = new IntersectionObserver(
@@ -97,7 +129,7 @@ function setupScrollSpy() {
           const activeLink = navLinks.find(l => l.dataset.section === id);
           if (activeLink) {
             activeLink.classList.add('active');
-            activeLink.setAttribute('aria-current', 'true');
+            activeLink.setAttribute('aria-current', 'location');
             const accent = getComputedStyle(document.documentElement)
               .getPropertyValue(`--accent-${id}`).trim();
             if (accent) {

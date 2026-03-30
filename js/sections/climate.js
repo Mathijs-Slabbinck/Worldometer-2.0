@@ -1,3 +1,4 @@
+"use strict";
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatPPM, formatPPB, formatDegC, formatNumber } from '../utils/format.js';
 import { createCard, createSubCategory, updateCard, setCardError, setCardFreshness, getCardValueEl, getCardContextEl } from '../utils/dom.js';
@@ -62,7 +63,7 @@ export async function init() {
   await refresh();
 
   // AQI has its own fetch cycle (city-dependent)
-  refreshAQI();
+  refreshAQI().catch(function (err) { console.error('[climate] AQI refresh failed:', err); });
 }
 
 export async function refresh() {
@@ -296,7 +297,7 @@ function renderFuelMix(mix, stale) {
 
     const segment = document.createElement('div');
     segment.className = 'fuel-segment';
-    segment.style.flex = String(item.perc);
+    segment.style.flexGrow = String(item.perc);
     segment.style.backgroundColor = color;
     if (item.perc >= 5) {
       segment.textContent = `${item.perc.toFixed(0)}%`;
@@ -329,7 +330,7 @@ async function refreshAQI() {
   let cityName = aqiCity;
   if (!cityName) {
     try {
-      const ipRes = await fetchData('https://ipapi.co/json/', { retries: 0 });
+      const ipRes = await fetchData('https://ipinfo.io/json', { retries: 0 });
       if (!ipRes.error && ipRes.data && ipRes.data.city) {
         cityName = ipRes.data.city;
         aqiCity = cityName;
@@ -450,6 +451,7 @@ function buildAQIPicker() {
   panel.id = 'aqi-picker-panel';
 
   const input = document.createElement('input');
+  input.id = 'aqi-city-search';
   input.className = 'location-picker-input';
   input.setAttribute('type', 'text');
   input.setAttribute('placeholder', 'Search city (e.g. Beijing, Paris)...');
@@ -537,6 +539,7 @@ async function searchAQICity(query, resultsList, panel, btnChange) {
       panel.classList.remove('open');
       btnChange.textContent = 'Change city';
       btnChange.setAttribute('aria-expanded', 'false');
+      btnChange.focus();
       refreshAQI();
     };
 

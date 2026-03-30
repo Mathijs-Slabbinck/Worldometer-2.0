@@ -1,3 +1,4 @@
+"use strict";
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber, abbreviate, formatPercent } from '../utils/format.js';
 import { createCard, createSubCategory, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
@@ -587,6 +588,7 @@ function buildCountryPicker() {
   dropdown.hidden = true;
 
   const searchInput = document.createElement('input');
+  searchInput.id = 'country-picker-search';
   searchInput.type = 'text';
   searchInput.className = 'country-picker-search';
   searchInput.placeholder = 'Search countries...';

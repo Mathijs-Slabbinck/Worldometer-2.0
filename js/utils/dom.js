@@ -1,3 +1,4 @@
+"use strict";
 export function $(selector) {
   return document.querySelector(selector);
 }
@@ -143,11 +144,32 @@ const FRESHNESS_ARIA = {
   cached: 'Serving cached data',
 };
 
+const lastGoodFetch = new Map();
+
 export function setCardFreshness(id, freshness) {
   const card = document.getElementById(id);
   if (!card) return;
 
   card.dataset.freshness = freshness;
+
+  // Track when each card last had a successful (non-cached) fetch
+  if (freshness !== 'cached') {
+    lastGoodFetch.set(id, Date.now());
+  }
+
+  // When serving cached data for a live card, replace (live) with the cache timestamp
+  if (freshness === 'cached') {
+    const cachedAt = lastGoodFetch.get(id);
+    if (cachedAt) {
+      const ctxEl = card.querySelector('.stat-context');
+      if (ctxEl && !ctxEl.children.length && ctxEl.textContent.includes('(live)')) {
+        const d = new Date(cachedAt);
+        const hh = String(d.getHours()).padStart(2, '0');
+        const mm = String(d.getMinutes()).padStart(2, '0');
+        ctxEl.textContent = ctxEl.textContent.replace('(live)', `(cached ${hh}:${mm})`);
+      }
+    }
+  }
 
   const label = card.querySelector('.stat-label');
   if (!label) return;

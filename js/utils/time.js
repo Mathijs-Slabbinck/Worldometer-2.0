@@ -1,3 +1,4 @@
+"use strict";
 export function relativeTime(timestamp) {
   const now = Date.now();
   const diff = now - new Date(timestamp).getTime();
@@ -62,4 +63,9 @@ export function weekFromNowISO() {
   const d = new Date();
   d.setDate(d.getDate() + 7);
   return d.toISOString().slice(0, 10);
+}
+
+// Convert YYYY-MM-DD (or YYYY-MM-DDT...) to DD-MM-YYYY
+export function reverseDateStr(dateStr) {
+  return dateStr.split('T')[0].split('-').reverse().join('-');
 }

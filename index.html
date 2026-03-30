@@ -17,7 +17,17 @@
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body>
+<body class="is-loading">
+  <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
+    <div class="loader-rings">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+    </div>
+  </div>
+
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <noscript>
@@ -42,43 +52,43 @@
   </header>
 
   <main id="main-content" class="container-fluid">
-    <section id="space" class="dashboard-section" data-accent="space">
-      <h2 class="section-title">Space & Astronomy</h2>
+    <section id="space" class="dashboard-section" data-accent="space" aria-labelledby="heading-space">
+      <h2 id="heading-space" class="section-title">Space & Astronomy</h2>
       <div class="card-grid row g-3"></div>
     </section>
 
-    <section id="earth" class="dashboard-section" data-accent="earth">
-      <h2 class="section-title">Earth & Seismology</h2>
+    <section id="earth" class="dashboard-section" data-accent="earth" aria-labelledby="heading-earth">
+      <h2 id="heading-earth" class="section-title">Earth & Seismology</h2>
       <div class="card-grid row g-3"></div>
     </section>
 
-    <section id="climate" class="dashboard-section" data-accent="climate">
-      <h2 class="section-title">Climate & Energy</h2>
+    <section id="climate" class="dashboard-section" data-accent="climate" aria-labelledby="heading-climate">
+      <h2 id="heading-climate" class="section-title">Climate & Energy</h2>
       <div class="card-grid row g-3"></div>
     </section>
 
-    <section id="economy" class="dashboard-section" data-accent="economy">
-      <h2 class="section-title">Economy & Crypto</h2>
+    <section id="economy" class="dashboard-section" data-accent="economy" aria-labelledby="heading-economy">
+      <h2 id="heading-economy" class="section-title">Economy & Crypto</h2>
       <div class="card-grid row g-3"></div>
     </section>
 
-    <section id="population" class="dashboard-section" data-accent="population">
-      <h2 class="section-title">World Population</h2>
+    <section id="population" class="dashboard-section" data-accent="population" aria-labelledby="heading-population">
+      <h2 id="heading-population" class="section-title">World Population</h2>
       <div class="card-grid row g-3"></div>
     </section>
 
-    <section id="health" class="dashboard-section" data-accent="health">
-      <h2 class="section-title">Health</h2>
+    <section id="health" class="dashboard-section" data-accent="health" aria-labelledby="heading-health">
+      <h2 id="heading-health" class="section-title">Health</h2>
       <div class="card-grid row g-3"></div>
     </section>
 
-    <section id="transport" class="dashboard-section" data-accent="transport">
-      <h2 class="section-title">Transportation</h2>
+    <section id="transport" class="dashboard-section" data-accent="transport" aria-labelledby="heading-transport">
+      <h2 id="heading-transport" class="section-title">Transportation</h2>
       <div class="card-grid row g-3"></div>
     </section>
 
-    <section id="trending" class="dashboard-section" data-accent="trending">
-      <h2 class="section-title">Trending Now</h2>
+    <section id="trending" class="dashboard-section" data-accent="trending" aria-labelledby="heading-trending">
+      <h2 id="heading-trending" class="section-title">Trending Now</h2>
       <div class="card-grid row g-3"></div>
     </section>
   </main>

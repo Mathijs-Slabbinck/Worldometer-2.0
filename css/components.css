@@ -636,9 +636,13 @@
   text-decoration: underline;
 }
 
-.modal-body a:focus-visible {
+.modal-body a:focus {
   outline: 2px solid #6366f1;
   outline-offset: 2px;
+}
+
+.modal-body a:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* Modal content helper classes */
@@ -869,6 +873,8 @@
 }
 
 .expandable-item-label {
+  flex: 1 1 0;
+  min-width: 0;
   color: var(--text-primary);
   font-weight: 500;
   font-family: var(--font-mono);
@@ -921,7 +927,7 @@
 }
 
 .expandable-load-more-btn:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
 
@@ -1195,25 +1201,42 @@
    Global focus-visible styles
    ======================== */
 
-.retry-btn:focus-visible,
-.expandable-toggle:focus-visible,
-.location-picker-toggle:focus-visible,
-.location-picker-myloc:focus-visible,
-.modal-close:focus-visible,
-.country-picker-btn:focus-visible {
+.retry-btn:focus,
+.expandable-toggle:focus,
+.location-picker-toggle:focus,
+.location-picker-myloc:focus,
+.modal-close:focus,
+.country-picker-btn:focus {
   outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
 
-.astronaut-link:focus-visible {
+.retry-btn:focus:not(:focus-visible),
+.expandable-toggle:focus:not(:focus-visible),
+.location-picker-toggle:focus:not(:focus-visible),
+.location-picker-myloc:focus:not(:focus-visible),
+.modal-close:focus:not(:focus-visible),
+.country-picker-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.astronaut-link:focus {
   outline: 2px solid var(--accent-space);
   outline-offset: 1px;
   border-radius: 2px;
 }
 
-.launch-link:focus-visible {
+.astronaut-link:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.launch-link:focus {
   outline: 2px solid var(--accent-space);
   outline-offset: 2px;
+}
+
+.launch-link:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .expandable-item:focus,
@@ -1233,6 +1256,15 @@
 .story-list .story-title:focus-visible {
   outline: 2px solid var(--accent-trending);
   outline-offset: 2px;
+}
+
+.apod-title--clickable:focus {
+  outline: 2px solid var(--accent-space);
+  outline-offset: 2px;
+}
+
+.apod-title--clickable:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* ========================
@@ -1358,4 +1390,53 @@
   color: var(--text-muted);
   min-width: 1.5rem;
   margin-right: 0.5rem;
+}
+
+/* ========================
+   Satellite Status Colors
+   ======================== */
+
+.sat-status-active { color: var(--accent-climate); font-weight: 600; }
+.sat-status-partial { color: var(--accent-earth); font-weight: 600; }
+.sat-status-decayed { color: #f87171; font-weight: 600; }
+.sat-status-inactive { color: var(--text-secondary); font-weight: 600; }
+
+.sat-item-owner {
+  flex: 0 0 15%;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+}
+
+/* 3-column satellite layout: name 55%, owner 15%, date 30% */
+.sat-item-owner + .expandable-item-meta {
+  flex: 0 0 30%;
+  text-align: right;
+}
+
+.sat-header {
+  display: flex;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sat-header-name {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.sat-header-owner {
+  flex: 0 0 15%;
+  text-align: center;
+}
+
+.sat-header-date {
+  flex: 0 0 30%;
+  text-align: right;
 }

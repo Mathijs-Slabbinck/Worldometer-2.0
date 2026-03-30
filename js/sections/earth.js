@@ -1,3 +1,4 @@
+"use strict";
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber } from '../utils/format.js';
 import { createCard, createSubCategory, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
@@ -311,13 +312,14 @@ async function resolveWeatherLocation() {
   }
 
   // Auto-detect via IP
-  const res = await fetchData('https://ipapi.co/json/', { retries: 0 });
-  if (!res.error && res.data) {
+  const res = await fetchData('https://ipinfo.io/json', { retries: 0 });
+  if (!res.error && res.data && res.data.city) {
+    const [lat, lon] = (res.data.loc || '0,0').split(',').map(Number);
     const detected = {
-      lat: res.data.latitude,
-      lon: res.data.longitude,
+      lat,
+      lon,
       city: res.data.city || 'Unknown',
-      country: res.data.country_name || '',
+      country: res.data.country || '',
     };
     // Store as default so we don't re-detect every refresh
     if (!weatherLocation) {
@@ -355,6 +357,7 @@ function buildLocationPicker() {
   panel.id = 'location-picker-panel';
 
   const input = document.createElement('input');
+  input.id = 'weather-city-search';
   input.className = 'location-picker-input';
   input.setAttribute('type', 'text');
   input.setAttribute('placeholder', 'Search city (e.g. Tokyo, Paris, New York)...');
@@ -418,6 +421,7 @@ function buildLocationPicker() {
     panel.classList.remove('open');
     btnChange.textContent = 'Change location';
     btnChange.setAttribute('aria-expanded', 'false');
+    btnChange.focus();
     // Re-fetch weather with IP location
     refreshWeatherOnly();
   });
@@ -469,6 +473,7 @@ async function searchGeocode(query, resultsList, panel, btnChange) {
       panel.classList.remove('open');
       btnChange.textContent = 'Change location';
       btnChange.setAttribute('aria-expanded', 'false');
+      btnChange.focus();
       refreshWeatherOnly();
     };
 
@@ -534,6 +539,7 @@ function buildQuakeList(quakes, cardId, panelId) {
 
   // Search input
   const inpSearch = document.createElement('input');
+  inpSearch.id = `${panelId}-search`;
   inpSearch.className = 'expandable-search';
   inpSearch.setAttribute('type', 'text');
   inpSearch.setAttribute('placeholder', 'Search by location, magnitude (e.g. M5, Alaska)...');
@@ -843,6 +849,7 @@ function buildEventList(events) {
   divPanel.setAttribute('aria-label', 'Natural events list');
 
   const inpSearch = document.createElement('input');
+  inpSearch.id = 'event-panel-search';
   inpSearch.className = 'expandable-search';
   inpSearch.setAttribute('type', 'text');
   inpSearch.setAttribute('placeholder', 'Search events (e.g. wildfire, storm)...');
