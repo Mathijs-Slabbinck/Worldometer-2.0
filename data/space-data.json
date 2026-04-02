@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-02T09:10:54.463Z",
+  "lastUpdated": "2026-04-02T10:37:36.806Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -95,5 +95,17 @@
       }
     ]
   },
-  "nextLaunch": null
+  "nextLaunch": {
+    "name": "SLS Block 1 | Artemis II",
+    "windowStart": "2026-04-01T22:24:00Z",
+    "provider": "National Aeronautics and Space Administration",
+    "slug": "sls-block-1-artemis-ii",
+    "infoURLs": [
+      "https://www.nasa.gov/mission/artemis-ii/"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=Tf_UjBMIzNo",
+      "https://plus.nasa.gov/scheduled-video/nasas-artemis-ii-crew-launches-to-the-moon-official-broadcast/"
+    ]
+  }
 }
