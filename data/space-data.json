@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-02T22:29:57.259Z",
+  "lastUpdated": "2026-04-02T23:49:34.362Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,16 +96,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "SLS Block 1 | Artemis II",
-    "windowStart": "2026-04-01T22:24:00Z",
-    "provider": "National Aeronautics and Space Administration",
-    "slug": "sls-block-1-artemis-ii",
+    "name": "Falcon 9 Block 5 | Starlink Group 10-58",
+    "windowStart": "2026-04-02T11:52:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-10-58",
     "infoURLs": [
-      "https://www.nasa.gov/mission/artemis-ii/"
+      "https://www.spacex.com/launches/sl-10-58"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=Tf_UjBMIzNo",
-      "https://plus.nasa.gov/scheduled-video/nasas-artemis-ii-crew-launches-to-the-moon-official-broadcast/"
+      "https://www.youtube.com/watch?v=eTdFBWJ8ot4",
+      "https://www.youtube.com/watch?v=GCgDk5ijC8I",
+      "https://x.com/i/broadcasts/1dJrPEdyAkkKX"
     ]
   }
 }
