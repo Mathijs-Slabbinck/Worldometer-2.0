@@ -11,10 +11,13 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = resolve(__dirname, '..', 'data');
 const STATS_FILE = resolve(DATA_DIR, 'satellite-stats.json');
+const SPACE_FILE = resolve(DATA_DIR, 'space-data.json');
 
 const GATE_HOURS = 6;
+const SPACE_GATE_HOURS = 1;
 const SATCAT_URL = 'https://celestrak.org/pub/satcat.csv';
-const LL2_BASE = 'https://ll.thespacedevs.com/2.2.0/launch';
+const LL2_ROOT = 'https://ll.thespacedevs.com/2.2.0';
+const LL2_BASE = `${LL2_ROOT}/launch`;
 
 // CSV column indices (0-based)
 const COL = Object.freeze({
@@ -41,10 +44,11 @@ const COL = Object.freeze({
 // Helpers
 // ---------------------------------------------------------------------------
 
-function readStats() {
+function readJSON(filePath) {
   try {
-    return JSON.parse(readFileSync(STATS_FILE, 'utf-8'));
-  } catch {
+    return JSON.parse(readFileSync(filePath, 'utf-8'));
+  } catch (err) {
+    console.warn(`[readJSON] Could not read ${filePath}:`, err.message);
     return { lastUpdated: null };
   }
 }
@@ -183,7 +187,7 @@ async function fetchLaunchCounts(previousStats) {
 // ---------------------------------------------------------------------------
 
 async function main() {
-  const previousStats = readStats();
+  const previousStats = readJSON(STATS_FILE);
   const hours = hoursSince(previousStats.lastUpdated);
 
   if (hours < GATE_HOURS) {
@@ -326,10 +330,111 @@ async function main() {
 
   console.log(`[satcat-update] Browse files written:`);
   console.log(`  PAY: ${payInOrbit.length} | Starlink: ${starlinkInOrbit.length} | R/B: ${rbInOrbit.length} | DEB: ${debInOrbit.length} | UNK: ${unkInOrbit.length}`);
-  console.log('[satcat-update] Done.');
+  console.log('[satcat-update] SATCAT done.');
 }
 
-main().catch(function (err) {
+async function runAll() {
+  await main();
+  await updateSpaceData();
+}
+
+// ---------------------------------------------------------------------------
+// Space data: astronauts in space + next launch (from LL2)
+// Gated separately at 1 hour — these change more frequently than SATCAT.
+// ---------------------------------------------------------------------------
+
+function extractCurrentCraft(astronaut) {
+  const result = { craft: '', destination: '', mission: '' };
+  if (!astronaut.landings || !Array.isArray(astronaut.landings)) return result;
+
+  let active = null;
+  for (const landing of astronaut.landings) {
+    if (landing.landing && landing.landing.success === null) {
+      active = landing;
+      break;
+    }
+  }
+  if (!active && astronaut.landings.length > 0) {
+    active = astronaut.landings[astronaut.landings.length - 1];
+  }
+  if (!active) return result;
+
+  if (active.spacecraft && active.spacecraft.name) {
+    result.craft = active.spacecraft.name;
+  } else if (active.spacecraft && active.spacecraft.spacecraft_config && active.spacecraft.spacecraft_config.name) {
+    result.craft = active.spacecraft.spacecraft_config.name;
+  }
+  if (active.destination) {
+    result.destination = active.destination;
+  }
+  if (active.launch && active.launch.mission && active.launch.mission.name) {
+    result.mission = active.launch.mission.name;
+  } else if (active.launch && active.launch.name) {
+    result.mission = active.launch.name;
+  }
+  return result;
+}
+
+async function updateSpaceData() {
+  const prev = readJSON(SPACE_FILE);
+  const hours = hoursSince(prev.lastUpdated);
+
+  if (hours < SPACE_GATE_HOURS) {
+    console.log(`[satcat-update] Space data updated ${hours.toFixed(1)}h ago — skipping (gate: ${SPACE_GATE_HOURS}h)`);
+    return;
+  }
+
+  console.log('[satcat-update] Fetching LL2 space data (astronauts + next launch)...');
+
+  const spaceData = {
+    lastUpdated: new Date().toISOString(),
+    astronauts: prev.astronauts || null,
+    nextLaunch: prev.nextLaunch || null,
+  };
+
+  // Fetch astronauts in space
+  try {
+    const astroData = await fetchJSON(`${LL2_ROOT}/astronaut/?in_space=true&limit=50`, 15000);
+    if (astroData && astroData.results) {
+      spaceData.astronauts = {
+        count: astroData.count,
+        people: astroData.results.map(function (a) {
+          const info = extractCurrentCraft(a);
+          return { name: a.name, craft: info.craft, destination: info.destination, mission: info.mission };
+        }),
+      };
+      console.log(`[satcat-update] Astronauts in space: ${astroData.count}`);
+    }
+  } catch (err) {
+    console.error('[satcat-update] Astronaut fetch failed, keeping previous:', err.message);
+  }
+
+  await sleep(2000);
+
+  // Fetch next upcoming launch
+  try {
+    const launchData = await fetchJSON(`${LL2_BASE}/upcoming/?limit=1&mode=detailed`, 15000);
+    if (launchData && launchData.results && launchData.results.length > 0) {
+      const launch = launchData.results[0];
+      spaceData.nextLaunch = {
+        name: launch.name || 'Unknown mission',
+        windowStart: launch.window_start || launch.net,
+        provider: launch.launch_service_provider ? launch.launch_service_provider.name : '',
+        slug: launch.slug || null,
+        infoURLs: (launch.infoURLs || []).map(function (u) { return u.url || u; }),
+        vidURLs: (launch.vidURLs || []).map(function (u) { return u.url || u; }),
+      };
+      console.log(`[satcat-update] Next launch: ${spaceData.nextLaunch.name}`);
+    }
+  } catch (err) {
+    console.error('[satcat-update] Launch fetch failed, keeping previous:', err.message);
+  }
+
+  writeJSON(SPACE_FILE, spaceData);
+  console.log('[satcat-update] Wrote space-data.json');
+}
+
+runAll().catch(function (err) {
   console.error('[satcat-update] Fatal error:', err);
   process.exit(1);
 });

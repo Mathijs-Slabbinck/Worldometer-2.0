@@ -1,3 +1,4 @@
+"use strict";
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber } from '../utils/format.js';
 import { createCard, updateCard, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
@@ -15,30 +16,15 @@ export async function init() {
 }
 
 export async function refresh() {
-  // Try global first
-  let res = await fetchData('https://opensky-network.org/api/states/all', { timeout: 15000, retries: 0 });
+  const res = await fetchData('data/flight-count.json', { timeout: 5000, retries: 0 });
 
-  let qualifier = '';
-
-  // Fallback to Europe region
-  if (res.error || !res.data) {
-    res = await fetchData('https://opensky-network.org/api/states/all?lamin=35&lomin=-10&lamax=60&lomax=30', { timeout: 15000, retries: 0 });
-    qualifier = ' over Europe';
-  }
-
-  if (res.error || !res.data) {
+  if (res.error || !res.data || typeof res.data.count !== 'number') {
     setCardError('transport-flights', () => refresh());
     return;
   }
 
   const { data, stale } = res;
-  const states = data.states || [];
-
-  // Count flights not on ground (index 8 is on_ground)
-  let inAir = 0;
-  for (const s of states) {
-    if (!s[8]) inAir++;
-  }
+  const inAir = data.count;
 
   if (counter) {
     counter.update(inAir);
@@ -50,8 +36,17 @@ export async function refresh() {
     }
   }
 
+  // Build context showing tracking source breakdown
+  const stats = data.stats;
+  let breakdown = '';
+  if (stats) {
+    const adsb = stats['ads-b'] || 0;
+    const sat = stats.satellite || 0;
+    breakdown = ` | ${formatNumber(adsb)} ADS-B, ${formatNumber(sat)} satellite`;
+  }
+
   updateCard('transport-flights', {
-    context: `Based on ADS-B data from OpenSky Network${qualifier} (live)`,
+    context: `Tracked by Flightradar24${breakdown} (live)`,
     state: 'success',
   });
   setCardFreshness('transport-flights', getFreshness('transport-flights', stale));

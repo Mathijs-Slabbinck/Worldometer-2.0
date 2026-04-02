@@ -18,7 +18,6 @@ const LIVE_CARDS = new Set([
   'space-asteroids',
   'space-hazardous',
   'pop-world',
-  'space-people',
   'earth-weather',
   'earth-events',
   'earth-quakes-hour',
@@ -33,9 +32,14 @@ const LIVE_CARDS = new Set([
   'econ-mempool',
   'econ-hashrate',
   'trending-stories',
-  'transport-flights',
-  'space-next-launch',
   'space-apod',
+  'econ-debt',
+]);
+
+const OLD_CARDS = new Set([
+  'space-people',
+  'space-next-launch',
+  'transport-flights',
   'space-satellites',
   'space-starlink',
   'space-sat-launched',
@@ -47,10 +51,6 @@ const LIVE_CARDS = new Set([
   'space-rocket-bodies',
   'space-debris',
   'space-unknown',
-  'econ-debt',
-]);
-
-const OLD_CARDS = new Set([
   'econ-gdp',
   'pop-most-populous',
   'pop-dense',

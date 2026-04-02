@@ -1,7 +1,7 @@
 "use strict";
 import { fetchData } from '../utils/fetch-handler.js';
 import { formatNumber, abbreviate } from '../utils/format.js';
-import { nowISO, monthAgoISO, weekFromNowISO, countdown, formatUTC, relativeTime, reverseDateStr } from '../utils/time.js';
+import { nowISO, monthAgoISO, countdown, formatUTC, relativeTime, reverseDateStr } from '../utils/time.js';
 import { NASA_API_KEY } from '../config.js';
 import { createCard, createSubCategory, updateCard, updateCardContext, setCardError, setCardFreshness, getCardValueEl } from '../utils/dom.js';
 import { getFreshness } from '../utils/freshness.js';
@@ -111,33 +111,23 @@ export async function init() {
 
 export async function refresh() {
   const today = nowISO();
-  const weekAhead = weekFromNowISO();
   const monthAgo = monthAgoISO();
 
   const results = await Promise.allSettled([
-    fetchData('https://ll.thespacedevs.com/2.2.0/astronaut/?in_space=true&limit=50', { retries: 0 }),
-    Promise.resolve({ data: null, static: true }), // ISS has constant orbital params
+    fetchData('data/space-data.json', { retries: 0, timeout: 5000 }),
     fetchData(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
-    fetchData('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=1&mode=detailed', { retries: 0 }),
     fetchData(`https://api.nasa.gov/DONKI/FLR?startDate=${monthAgo}&endDate=${today}&api_key=${NASA_API_KEY}`, { retries: 0 }),
     fetchData('https://api.wheretheiss.at/v1/satellites/25544', { retries: 0, timeout: 5000 }),
     fetchData(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`, { retries: 0 }),
-    fetchData('https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=json', { retries: 0, timeout: 15000 }),
-    fetchData('https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=json', { retries: 0, timeout: 15000 }),
     fetchData('data/satellite-stats.json', { retries: 0, timeout: 5000 }),
   ]);
 
-  // People in space
+  // People in space (from cached space-data.json)
   handleResult(results[0], (res) => {
     const { data, stale } = res;
-    if (!data) return false;
-    // Support both open-notify format and SpaceDevs format
-    const count = data.number ?? data.count;
-    const people = data.people || (data.results || []).map(a => {
-      // Extract current spacecraft + destination from landings array
-      const info = extractCurrentCraft(a);
-      return { name: a.name, craft: info.craft, destination: info.destination, mission: info.mission };
-    });
+    if (!data || !data.astronauts) return false;
+    const count = data.astronauts.count;
+    const people = data.astronauts.people || [];
 
     if (counters['space-people']) {
       counters['space-people'].update(count);
@@ -152,6 +142,7 @@ export async function refresh() {
     // Build clickable astronaut names
     const spnNames = document.createElement('span');
     spnNames.className = 'astronaut-names';
+    spnNames.setAttribute('aria-label', 'Current astronauts in space');
     for (let i = 0; i < people.length; i++) {
       const person = people[i];
       const btnAstronaut = document.createElement('button');
@@ -174,9 +165,9 @@ export async function refresh() {
     return true;
   }, 'space-people');
 
-  // ISS speed + altitude are now sourced from the wheretheiss.at API (results[5])
+  // ISS speed + altitude are now sourced from the wheretheiss.at API (results[3])
   // Fallback to static values if the API call failed
-  if (results[5].status !== 'fulfilled' || results[5].value.error || !results[5].value.data) {
+  if (results[3].status !== 'fulfilled' || results[3].value.error || !results[3].value.data) {
     updateCard('space-iss-speed', { value: '~27,600 km/h', context: 'Orbital velocity (live)', state: 'success' });
     setCardFreshness('space-iss-speed', 'cached');
     updateCard('space-iss-altitude', { value: '~408 km', context: 'Low Earth orbit (live)', state: 'success' });
@@ -184,7 +175,7 @@ export async function refresh() {
   }
 
   // Asteroids
-  handleResult(results[2], (res) => {
+  handleResult(results[1], (res) => {
     const { data, stale } = res;
     if (!data) return false;
     const count = data.element_count;
@@ -266,25 +257,24 @@ export async function refresh() {
   }, 'space-asteroids');
 
   // If asteroids failed, also error the hazardous card
-  if (results[2].status !== 'fulfilled' || results[2].value.error || !results[2].value.data) {
+  if (results[1].status !== 'fulfilled' || results[1].value.error || !results[1].value.data) {
     setCardError('space-hazardous', () => refresh());
   }
 
-  // Next launch
-  handleResult(results[3], (res) => {
+  // Next launch (from cached space-data.json — results[0])
+  handleResult(results[0], (res) => {
     const { data, stale } = res;
-    if (!data || !data.results || data.results.length === 0) return false;
-    const launch = data.results[0];
-    launchWindowStart = launch.window_start || launch.net;
+    if (!data || !data.nextLaunch) return false;
+    const launch = data.nextLaunch;
+    launchWindowStart = launch.windowStart;
     const missionName = launch.name || 'Unknown mission';
-    const provider = launch.launch_service_provider ? launch.launch_service_provider.name : '';
+    const provider = launch.provider || '';
 
     // Build context with mission info + external link
     const ctxEl = document.createElement('span');
     const infoText = provider ? `${missionName} | ${provider}` : missionName;
     ctxEl.appendChild(document.createTextNode(infoText));
 
-    // Find the best external URL from the API response
     const launchUrl = getLaunchUrl(launch);
     if (launchUrl) {
       ctxEl.appendChild(document.createTextNode(' | '));
@@ -307,7 +297,7 @@ export async function refresh() {
   }, 'space-next-launch');
 
   // Solar flares
-  handleResult(results[4], (res) => {
+  handleResult(results[2], (res) => {
     const { data, stale } = res;
     if (!data) return false;
     const flares = Array.isArray(data) ? data : [];
@@ -334,7 +324,7 @@ export async function refresh() {
   }, 'space-solar-flares');
 
   // ISS Position
-  handleResult(results[5], (res) => {
+  handleResult(results[3], (res) => {
     const { data, stale } = res;
     if (!data) return false;
     // Support both wheretheiss.at format (top-level) and open-notify format (nested)
@@ -378,19 +368,15 @@ export async function refresh() {
   }, 'space-iss-position');
 
   // NASA APOD
-  handleResult(results[6], (res) => {
+  handleResult(results[4], (res) => {
     const { data, stale } = res;
     if (!data || !data.title) return false;
     renderAPOD(data, stale);
     return true;
   }, 'space-apod');
 
-  // CelesTrak satellite counts
-  handleResult(results[7], makeArrayCountHandler('space-satellites', 'Tracked active objects (live)'), 'space-satellites');
-  handleResult(results[8], makeArrayCountHandler('space-starlink', 'SpaceX constellation (live)'), 'space-starlink');
-
-  // SATCAT aggregate stats (from GH Action cache)
-  handleResult(results[9], function (res) {
+  // SATCAT aggregate stats (from GH Action cache — updated every 6h)
+  handleResult(results[5], function (res) {
     const { data, stale } = res;
     if (!data || !data.overview) return false;
 
@@ -400,27 +386,32 @@ export async function refresh() {
     const deb = data.debris;
     const unk = data.unknown;
 
+    // Active satellite + Starlink counts (previously from live CelesTrak GP)
+    renderStatCard('space-satellites', data.payloads.active, 'Active payloads from SATCAT catalog (live)');
+    renderStatCard('space-starlink', s.active, 'Active Starlink from SATCAT catalog (live)');
+
     // Overview cards
-    renderStatCard('space-sat-launched', o.totalLaunched, `${formatNumber(o.payloads)} payloads (updates every 6h)`);
-    renderStatCard('space-sat-decayed', o.decayed, 'No longer in orbit (updates every 6h)');
+    renderStatCard('space-sat-launched', o.totalLaunched, `${formatNumber(o.payloads)} payloads (live)`);
+    renderStatCard('space-sat-decayed', o.decayed, 'No longer in orbit (live)');
     if (o.launchFailures > 0) {
-      renderStatCard('space-sat-failures', o.launchFailures, `+ ${o.partialFailures} partial (updates every 6h)`);
+      renderStatCard('space-sat-failures', o.launchFailures, `+ ${o.partialFailures} partial (live)`);
     } else {
-      renderStatCard('space-sat-failures', o.launchFailures, 'Historical launch failures (updates every 6h)');
+      renderStatCard('space-sat-failures', o.launchFailures, 'Historical launch failures (live)');
     }
 
     // Starlink cards
-    renderStatCard('space-starlink-total', s.total, 'All Starlink satellites (updates every 6h)');
-    renderStatCard('space-starlink-decayed', s.decayed, 'Deorbited (updates every 6h)');
-    renderStatCard('space-starlink-failures', s.launchFailures, 'Failed Starlink launches (updates every 6h)');
+    renderStatCard('space-starlink-total', s.total, 'All Starlink satellites (live)');
+    renderStatCard('space-starlink-decayed', s.decayed, 'Deorbited (live)');
+    renderStatCard('space-starlink-failures', s.launchFailures, 'Failed Starlink launches (live)');
 
     // Object type counts
-    renderStatCard('space-rocket-bodies', rb.inOrbit, `${formatNumber(rb.total)} total catalogued (updates every 6h)`);
-    renderStatCard('space-debris', deb.inOrbit, `${formatNumber(deb.total)} total catalogued (updates every 6h)`);
-    renderStatCard('space-unknown', unk.inOrbit, `${formatNumber(unk.total)} total catalogued (updates every 6h)`);
+    renderStatCard('space-rocket-bodies', rb.inOrbit, `${formatNumber(rb.total)} total catalogued (live)`);
+    renderStatCard('space-debris', deb.inOrbit, `${formatNumber(deb.total)} total catalogued (live)`);
+    renderStatCard('space-unknown', unk.inOrbit, `${formatNumber(unk.total)} total catalogued (live)`);
 
-    // Freshness — updated every 6h, tagged as live
+    // Freshness — updated every 6h
     const satCards = [
+      'space-satellites', 'space-starlink',
       'space-sat-launched', 'space-sat-decayed', 'space-sat-failures',
       'space-starlink-total', 'space-starlink-decayed', 'space-starlink-failures',
       'space-rocket-bodies', 'space-debris', 'space-unknown',
@@ -437,72 +428,21 @@ export async function refresh() {
     buildSatelliteList('space-unknown', 'sat-unk-panel', 'data/satcat-unk.json', 'unknown objects');
 
     return true;
-  }, 'space-sat-launched');
+  }, 'space-satellites');
 }
 
 function getLaunchUrl(launch) {
   // Prefer info URLs, then video URLs, then the SpaceDevs slug-based page
   if (launch.infoURLs && launch.infoURLs.length > 0) {
-    return launch.infoURLs[0].url || launch.infoURLs[0];
+    return launch.infoURLs[0];
   }
   if (launch.vidURLs && launch.vidURLs.length > 0) {
-    return launch.vidURLs[0].url || launch.vidURLs[0];
+    return launch.vidURLs[0];
   }
   if (launch.slug) {
     return `https://spacelaunchnow.me/launch/${launch.slug}`;
   }
   return null;
-}
-
-// Extract current spacecraft + destination from SpaceDevs astronaut data
-function extractCurrentCraft(astronaut) {
-  const result = { craft: '', destination: '', mission: '' };
-  if (!astronaut.landings || !Array.isArray(astronaut.landings)) return result;
-
-  // Find the active flight: landing not yet completed (success is null)
-  // Fall back to most recent entry
-  let active = null;
-  for (const landing of astronaut.landings) {
-    if (landing.landing && landing.landing.success === null) {
-      active = landing;
-      break;
-    }
-  }
-  if (!active && astronaut.landings.length > 0) {
-    active = astronaut.landings[astronaut.landings.length - 1];
-  }
-  if (!active) return result;
-
-  // Spacecraft name (e.g. "Crew Dragon Freedom", "Soyuz MS-27")
-  if (active.spacecraft && active.spacecraft.name) {
-    result.craft = active.spacecraft.name;
-  } else if (active.spacecraft && active.spacecraft.spacecraft_config && active.spacecraft.spacecraft_config.name) {
-    result.craft = active.spacecraft.spacecraft_config.name;
-  }
-
-  // Destination (e.g. "International Space Station", "Tiangong Space Station")
-  if (active.destination) {
-    result.destination = active.destination;
-  }
-
-  // Mission name
-  if (active.launch && active.launch.mission && active.launch.mission.name) {
-    result.mission = active.launch.mission.name;
-  } else if (active.launch && active.launch.name) {
-    result.mission = active.launch.name;
-  }
-
-  return result;
-}
-
-function makeArrayCountHandler(cardId, contextLabel) {
-  return function (res) {
-    const { data, stale } = res;
-    if (!Array.isArray(data) || data.length === 0) return false;
-    renderStatCard(cardId, data.length, contextLabel);
-    setCardFreshness(cardId, getFreshness(cardId, stale));
-    return true;
-  };
 }
 
 function renderStatCard(cardId, count, contextLabel) {
@@ -544,8 +484,9 @@ function startCountdown() {
     if (!valEl) return;
 
     if (cd.expired) {
-      valEl.textContent = 'LAUNCHING NOW';
+      updateCard('space-next-launch', { value: 'LAUNCHING NOW', state: 'success' });
       valEl.classList.add('updating');
+      clearInterval(countdownInterval);
       return;
     }
 
@@ -747,6 +688,7 @@ function buildFlareList(flares) {
   const ulItems = document.createElement('ul');
   ulItems.className = 'expandable-items';
   ulItems.setAttribute('role', 'list');
+  ulItems.setAttribute('aria-live', 'polite');
 
   divPanel.appendChild(inpSearch);
   divPanel.appendChild(ulItems);
@@ -887,6 +829,7 @@ function buildAsteroidList(asteroids) {
   const ulItems = document.createElement('ul');
   ulItems.className = 'expandable-items';
   ulItems.setAttribute('role', 'list');
+  ulItems.setAttribute('aria-live', 'polite');
 
   divPanel.appendChild(inpSearch);
   divPanel.appendChild(ulItems);
@@ -1382,6 +1325,8 @@ function buildSatelliteList(cardId, panelId, dataUrl, typeName) {
   ulItems.className = 'expandable-items';
   ulItems.setAttribute('role', 'list');
 
+  ulItems.setAttribute('aria-live', 'polite');
+
   divPanel.appendChild(inpSearch);
   divPanel.appendChild(divHeader);
   divPanel.appendChild(ulItems);
@@ -1443,6 +1388,7 @@ function buildSatelliteList(cardId, panelId, dataUrl, typeName) {
     btn.setAttribute('type', 'button');
     const nextBatch = Math.min(remaining, BATCH_SIZE);
     btn.textContent = `Load ${nextBatch} more (${remaining} remaining)`;
+    btn.setAttribute('aria-label', `Load ${nextBatch} more ${typeName} (${remaining} remaining)`);
 
     btn.addEventListener('click', function () {
       liMore.remove();

@@ -35,16 +35,20 @@ jobs:
         working-directory: scripts
         run: node satcat-update.mjs
 
+      - name: Run flight count update
+        working-directory: scripts
+        run: node flight-count.mjs
+
       - name: Commit if changed
         id: commit
         run: |
           git config user.name "ISS Toilet Bot"
           git config user.email "actions@github.com"
-          git add TOILET_DATA.md data/last-updated.json data/satellite-stats.json data/satcat-pay.json data/satcat-starlink.json data/satcat-rb.json data/satcat-deb.json data/satcat-unk.json
+          git add TOILET_DATA.md data/last-updated.json data/satellite-stats.json data/space-data.json data/flight-count.json data/satcat-pay.json data/satcat-starlink.json data/satcat-rb.json data/satcat-deb.json data/satcat-unk.json
           if git diff --staged --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "Update ISS toilet telemetry + satellite catalog data"
+            git commit -m "Update ISS telemetry, satellite data, and flight count"
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
