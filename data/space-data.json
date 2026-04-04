@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-04T05:39:26.863Z",
+  "lastUpdated": "2026-04-04T06:39:58.804Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,13 +96,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz 2.1a/Fregat-M | Meridian-M No.21L",
-    "windowStart": "2026-04-03T02:00:00Z",
-    "provider": "Russian Space Forces",
-    "slug": "soyuz-21afregat-m-meridian-m-no21l",
-    "infoURLs": [],
+    "name": "Atlas V 551 | Amazon Leo (LA-05)",
+    "windowStart": "2026-04-04T05:45:00Z",
+    "provider": "United Launch Alliance",
+    "slug": "atlas-v-551-amazon-leo-la-05",
+    "infoURLs": [
+      "https://www.ulalaunch.com/missions/next-launch/atlas-v-amazon-leo-5"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=y8rfeYxzHwA"
+      "https://www.youtube.com/watch?v=NAKuVmkp5q8",
+      "https://www.youtube.com/watch?v=7b01rQjEFl4",
+      "https://www.youtube.com/watch?v=6SiX9UPKq8Y"
     ]
   }
 }
