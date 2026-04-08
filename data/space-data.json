@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-08T11:15:05.486Z",
+  "lastUpdated": "2026-04-08T14:02:15.284Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,13 +96,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Minotaur IV | STP-S29A",
-    "windowStart": "2026-04-07T11:30:00Z",
-    "provider": "Northrop Grumman Space Systems",
-    "slug": "minotaur-iv-stp-s29a",
+    "name": "Long March 6A | Unknown Payload",
+    "windowStart": "2026-04-08T19:30:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-6a-unknown-payload",
     "infoURLs": [],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=H0w8xeX2tAE"
-    ]
+    "vidURLs": []
   }
 }
