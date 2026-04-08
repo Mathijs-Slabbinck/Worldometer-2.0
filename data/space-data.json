@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-08T01:03:15.940Z",
+  "lastUpdated": "2026-04-08T04:08:08.605Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,17 +96,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-35",
-    "windowStart": "2026-04-06T23:03:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-35",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-35"
-    ],
+    "name": "Minotaur IV | STP-S29A",
+    "windowStart": "2026-04-07T11:30:00Z",
+    "provider": "Northrop Grumman Space Systems",
+    "slug": "minotaur-iv-stp-s29a",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=RCjTNDggSfM",
-      "https://www.youtube.com/watch?v=Je-3kOuoYgU",
-      "https://x.com/i/broadcasts/1qxvvkDqRAkxB"
+      "https://www.youtube.com/watch?v=H0w8xeX2tAE"
     ]
   }
 }
