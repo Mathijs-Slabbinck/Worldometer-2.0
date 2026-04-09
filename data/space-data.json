@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-09T18:38:34.031Z",
+  "lastUpdated": "2026-04-09T19:49:50.827Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,11 +96,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 6A | SatNet LEO Group 21",
-    "windowStart": "2026-04-08T19:30:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-6a-satnet-leo-group-21",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 17-21",
+    "windowStart": "2026-04-11T02:39:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-21",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-17-21"
+    ],
+    "vidURLs": [
+      "https://x.com/i/broadcasts/1aJbdbDgyXVKX"
+    ]
   }
 }
