@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-08T23:00:34.806Z",
+  "lastUpdated": "2026-04-09T02:07:36.535Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,10 +96,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 6A | Unknown Payload",
+    "name": "Long March 6A | SatNet LEO Group 21",
     "windowStart": "2026-04-08T19:30:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-6a-unknown-payload",
+    "slug": "long-march-6a-satnet-leo-group-21",
     "infoURLs": [],
     "vidURLs": []
   }
