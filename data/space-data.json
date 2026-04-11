@@ -1,34 +1,10 @@
 {
-  "lastUpdated": "2026-04-10T23:58:56.375Z",
+  "lastUpdated": "2026-04-11T02:56:35.523Z",
   "astronauts": {
-    "count": 15,
+    "count": 11,
     "people": [
       {
-        "name": "Jeremy Hansen",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
-        "name": "Gregory R. Wiseman",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
-        "name": "Victor J. Glover",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
         "name": "Jessica Meir",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
-        "name": "Christina Koch",
         "craft": "",
         "destination": "",
         "mission": ""
@@ -104,6 +80,7 @@
       "https://www.spacex.com/launches/sl-17-21"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=IourIC98t0Y",
       "https://x.com/i/broadcasts/1aJbdbDgyXVKX"
     ]
   }
