@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-12T03:46:06.597Z",
+  "lastUpdated": "2026-04-12T05:53:14.024Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,16 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-21",
-    "windowStart": "2026-04-11T02:39:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-21",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-21"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=9oX-jMljfvE",
-      "https://x.com/i/broadcasts/1aJbdbDgyXVKX"
-    ]
+    "name": "Smart Dragon 3 | SatNet test satellite",
+    "windowStart": "2026-04-11T11:22:00Z",
+    "provider": "China Rocket Co. Ltd.",
+    "slug": "smart-dragon-3-satnet-test-satellite-2",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
