@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-12T10:58:36.289Z",
+  "lastUpdated": "2026-04-12T12:03:42.319Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Smart Dragon 3 | SatNet test satellite",
-    "windowStart": "2026-04-11T11:22:00Z",
-    "provider": "China Rocket Co. Ltd.",
-    "slug": "smart-dragon-3-satnet-test-satellite-2",
+    "name": "Kinetica 1 | Unknown Payload",
+    "windowStart": "2026-04-14T03:54:00Z",
+    "provider": "CAS Space",
+    "slug": "kinetica-1-unknown-payload",
     "infoURLs": [],
     "vidURLs": []
   }
