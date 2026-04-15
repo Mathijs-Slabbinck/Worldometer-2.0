@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-15T03:32:38.419Z",
+  "lastUpdated": "2026-04-15T05:50:05.052Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Kinetica 1 | 8 x Jilin-1",
-    "windowStart": "2026-04-14T03:54:00Z",
-    "provider": "CAS Space",
-    "slug": "kinetica-1-8-x-jilin-1",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 10-24",
+    "windowStart": "2026-04-14T06:13:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-10-24",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-10-24"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=GLknzv6u8MU",
+      "https://www.youtube.com/watch?v=-kWIbhxk9cU",
+      "https://x.com/i/broadcasts/1jGXgekrMlLKZ"
+    ]
   }
 }
