@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-18T02:22:37.457Z",
+  "lastUpdated": "2026-04-18T04:54:26.648Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 4C | Daqi-2 (AEMS)",
-    "windowStart": "2026-04-17T04:02:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-4c-daqi-2-aems",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 17-22",
+    "windowStart": "2026-04-18T14:00:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-22",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-17-22"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=FVpZ1n7sF9I",
+      "https://www.youtube.com/watch?v=d0QZqmfs4LA",
+      "https://x.com/i/broadcasts/1OGwblDEjdWKB"
+    ]
   }
 }
