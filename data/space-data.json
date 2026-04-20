@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-20T10:57:39.447Z",
+  "lastUpdated": "2026-04-20T12:08:03.703Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "New Glenn | BlueBird Block 2 #2",
-    "windowStart": "2026-04-19T10:45:00Z",
-    "provider": "Blue Origin",
-    "slug": "new-glenn-bluebird-block-2-2",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-22",
+    "windowStart": "2026-04-19T14:00:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-22",
     "infoURLs": [
-      "https://www.blueorigin.com/missions/ng-3"
+      "https://www.spacex.com/launches/sl-17-22"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=enQ_IXtfm9I",
-      "https://www.youtube.com/watch?v=ew-rXo0FWhA",
-      "https://www.youtube.com/watch?v=xlZVPFso4mk"
+      "https://www.youtube.com/watch?v=obwUMaY0KUs",
+      "https://www.youtube.com/watch?v=d0QZqmfs4LA",
+      "https://x.com/i/broadcasts/1OGwblDEjdWKB"
     ]
   }
 }
