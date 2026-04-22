@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-22T05:12:26.435Z",
+  "lastUpdated": "2026-04-22T07:05:40.752Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | GPS III SV10",
-    "windowStart": "2026-04-21T06:53:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-gps-iii-sv10",
-    "infoURLs": [
-      "https://www.spacex.com/launches/gpsiii8"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=4ofWMGcbzkQ",
-      "https://www.youtube.com/watch?v=pLYUyFJUYBQ",
-      "https://www.youtube.com/watch?v=q8kuBDUd-fM",
-      "https://x.com/i/broadcasts/1nGnRYzeRzEGO"
-    ]
+    "name": "HASTE | Bubbles",
+    "windowStart": "2026-04-22T00:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "haste-bubbles",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
