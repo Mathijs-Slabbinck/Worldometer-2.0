@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-23T01:13:03.124Z",
+  "lastUpdated": "2026-04-23T04:23:14.218Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "HASTE | Bubbles",
-    "windowStart": "2026-04-22T00:00:00Z",
+    "name": "Electron | Kakushin Rising (JAXA Rideshare)",
+    "windowStart": "2026-04-23T03:09:00Z",
     "provider": "Rocket Lab",
-    "slug": "haste-bubbles",
+    "slug": "electron-kakushin-rising-jaxa-rideshare",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=R933NMzP1T0"
+    ]
   }
 }
