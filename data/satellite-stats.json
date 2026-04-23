@@ -1,18 +1,18 @@
 {
-  "lastUpdated": "2026-04-23T04:23:14.145Z",
+  "lastUpdated": "2026-04-23T11:33:19.625Z",
   "overview": {
     "totalLaunched": 68652,
     "payloads": 25900,
-    "inOrbit": 33609,
-    "decayed": 35043,
+    "inOrbit": 33608,
+    "decayed": 35044,
     "launchFailures": 522,
     "partialFailures": 34
   },
   "payloads": {
     "total": 25900,
-    "inOrbit": 18616,
-    "decayed": 7284,
-    "active": 15599
+    "inOrbit": 18615,
+    "decayed": 7285,
+    "active": 15598
   },
   "starlink": {
     "total": 11722,
