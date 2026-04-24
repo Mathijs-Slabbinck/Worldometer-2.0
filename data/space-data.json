@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-23T23:07:27.915Z",
+  "lastUpdated": "2026-04-24T03:50:17.056Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,13 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | Kakushin Rising (JAXA Rideshare)",
-    "windowStart": "2026-04-23T03:09:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-kakushin-rising-jaxa-rideshare",
+    "name": "Angara 1.2 | Kosmos (Unknown Payload)",
+    "windowStart": "2026-04-22T21:00:00Z",
+    "provider": "Russian Space Forces",
+    "slug": "angara-12-kosmos-unknown-payload",
     "infoURLs": [],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=R933NMzP1T0"
-    ]
+    "vidURLs": []
   }
 }
