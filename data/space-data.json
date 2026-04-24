@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-24T08:22:20.289Z",
+  "lastUpdated": "2026-04-24T10:03:38.451Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Angara 1.2 | Kosmos (Unknown Payload)",
-    "windowStart": "2026-04-22T21:00:00Z",
-    "provider": "Russian Space Forces",
-    "slug": "angara-12-kosmos-unknown-payload",
+    "name": "Long March 2D | SatNet test satellite",
+    "windowStart": "2026-04-24T06:25:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-2d-satnet-test-satellite",
     "infoURLs": [],
     "vidURLs": []
   }
