@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-25T06:22:48.237Z",
+  "lastUpdated": "2026-04-25T07:51:24.056Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2D | 4 x SatNet test satellites",
-    "windowStart": "2026-04-24T06:25:00Z",
+    "name": "Long March 6 | Unknown Payload",
+    "windowStart": "2026-04-25T12:08:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2d-4-x-satnet-test-satellites-2",
+    "slug": "long-march-6-unknown-payload",
     "infoURLs": [],
     "vidURLs": []
   }
