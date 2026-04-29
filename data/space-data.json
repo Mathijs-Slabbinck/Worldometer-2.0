@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-28T23:37:23.543Z",
+  "lastUpdated": "2026-04-29T01:23:45.739Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Atlas V 551 | Amazon Leo (LA-06)",
-    "windowStart": "2026-04-28T00:52:00Z",
-    "provider": "United Launch Alliance",
-    "slug": "atlas-v-551-amazon-leo-la-06",
-    "infoURLs": [
-      "https://www.ulalaunch.com/missions/next-launch/atlas-v-amazon-leo-6"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=FYTMd1XYguo",
-      "https://www.youtube.com/watch?v=p1yNTNZHZlA",
-      "https://www.youtube.com/watch?v=u5qUzkJb1tk"
-    ]
+    "name": "Soyuz-5 | Demo Flight",
+    "windowStart": "2026-04-29T11:00:00Z",
+    "provider": "RKK Energiya",
+    "slug": "soyuz-5-demo-flight",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
