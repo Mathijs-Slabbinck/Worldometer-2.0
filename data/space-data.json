@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-29T11:18:38.508Z",
+  "lastUpdated": "2026-04-29T13:06:44.485Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz-5 | Demo Flight",
-    "windowStart": "2026-04-29T11:00:00Z",
-    "provider": "RKK Energiya",
-    "slug": "soyuz-5-demo-flight",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon Heavy | ViaSat-3 F3 (ViaSat-3 Asia-Pacific)",
+    "windowStart": "2026-04-29T14:13:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-heavy-viasat-3-f3-viasat-3-asia-pacific",
+    "infoURLs": [
+      "https://www.spacex.com/launches/viasat3f3"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=c3rYiKPViSk",
+      "https://www.youtube.com/watch?v=7ZLs184OBwE",
+      "https://www.youtube.com/watch?v=6sDcNKbJwuo",
+      "https://x.com/i/broadcasts/1NGaradEpARJj"
+    ]
   }
 }
