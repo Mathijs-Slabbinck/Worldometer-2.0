@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-30T13:04:50.213Z",
+  "lastUpdated": "2026-04-30T15:22:00.628Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon Heavy | ViaSat-3 F3 (ViaSat-3 Asia-Pacific)",
-    "windowStart": "2026-04-29T14:13:00Z",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-36",
+    "windowStart": "2026-04-30T02:00:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-heavy-viasat-3-f3-viasat-3-asia-pacific",
+    "slug": "falcon-9-block-5-starlink-group-17-36",
     "infoURLs": [
-      "https://www.spacex.com/launches/viasat3f3"
+      "https://www.spacex.com/launches/sl-17-36"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=vdLb-RlctaY",
-      "https://www.youtube.com/watch?v=7ZLs184OBwE",
-      "https://www.youtube.com/watch?v=6sDcNKbJwuo",
-      "https://x.com/i/broadcasts/1NGaradEpARJj"
+      "https://www.youtube.com/watch?v=vxCs82EfrlE",
+      "https://www.youtube.com/watch?v=ZD5dwj_md0c",
+      "https://x.com/i/broadcasts/1yKAPMlXDewxb"
     ]
   }
 }
