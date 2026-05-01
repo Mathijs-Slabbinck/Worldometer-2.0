@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-01T17:40:22.925Z",
+  "lastUpdated": "2026-05-01T18:45:47.347Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,13 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz-5 | Demo Flight",
-    "windowStart": "2026-04-30T11:00:00Z",
-    "provider": "RKK Energiya",
-    "slug": "soyuz-5-demo-flight",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | Starlink Group 10-38",
+    "windowStart": "2026-05-01T17:33:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-10-38",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-10-38"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=eeyJIut4NNA"
+      "https://www.youtube.com/watch?v=IcZeELuvo3g",
+      "https://www.youtube.com/watch?v=5QV1tDmqBzI",
+      "https://www.youtube.com/watch?v=F6t613w-Pow",
+      "https://x.com/i/broadcasts/1rGmqobLdrDGy"
     ]
   }
 }
