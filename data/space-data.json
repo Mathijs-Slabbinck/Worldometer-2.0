@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-01T07:12:09.630Z",
+  "lastUpdated": "2026-05-01T09:11:03.469Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Ariane 64 | Amazon Leo (LE-02)",
-    "windowStart": "2026-04-30T08:08:45Z",
-    "provider": "Arianespace",
-    "slug": "ariane-64-amazon-leo-le-02",
-    "infoURLs": [
-      "https://newsroom.arianespace.com/ariane-6-flight-va268/"
-    ],
+    "name": "Soyuz-5 | Demo Flight",
+    "windowStart": "2026-04-30T11:00:00Z",
+    "provider": "RKK Energiya",
+    "slug": "soyuz-5-demo-flight",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=H0zLzwGEhcg",
-      "https://www.youtube.com/watch?v=DhxJ6Z7u-YU",
-      "https://www.youtube.com/watch?v=apXRc7sCdug"
+      "https://www.youtube.com/watch?v=eeyJIut4NNA"
     ]
   }
 }
