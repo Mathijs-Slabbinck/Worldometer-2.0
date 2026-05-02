@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-02T21:07:22.049Z",
+  "lastUpdated": "2026-05-02T22:51:14.303Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -80,6 +80,8 @@
       "https://www.spacex.com/launches/cas500-2"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=ULdQKEF9MyU",
+      "https://www.youtube.com/watch?v=2vYPVVe6INg",
       "https://x.com/i/broadcasts/1AKEmODRWpZKL"
     ]
   }
