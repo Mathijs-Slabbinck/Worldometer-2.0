@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-04T04:58:25.833Z",
+  "lastUpdated": "2026-05-04T07:50:19.056Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,16 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | CAS500-2 & Others",
-    "windowStart": "2026-05-03T06:59:00Z",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-29",
+    "windowStart": "2026-05-06T02:00:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-cas500-2-others",
+    "slug": "falcon-9-block-5-starlink-group-17-29",
     "infoURLs": [
-      "https://www.spacex.com/launches/cas500-2"
+      "https://www.spacex.com/launches/sl-17-29"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=oAYpPfnj9E8",
-      "https://www.youtube.com/watch?v=2vYPVVe6INg",
-      "https://x.com/i/broadcasts/1AKEmODRWpZKL"
+      "https://www.youtube.com/watch?v=yt5DGn7No6U",
+      "https://x.com/i/broadcasts/1nxnRYnWBPdxO"
     ]
   }
 }
