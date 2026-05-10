@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-10T21:05:58.464Z",
+  "lastUpdated": "2026-05-10T23:08:11.849Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -77,6 +77,8 @@
     "provider": "China Aerospace Science and Technology Corporation",
     "slug": "long-march-7-tianzhou-10",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=YDHEjZAuEvA"
+    ]
   }
 }
