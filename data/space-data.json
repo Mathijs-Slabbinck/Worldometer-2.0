@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-12T23:58:11.055Z",
+  "lastUpdated": "2026-05-13T03:57:42.129Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | NROL-172",
-    "windowStart": "2026-05-11T22:28:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-nrol-172",
-    "infoURLs": [
-      "https://www.spacex.com/launches/nrol172"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=kamFnwLiv-w",
-      "https://www.youtube.com/watch?v=Eolg3WJBf_o",
-      "https://x.com/i/broadcasts/1AKEmOQmWLVKL"
-    ]
+    "name": "Long March 6A | SpaceSail Polar Group 09",
+    "windowStart": "2026-05-12T11:49:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-6a-spacesail-polar-group-09",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
