@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-14T14:06:40.627Z",
+  "lastUpdated": "2026-05-14T16:21:28.195Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Zhuque-2E | Mass Simulator",
+    "name": "Zhuque-2E Block 2 | Mass Simulator",
     "windowStart": "2026-05-14T02:52:00Z",
     "provider": "LandSpace",
-    "slug": "zhuque-2e-mass-simulator",
+    "slug": "zhuque-2e-block-2-mass-simulator",
     "infoURLs": [],
     "vidURLs": []
   }
