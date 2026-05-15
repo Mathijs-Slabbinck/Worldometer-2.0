@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-15T01:30:36.284Z",
+  "lastUpdated": "2026-05-15T05:39:16.908Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Zhuque-2E Block 2 | Mass Simulator",
-    "windowStart": "2026-05-14T02:52:00Z",
-    "provider": "LandSpace",
-    "slug": "zhuque-2e-block-2-mass-simulator",
+    "name": "Kinetica 1 | 5 satellites",
+    "windowStart": "2026-05-15T04:24:00Z",
+    "provider": "CAS Space",
+    "slug": "kinetica-1-5-satellites-2",
     "infoURLs": [],
     "vidURLs": []
   }
