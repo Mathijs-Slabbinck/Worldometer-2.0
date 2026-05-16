@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-16T21:34:57.857Z",
+  "lastUpdated": "2026-05-16T23:30:35.011Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,19 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Dragon CRS-2 SpX-34",
-    "windowStart": "2026-05-15T22:05:41Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-dragon-crs-2-spx-34",
-    "infoURLs": [
-      "https://www.spacex.com/launches/crs-34"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=9J8pbaLkRuE",
-      "https://x.com/i/broadcasts/1AxRnawMpzVxl",
-      "https://plus.nasa.gov/scheduled-video/nasas-spacex-34th-commercial-resupply-services-launch/",
-      "https://www.youtube.com/watch?v=Wgsg7NAxAvk",
-      "https://www.youtube.com/watch?v=JL5ehLQHSCQ"
-    ]
+    "name": "Long March 8 | SpaceSail Polar Group TBD",
+    "windowStart": "2026-05-17T14:34:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-8-spacesail-polar-group-tbd",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
