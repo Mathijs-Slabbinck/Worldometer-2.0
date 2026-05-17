@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-17T13:56:23.979Z",
+  "lastUpdated": "2026-05-17T14:57:52.915Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -77,6 +77,8 @@
     "provider": "China Aerospace Science and Technology Corporation",
     "slug": "long-march-8-spacesail-polar-group-tbd",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=e8Yzi083rY4"
+    ]
   }
 }
