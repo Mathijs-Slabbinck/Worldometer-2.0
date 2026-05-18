@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-18T14:04:55.042Z",
+  "lastUpdated": "2026-05-18T17:11:04.895Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,13 +72,19 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 8 | SpaceSail Polar Group #9",
-    "windowStart": "2026-05-17T14:34:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-8-spacesail-polar-group-9",
-    "infoURLs": [],
+    "name": "Vega-C | Solar wind Magnetosphere Ionosphere Link Explorer (SMILE)",
+    "windowStart": "2026-05-19T03:52:00Z",
+    "provider": "Avio S.p.A",
+    "slug": "vega-c-solar-wind-magnetosphere-ionosphere-link-ex",
+    "infoURLs": [
+      "https://www.avio.com/press-kit/launch-kit-vv29",
+      "https://esamultimedia.esa.int/docs/science/Smile_Launch_Kit_EN.pdf"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=e8Yzi083rY4"
+      "https://www.youtube.com/watch?v=6q8aKbcKCOs",
+      "https://www.youtube.com/watch?v=RgT3ubiqSe0",
+      "https://www.youtube.com/watch?v=KL8tN7ImVpI",
+      "https://www.youtube.com/watch?v=iV_A7ix3BAY"
     ]
   }
 }
