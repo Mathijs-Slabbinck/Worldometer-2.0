@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-19T00:15:22.434Z",
+  "lastUpdated": "2026-05-19T04:41:26.428Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -73,7 +73,7 @@
   },
   "nextLaunch": {
     "name": "Vega-C | Solar wind Magnetosphere Ionosphere Link Explorer (SMILE)",
-    "windowStart": "2026-05-19T03:52:00Z",
+    "windowStart": "2026-05-19T03:52:10Z",
     "provider": "Avio S.p.A",
     "slug": "vega-c-solar-wind-magnetosphere-ionosphere-link-ex",
     "infoURLs": [
