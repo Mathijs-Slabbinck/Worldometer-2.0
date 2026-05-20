@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-20T01:35:38.802Z",
+  "lastUpdated": "2026-05-20T05:51:39.816Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,19 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Vega-C | Solar wind Magnetosphere Ionosphere Link Explorer (SMILE)",
-    "windowStart": "2026-05-19T03:52:10Z",
-    "provider": "Avio S.p.A",
-    "slug": "vega-c-solar-wind-magnetosphere-ionosphere-link-ex",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-42",
+    "windowStart": "2026-05-20T02:11:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-42",
     "infoURLs": [
-      "https://www.avio.com/press-kit/launch-kit-vv29",
-      "https://esamultimedia.esa.int/docs/science/Smile_Launch_Kit_EN.pdf"
+      "https://www.spacex.com/launches/sl-17-42"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=6q8aKbcKCOs",
-      "https://www.youtube.com/watch?v=RgT3ubiqSe0",
-      "https://www.youtube.com/watch?v=KL8tN7ImVpI",
-      "https://www.youtube.com/watch?v=iV_A7ix3BAY"
+      "https://www.youtube.com/watch?v=t_WSE0HLBm4",
+      "https://www.youtube.com/watch?v=DBcldGapcYs",
+      "https://x.com/i/broadcasts/1wxWjaEgZOkJQ"
     ]
   }
 }
