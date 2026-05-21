@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-20T23:47:47.093Z",
+  "lastUpdated": "2026-05-21T03:32:18.428Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-42",
-    "windowStart": "2026-05-20T02:11:00Z",
+    "name": "Falcon 9 Block 5 | Starlink Group 10-31",
+    "windowStart": "2026-05-21T09:26:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-42",
+    "slug": "falcon-9-block-5-starlink-group-10-31",
     "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-42"
+      "https://www.spacex.com/launches/sl-10-31"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=t_WSE0HLBm4",
-      "https://www.youtube.com/watch?v=DBcldGapcYs",
-      "https://x.com/i/broadcasts/1wxWjaEgZOkJQ"
+      "https://www.youtube.com/watch?v=NBmIM7SwBak",
+      "https://www.youtube.com/watch?v=-ojhyy73s-s",
+      "https://x.com/i/broadcasts/1mxPaLmMoZMKN"
     ]
   }
 }
