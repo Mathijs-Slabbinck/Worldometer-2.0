@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-22T09:48:39.974Z",
+  "lastUpdated": "2026-05-22T12:16:51.117Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 10-31",
-    "windowStart": "2026-05-21T09:26:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-10-31",
+    "name": "Electron | Viva La StriX (StriX Launch 9)",
+    "windowStart": "2026-05-22T09:30:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-viva-la-strix-strix-launch-9",
     "infoURLs": [
-      "https://www.spacex.com/launches/sl-10-31"
+      "https://rocketlabcorp.com/missions/launches/viva-la-strix-2/"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=KMdvZusCUy0",
-      "https://www.youtube.com/watch?v=-ojhyy73s-s",
-      "https://x.com/i/broadcasts/1mxPaLmMoZMKN"
+      "https://www.youtube.com/watch?v=oyrrCpLFU88"
     ]
   }
 }
