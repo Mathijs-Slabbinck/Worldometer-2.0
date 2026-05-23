@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-23T21:53:10.819Z",
+  "lastUpdated": "2026-05-23T23:55:46.475Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,19 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Starship | Flight 12",
-    "windowStart": "2026-05-22T22:30:00Z",
-    "provider": "SpaceX",
-    "slug": "starship-flight-12",
-    "infoURLs": [
-      "https://www.spacex.com/launches/starship-flight-12"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=OT_ZXZUrUcU",
-      "https://www.youtube.com/watch?v=U4alF1JasLo",
-      "https://www.youtube.com/watch?v=UfQHy4mVcBo",
-      "https://x.com/i/broadcasts/1pKkOykQRgNKj",
-      "https://www.youtube.com/watch?v=odWYDx3u8A4"
-    ]
+    "name": "Long March 2F/G | Shenzhou 23",
+    "windowStart": "2026-05-24T14:58:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-2fg-shenzhou-23",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
