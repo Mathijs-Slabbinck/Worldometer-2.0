@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-23T07:42:28.202Z",
+  "lastUpdated": "2026-05-23T11:58:44.904Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,19 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | Viva La StriX (StriX Launch 9)",
-    "windowStart": "2026-05-22T09:30:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-viva-la-strix-strix-launch-9",
+    "name": "Starship | Flight 12",
+    "windowStart": "2026-05-22T22:30:00Z",
+    "provider": "SpaceX",
+    "slug": "starship-flight-12",
     "infoURLs": [
-      "https://rocketlabcorp.com/missions/launches/viva-la-strix-2/"
+      "https://www.spacex.com/launches/starship-flight-12"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=oyrrCpLFU88"
+      "https://www.youtube.com/watch?v=OT_ZXZUrUcU",
+      "https://www.youtube.com/watch?v=U4alF1JasLo",
+      "https://www.youtube.com/watch?v=UfQHy4mVcBo",
+      "https://x.com/i/broadcasts/1pKkOykQRgNKj",
+      "https://www.youtube.com/watch?v=odWYDx3u8A4"
     ]
   }
 }
