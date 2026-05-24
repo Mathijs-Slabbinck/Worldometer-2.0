@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-05-24T19:49:58.774Z",
+  "lastUpdated": "2026-05-24T20:53:37.894Z",
   "astronauts": {
-    "count": 11,
+    "count": 14,
     "people": [
       {
         "name": "Jessica Meir",
@@ -52,6 +52,12 @@
         "mission": ""
       },
       {
+        "name": "Zhu Yangzhu",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
         "name": "Sergey Mikayev",
         "craft": "",
         "destination": "",
@@ -65,6 +71,18 @@
       },
       {
         "name": "Zhang Hongzhang",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Zhang Zhiyuan",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Lai Ka-ying",
         "craft": "",
         "destination": "",
         "mission": ""
