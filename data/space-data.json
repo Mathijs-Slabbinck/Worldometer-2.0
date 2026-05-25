@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-25T12:29:09.734Z",
+  "lastUpdated": "2026-05-25T15:38:16.860Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,15 +90,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2F/G | Shenzhou 23",
-    "windowStart": "2026-05-24T14:58:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2fg-shenzhou-23",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | Starlink Group 10-47",
+    "windowStart": "2026-05-25T11:41:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-10-47",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-10-47"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=cY7Jh93Cyic",
-      "https://www.youtube.com/watch?v=SFvZ-gvWQeo",
-      "https://www.youtube.com/watch?v=pm_odSrHYy0"
+      "https://www.youtube.com/watch?v=F7CWEfbKtxo",
+      "https://www.youtube.com/watch?v=37ftjYVlmvo",
+      "https://www.youtube.com/watch?v=KKP8sQ3k-SI",
+      "https://x.com/i/broadcasts/1AKEmOYyqYAKL"
     ]
   }
 }
