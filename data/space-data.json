@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-27T08:37:13.469Z",
+  "lastUpdated": "2026-05-27T15:59:47.808Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,17 +90,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-37",
-    "windowStart": "2026-05-26T14:00:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-37",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-37"
-    ],
+    "name": "Long March 7A | TJSW-24",
+    "windowStart": "2026-05-26T16:08:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-7a-tjsw-24",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=jOuCnNgE8yM",
-      "https://www.youtube.com/watch?v=L2kjR-2VmHU",
-      "https://x.com/i/broadcasts/1rGmqoeWkBkGy"
+      "https://www.youtube.com/watch?v=1aT4OfdPiLU"
     ]
   }
 }
