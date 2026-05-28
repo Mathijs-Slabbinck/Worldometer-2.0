@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-28T10:58:27.746Z",
+  "lastUpdated": "2026-05-28T14:41:32.144Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -98,6 +98,9 @@
       "https://www.spacex.com/launches/sl-10-53"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=_Lo1BwU-Yec",
+      "https://www.youtube.com/watch?v=e98GNsifulw",
+      "https://www.youtube.com/watch?v=HVcST0On3lk",
       "https://x.com/i/broadcasts/1YxNrZwdWMyxw"
     ]
   }
