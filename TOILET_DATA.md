@@ -2,7 +2,7 @@
 
 <!-- Machine-readable data — do not edit manually -->
 <!-- TANK_LEVEL: 35.0 -->
-<!-- LAST_UPDATED: 2026-05-28T14:41:22Z -->
+<!-- LAST_UPDATED: 2026-05-28T17:51:52Z -->
 <!-- LAST_FLUSH: 2026-05-23T18:32:36Z -->
 <!-- PREV_TANK_LEVEL: 35.0 -->
 
@@ -11,7 +11,7 @@
 | Metric | Value |
 |---|---|
 | Tank Level | 35.0% |
-| Last Updated | 2026-05-28 14:41:22 UTC |
+| Last Updated | 2026-05-28 17:51:52 UTC |
 | Last Flush Detected | 2026-05-23 18:32:36 UTC |
 
 ## Recent History
