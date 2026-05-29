@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-05-29T10:53:34.116Z",
+  "lastUpdated": "2026-05-29T13:58:07.347Z",
   "astronauts": {
-    "count": 14,
+    "count": 11,
     "people": [
       {
         "name": "Jessica Meir",
@@ -46,12 +46,6 @@
         "mission": ""
       },
       {
-        "name": "Zhang Lu",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
         "name": "Zhu Yangzhu",
         "craft": "",
         "destination": "",
@@ -59,18 +53,6 @@
       },
       {
         "name": "Sergey Mikayev",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
-        "name": "Wu Fei",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
-        "name": "Zhang Hongzhang",
         "craft": "",
         "destination": "",
         "mission": ""
@@ -98,7 +80,7 @@
       "https://www.spacex.com/launches/sl-10-53"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=_Lo1BwU-Yec",
+      "https://www.youtube.com/watch?v=fDzQGpt54JY",
       "https://www.youtube.com/watch?v=e98GNsifulw",
       "https://www.youtube.com/watch?v=HVcST0On3lk",
       "https://x.com/i/broadcasts/1YxNrZwdWMyxw"
