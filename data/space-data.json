@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-30T23:41:51.453Z",
+  "lastUpdated": "2026-05-31T01:52:34.082Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Atlas V 551 | Amazon Leo (LA-07)",
-    "windowStart": "2026-05-29T23:33:30Z",
-    "provider": "United Launch Alliance",
-    "slug": "atlas-v-551-amazon-leo-la-07",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-41",
+    "windowStart": "2026-05-30T14:00:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-41",
     "infoURLs": [
-      "https://www.ulalaunch.com/missions/next-launch/atlas-v-amazon-leo-7"
+      "https://www.spacex.com/launches/sl-17-41"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=hRddOJJzB7A",
-      "https://www.youtube.com/watch?v=tAipfiXqcEc",
-      "https://www.youtube.com/watch?v=Cu4tIY6fQko"
+      "https://www.youtube.com/watch?v=3AYYE5Evg-k",
+      "https://www.youtube.com/watch?v=tH0RDIF93xo",
+      "https://x.com/i/broadcasts/1mxPaLgeMbqKN"
     ]
   }
 }
