@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-31T14:47:17.690Z",
+  "lastUpdated": "2026-05-31T16:06:05.225Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-41",
-    "windowStart": "2026-05-30T14:00:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-41",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-41"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=3AYYE5Evg-k",
-      "https://www.youtube.com/watch?v=tH0RDIF93xo",
-      "https://x.com/i/broadcasts/1mxPaLgeMbqKN"
-    ]
+    "name": "Long March 2D | 4 x SatNet test satellites",
+    "windowStart": "2026-05-30T17:57:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-2d-4-x-satnet-test-satellites-3",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
