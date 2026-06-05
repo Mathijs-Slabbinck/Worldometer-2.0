@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-05T11:26:51.145Z",
+  "lastUpdated": "2026-06-05T14:06:38.803Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 6A | SpaceSail Polar Group #11",
-    "windowStart": "2026-06-04T11:31:00Z",
+    "name": "Long March 8 | SpaceSail Polar Group #12",
+    "windowStart": "2026-06-05T06:25:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-6a-spacesail-polar-group-11",
+    "slug": "long-march-8-spacesail-polar-group-12",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=mGaZ7f-c2Dk"
+    ]
   }
 }
