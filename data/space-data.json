@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-09T08:21:17.609Z",
+  "lastUpdated": "2026-06-09T11:38:02.645Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 10-35",
-    "windowStart": "2026-06-08T10:07:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-10-35",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-10-35"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=oCtjRao7f0k",
-      "https://www.youtube.com/watch?v=umEOUgmLiQo",
-      "https://www.youtube.com/watch?v=PAnOoSVgBCo",
-      "https://x.com/i/broadcasts/1AKEmmPDOpRKL"
-    ]
+    "name": "Zhuque-2E Block 2 | 2 x SatNet DTC test satellites",
+    "windowStart": "2026-06-09T08:11:00Z",
+    "provider": "LandSpace",
+    "slug": "zhuque-2e-block-2-2-x-satnet-dtc-test-satellites",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
