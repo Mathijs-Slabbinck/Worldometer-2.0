@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-10T04:48:47.956Z",
+  "lastUpdated": "2026-06-10T08:47:30.831Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Zhuque-2E Block 2 | 2 x SatNet DTC test satellites",
-    "windowStart": "2026-06-09T08:11:00Z",
-    "provider": "LandSpace",
-    "slug": "zhuque-2e-block-2-2-x-satnet-dtc-test-satellites",
+    "name": "HASTE | Curveball",
+    "windowStart": "2026-06-11T04:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "haste-curveball",
     "infoURLs": [],
     "vidURLs": []
   }
