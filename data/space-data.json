@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-11T11:07:59.457Z",
+  "lastUpdated": "2026-06-11T14:53:58.845Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "HASTE | Curveball",
-    "windowStart": "2026-06-11T04:00:00Z",
-    "provider": "Rocket Lab",
-    "slug": "haste-curveball",
+    "name": "Long March 5 | TJSW-25",
+    "windowStart": "2026-06-11T07:22:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-5-tjsw-25",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=6g4kFdjWExo"
+    ]
   }
 }
