@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-13T12:07:59.699Z",
+  "lastUpdated": "2026-06-13T14:25:09.590Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 10-54",
-    "windowStart": "2026-06-12T12:27:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-10-54",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-10-54"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=vqjgWIA0Vgw",
-      "https://www.youtube.com/watch?v=hOZEleOxGyQ",
-      "https://www.youtube.com/watch?v=wkwYXsmKG24",
-      "https://x.com/i/broadcasts/1AxRnnezVPzxl"
-    ]
+    "name": "Kinetica 1 | Unknown Payload",
+    "windowStart": "2026-06-15T03:34:00Z",
+    "provider": "CAS Space",
+    "slug": "kinetica-1-unknown-payload",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
