@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T23:49:05.281Z",
+  "lastUpdated": "2026-06-13T03:33:29.466Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "H3-30 | H3-30 Test Flight",
-    "windowStart": "2026-06-12T00:53:59Z",
-    "provider": "Mitsubishi Heavy Industries",
-    "slug": "h3-30-h3-30-test-flight",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | Starlink Group 10-54",
+    "windowStart": "2026-06-12T12:27:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-10-54",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-10-54"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=HSiaGTea1rc",
-      "https://www.youtube.com/watch?v=1U9WBmfUMZs",
-      "https://www.youtube.com/watch?v=w1FoLijNoUE"
+      "https://www.youtube.com/watch?v=vqjgWIA0Vgw",
+      "https://www.youtube.com/watch?v=hOZEleOxGyQ",
+      "https://www.youtube.com/watch?v=wkwYXsmKG24",
+      "https://x.com/i/broadcasts/1AxRnnezVPzxl"
     ]
   }
 }
