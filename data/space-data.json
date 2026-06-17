@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T07:26:45.208Z",
+  "lastUpdated": "2026-06-17T12:04:30.473Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 3B/E | Shijian 31",
-    "windowStart": "2026-06-16T09:37:00Z",
+    "name": "Long March 12 | SatNet LEO Group 22",
+    "windowStart": "2026-06-17T02:37:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-3be-shijian-31",
+    "slug": "long-march-12-satnet-leo-group-22",
     "infoURLs": [],
     "vidURLs": []
   }
