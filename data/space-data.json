@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T12:41:37.524Z",
+  "lastUpdated": "2026-06-18T16:16:11.492Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -80,6 +80,8 @@
       "https://www.spacex.com/launches/nrol179"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=QoA12hmA3co",
+      "https://www.youtube.com/watch?v=pFLI1BTVfkM",
       "https://x.com/i/broadcasts/1dGYllVmbpAKX"
     ]
   }
