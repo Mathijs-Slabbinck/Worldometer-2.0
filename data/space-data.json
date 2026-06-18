@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T05:01:42.527Z",
+  "lastUpdated": "2026-06-18T09:44:30.158Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,19 +72,19 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | BlueBird Block 2 #3-5",
-    "windowStart": "2026-06-17T06:39:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-bluebird-block-2-3-5",
+    "name": "Ariane 64 Block 2 | Amazon Leo (LE-03)",
+    "windowStart": "2026-06-17T11:53:22Z",
+    "provider": "Arianespace",
+    "slug": "ariane-64-block-2-amazon-leo-le-03",
     "infoURLs": [
-      "https://www.spacex.com/launches/bluebird8-10"
+      "https://newsroom.arianespace.com/ariane-6-flight-va269/"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=YxVvwgWPgT8",
-      "https://www.youtube.com/watch?v=8QC-T99MDuA",
-      "https://www.youtube.com/watch?v=X4xvKDvcrTo",
-      "https://x.com/i/broadcasts/1XxyggrrXmeGM",
-      "https://www.youtube.com/watch?v=zjQieDzQTGo"
+      "https://www.youtube.com/watch?v=GFyhszzyiJA",
+      "https://www.youtube.com/watch?v=Xm5edBUndBo",
+      "https://www.youtube.com/watch?v=Y8x91j8LSMY",
+      "https://www.youtube.com/watch?v=oZ1pzt4VFFc",
+      "https://www.youtube.com/watch?v=hlpgvkRyZIs"
     ]
   }
 }
