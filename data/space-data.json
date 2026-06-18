@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T09:44:30.158Z",
+  "lastUpdated": "2026-06-18T12:41:37.524Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,19 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Ariane 64 Block 2 | Amazon Leo (LE-03)",
-    "windowStart": "2026-06-17T11:53:22Z",
-    "provider": "Arianespace",
-    "slug": "ariane-64-block-2-amazon-leo-le-03",
+    "name": "Falcon 9 Block 5 | NROL-179",
+    "windowStart": "2026-06-19T08:40:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-nrol-179",
     "infoURLs": [
-      "https://newsroom.arianespace.com/ariane-6-flight-va269/"
+      "https://www.spacex.com/launches/nrol179"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=GFyhszzyiJA",
-      "https://www.youtube.com/watch?v=Xm5edBUndBo",
-      "https://www.youtube.com/watch?v=Y8x91j8LSMY",
-      "https://www.youtube.com/watch?v=oZ1pzt4VFFc",
-      "https://www.youtube.com/watch?v=hlpgvkRyZIs"
+      "https://x.com/i/broadcasts/1dGYllVmbpAKX"
     ]
   }
 }
