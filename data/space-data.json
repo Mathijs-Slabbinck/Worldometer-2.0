@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T00:04:00.348Z",
+  "lastUpdated": "2026-06-18T05:01:42.527Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,19 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 12 | SatNet LEO Group 22",
-    "windowStart": "2026-06-17T02:37:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-12-satnet-leo-group-22",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | BlueBird Block 2 #3-5",
+    "windowStart": "2026-06-17T06:39:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-bluebird-block-2-3-5",
+    "infoURLs": [
+      "https://www.spacex.com/launches/bluebird8-10"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=YxVvwgWPgT8",
+      "https://www.youtube.com/watch?v=8QC-T99MDuA",
+      "https://www.youtube.com/watch?v=X4xvKDvcrTo",
+      "https://x.com/i/broadcasts/1XxyggrrXmeGM",
+      "https://www.youtube.com/watch?v=zjQieDzQTGo"
+    ]
   }
 }
