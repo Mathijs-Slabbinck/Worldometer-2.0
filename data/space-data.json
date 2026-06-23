@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T23:50:57.644Z",
+  "lastUpdated": "2026-06-23T03:24:30.405Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 7A | Unknown Payload",
+    "name": "Long March 7A | TJSW-26A",
     "windowStart": "2026-06-23T02:02:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-7a-unknown-payload",
+    "slug": "long-march-7a-tjsw-26a",
     "infoURLs": [],
     "vidURLs": []
   }
