@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T08:43:05.747Z",
+  "lastUpdated": "2026-06-24T11:31:17.690Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Project Starfall Demonstration Mission",
-    "windowStart": "2026-06-23T10:43:00Z",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-45",
+    "windowStart": "2026-06-25T02:48:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-project-starfall-demonstration-mi",
+    "slug": "falcon-9-block-5-starlink-group-17-45",
     "infoURLs": [
-      "https://www.spacex.com/launches/starfalldemo"
+      "https://www.spacex.com/launches/sl-17-45"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=BKicbMA9pyM",
-      "https://www.youtube.com/watch?v=0Xh_OTyzxOY",
-      "https://www.youtube.com/watch?v=TBmijMsjv04",
-      "https://x.com/i/broadcasts/1kKzDDVdEdvJv"
+      "https://x.com/i/broadcasts/1nJOLLzylYExR"
     ]
   }
 }
