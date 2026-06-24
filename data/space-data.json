@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T01:24:39.934Z",
+  "lastUpdated": "2026-06-24T05:35:38.763Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 7A | TJSW-26A",
-    "windowStart": "2026-06-23T02:02:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-7a-tjsw-26a",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Project Starfall Demonstration Mission",
+    "windowStart": "2026-06-23T10:43:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-project-starfall-demonstration-mi",
+    "infoURLs": [
+      "https://www.spacex.com/launches/starfalldemo"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=BKicbMA9pyM",
+      "https://www.youtube.com/watch?v=0Xh_OTyzxOY",
+      "https://www.youtube.com/watch?v=TBmijMsjv04",
+      "https://x.com/i/broadcasts/1kKzDDVdEdvJv"
+    ]
   }
 }
