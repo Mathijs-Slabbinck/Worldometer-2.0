@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T16:45:58.642Z",
+  "lastUpdated": "2026-06-27T18:01:21.446Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | Ten Owl Of Ten (StriX Launch 10)",
-    "windowStart": "2026-06-26T16:45:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-ten-owl-of-ten-strix-launch-10",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-40",
+    "windowStart": "2026-06-28T14:00:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-40",
     "infoURLs": [
-      "https://rocketlabcorp.com/missions/launches/tenowloften/"
+      "https://www.spacex.com/launches/sl-17-40"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=mD-rTeRXx8o"
+      "https://x.com/i/broadcasts/1MJgNNPnkqlGL"
     ]
   }
 }
