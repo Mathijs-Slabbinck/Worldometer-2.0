@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T00:00:26.287Z",
+  "lastUpdated": "2026-06-28T04:49:24.403Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -80,6 +80,8 @@
       "https://www.spacex.com/launches/sl-17-40"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=6R1ZDNpbx1M",
+      "https://www.youtube.com/watch?v=bW4YJ2XX0lQ",
       "https://x.com/i/broadcasts/1MJgNNPnkqlGL"
     ]
   }
