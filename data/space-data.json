@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T15:03:26.035Z",
+  "lastUpdated": "2026-06-29T17:47:08.299Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-40",
-    "windowStart": "2026-06-28T14:00:00Z",
+    "name": "Falcon 9 Block 5 | Sirius SXM-11",
+    "windowStart": "2026-06-29T02:25:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-40",
+    "slug": "falcon-9-block-5-sirius-sxm-11",
     "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-40"
+      "https://www.spacex.com/launches/sxm11"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=roY-br3ly0c",
-      "https://www.youtube.com/watch?v=bW4YJ2XX0lQ",
-      "https://x.com/i/broadcasts/1vJpPPEgOvXJE"
+      "https://www.youtube.com/watch?v=rz4QAc0BkEA",
+      "https://www.youtube.com/watch?v=OgSGnNnVHQI",
+      "https://www.youtube.com/watch?v=zA9MpkFxZFo",
+      "https://x.com/i/broadcasts/1AJEmmRWBjkJL"
     ]
   }
 }
