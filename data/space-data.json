@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T12:18:46.744Z",
+  "lastUpdated": "2026-06-30T15:09:00.342Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "South Korean ADD Solid-Fuel SLV | Demo Flight",
-    "windowStart": "2026-06-30T05:00:00Z",
-    "provider": "Agency for Defense Development",
-    "slug": "south-korean-add-solid-fuel-slv-demo-flight",
+    "name": "Pegasus XL | Swift Boost Mission",
+    "windowStart": "2026-07-01T07:30:00Z",
+    "provider": "Northrop Grumman Space Systems",
+    "slug": "pegasus-xl-swift-boost-mission",
     "infoURLs": [],
     "vidURLs": []
   }
