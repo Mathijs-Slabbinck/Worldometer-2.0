@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T01:49:18.802Z",
+  "lastUpdated": "2026-06-30T06:10:20.323Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Sirius SXM-11",
-    "windowStart": "2026-06-29T02:25:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-sirius-sxm-11",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sxm11"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=rz4QAc0BkEA",
-      "https://www.youtube.com/watch?v=OgSGnNnVHQI",
-      "https://www.youtube.com/watch?v=zA9MpkFxZFo",
-      "https://x.com/i/broadcasts/1AJEmmRWBjkJL"
-    ]
+    "name": "South Korean ADD Solid-Fuel SLV | Demo Flight",
+    "windowStart": "2026-06-30T05:00:00Z",
+    "provider": "Agency for Defense Development",
+    "slug": "south-korean-add-solid-fuel-slv-demo-flight",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
