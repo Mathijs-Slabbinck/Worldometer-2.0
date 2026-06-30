@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T19:10:01.916Z",
+  "lastUpdated": "2026-06-30T21:04:13.283Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Pegasus XL | Swift Boost Mission",
-    "windowStart": "2026-07-01T07:30:00Z",
-    "provider": "Northrop Grumman Space Systems",
-    "slug": "pegasus-xl-swift-boost-mission",
+    "name": "Electron | The Grain Goddess Provides (iQPS Launch 7)",
+    "windowStart": "2026-07-01T01:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-the-grain-goddess-provides-iqps-launch-7",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=C_JarlUSk5I"
+    ]
   }
 }
