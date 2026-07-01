@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T11:29:17.220Z",
+  "lastUpdated": "2026-07-01T13:52:33.121Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Pegasus XL | Swift Boost Mission",
-    "windowStart": "2026-07-01T07:30:00Z",
-    "provider": "Northrop Grumman Space Systems",
-    "slug": "pegasus-xl-swift-boost-mission",
+    "name": "Long March 4C | Unknown Payload",
+    "windowStart": "2026-07-01T23:38:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-4c-unknown-payload",
     "infoURLs": [],
     "vidURLs": []
   }
