@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T23:23:16.945Z",
+  "lastUpdated": "2026-07-02T01:31:36.823Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 4C | Unknown Payload",
+    "name": "Long March 4B | Haiyang 2E",
     "windowStart": "2026-07-01T23:38:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-4c-unknown-payload",
+    "slug": "long-march-4b-haiyang-2e",
     "infoURLs": [],
     "vidURLs": []
   }
