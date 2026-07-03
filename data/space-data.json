@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T22:47:30.162Z",
+  "lastUpdated": "2026-07-03T00:03:54.806Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 4B | Haiyang 2E",
-    "windowStart": "2026-07-01T23:38:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-4b-haiyang-2e",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 17-46",
+    "windowStart": "2026-07-02T02:00:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-46",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-17-46"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=nbzgvvmQYEc",
+      "https://www.youtube.com/watch?v=5usMlga4NnM",
+      "https://x.com/i/broadcasts/1aKbddvkZVeJX",
+      "https://www.youtube.com/watch?v=dcdbmqJ3vkw"
+    ]
   }
 }
