@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T10:17:53.456Z",
+  "lastUpdated": "2026-07-03T12:24:26.761Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -73,7 +73,7 @@
   },
   "nextLaunch": {
     "name": "Pegasus XL | Swift Boost Mission",
-    "windowStart": "2026-07-03T08:35:00Z",
+    "windowStart": "2026-07-03T08:36:00Z",
     "provider": "Northrop Grumman Space Systems",
     "slug": "pegasus-xl-swift-boost-mission",
     "infoURLs": [],
