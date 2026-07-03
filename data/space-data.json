@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T04:07:26.375Z",
+  "lastUpdated": "2026-07-03T07:35:00.646Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Atlas V 551 | Amazon Leo (LA-08)",
-    "windowStart": "2026-07-02T04:24:00Z",
-    "provider": "United Launch Alliance",
-    "slug": "atlas-v-551-amazon-leo-la-08",
-    "infoURLs": [
-      "https://www.ulalaunch.com/missions/next-launch/atlas-v-amazon-leo-8"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=IxEYrkqNH8s",
-      "https://www.youtube.com/watch?v=o1HtMe5qJy0",
-      "https://www.youtube.com/watch?v=dcdbmqJ3vkw"
-    ]
+    "name": "Pegasus XL | Swift Boost Mission",
+    "windowStart": "2026-07-03T08:35:00Z",
+    "provider": "Northrop Grumman Space Systems",
+    "slug": "pegasus-xl-swift-boost-mission",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
