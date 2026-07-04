@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T10:52:41.886Z",
+  "lastUpdated": "2026-07-04T12:05:41.722Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 6A | Unknown Payload",
+    "name": "Long March 6A | SpaceSail Polar Group #13",
     "windowStart": "2026-07-04T09:21:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-6a-unknown-payload",
+    "slug": "long-march-6a-spacesail-polar-group-13",
     "infoURLs": [],
     "vidURLs": []
   }
