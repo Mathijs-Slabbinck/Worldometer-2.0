@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T07:43:05.477Z",
+  "lastUpdated": "2026-07-05T09:57:00.048Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 6A | SpaceSail Polar Group #13",
-    "windowStart": "2026-07-04T09:21:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-6a-spacesail-polar-group-13",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 10-50",
+    "windowStart": "2026-07-05T10:36:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-10-50",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-10-50"
+    ],
+    "vidURLs": [
+      "https://x.com/i/broadcasts/1oKMvvkZZAOGQ"
+    ]
   }
 }
