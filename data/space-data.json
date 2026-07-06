@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T09:43:21.147Z",
+  "lastUpdated": "2026-07-06T13:31:06.504Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,14 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 10-50",
-    "windowStart": "2026-07-05T10:36:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-10-50",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-10-50"
-    ],
+    "name": "Long March 8A | SpaceSail Polar Group #14",
+    "windowStart": "2026-07-05T13:32:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-8a-spacesail-polar-group-14",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=ZMD1swgTLkU",
-      "https://www.youtube.com/watch?v=qx8NM71T1XY",
-      "https://www.youtube.com/watch?v=OMMBI0pQLfo",
-      "https://x.com/i/broadcasts/1oKMvvkZZAOGQ"
+      "https://www.youtube.com/watch?v=SSprOvxxlak",
+      "https://www.youtube.com/watch?v=j7RtIMmwYho"
     ]
   }
 }
