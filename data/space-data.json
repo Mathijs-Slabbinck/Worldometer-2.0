@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T13:31:06.504Z",
+  "lastUpdated": "2026-07-06T16:44:31.747Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,14 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 8A | SpaceSail Polar Group #14",
-    "windowStart": "2026-07-05T13:32:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-8a-spacesail-polar-group-14",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | Transporter 17 (Dedicated SSO Rideshare)",
+    "windowStart": "2026-07-07T07:10:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-transporter-17-dedicated-sso-ride",
+    "infoURLs": [
+      "https://www.spacex.com/launches/transporter17"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=SSprOvxxlak",
-      "https://www.youtube.com/watch?v=j7RtIMmwYho"
+      "https://x.com/i/broadcasts/1YxNrryLloQxw"
     ]
   }
 }
