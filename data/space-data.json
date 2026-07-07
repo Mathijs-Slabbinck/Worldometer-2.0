@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T01:23:31.292Z",
+  "lastUpdated": "2026-07-07T05:35:11.985Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -80,6 +80,8 @@
       "https://www.spacex.com/launches/transporter17"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=kf6ZM4lFO5Q",
+      "https://www.youtube.com/watch?v=VFGj4aen9OU",
       "https://x.com/i/broadcasts/1YxNrryLloQxw"
     ]
   }
