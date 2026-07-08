@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-08T13:01:48.733Z",
+  "lastUpdated": "2026-07-08T15:33:35.667Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -80,6 +80,8 @@
       "https://www.spacex.com/launches/sl-10-42"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=1nqwTfqAHAw",
+      "https://www.youtube.com/watch?v=D3cSGwTyAdQ",
       "https://x.com/i/broadcasts/1kKzDDNnkOLJv"
     ]
   }
