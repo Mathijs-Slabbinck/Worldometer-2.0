@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-08T06:26:21.028Z",
+  "lastUpdated": "2026-07-08T09:06:36.185Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Transporter 17 (Dedicated SSO Rideshare)",
-    "windowStart": "2026-07-07T07:10:00Z",
+    "name": "Falcon 9 Block 5 | Starlink Group 10-42",
+    "windowStart": "2026-07-09T09:05:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-transporter-17-dedicated-sso-ride",
+    "slug": "falcon-9-block-5-starlink-group-10-42",
     "infoURLs": [
-      "https://www.spacex.com/launches/transporter17"
+      "https://www.spacex.com/launches/sl-10-42"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=kf6ZM4lFO5Q",
-      "https://www.youtube.com/watch?v=VFGj4aen9OU",
-      "https://x.com/i/broadcasts/1YxNrryLloQxw"
+      "https://x.com/i/broadcasts/1kKzDDNnkOLJv"
     ]
   }
 }
