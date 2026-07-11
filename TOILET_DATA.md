@@ -2,16 +2,16 @@
 
 <!-- Machine-readable data — do not edit manually -->
 <!-- TANK_LEVEL: 9.0 -->
-<!-- LAST_UPDATED: 2026-07-11T20:08:44Z -->
+<!-- LAST_UPDATED: 2026-07-11T21:05:23Z -->
 <!-- LAST_FLUSH: 2026-07-11T18:59:35Z -->
-<!-- PREV_TANK_LEVEL: 10.0 -->
+<!-- PREV_TANK_LEVEL: 9.0 -->
 
 ## Current Status
 
 | Metric | Value |
 |---|---|
 | Tank Level | 9.0% |
-| Last Updated | 2026-07-11 20:08:44 UTC |
+| Last Updated | 2026-07-11 21:05:23 UTC |
 | Last Flush Detected | 2026-07-11 18:59:35 UTC |
 
 ## Recent History
