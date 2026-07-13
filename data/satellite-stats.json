@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T22:31:23.765Z",
+  "lastUpdated": "2026-07-13T04:49:08.613Z",
   "overview": {
     "totalLaunched": 69830,
     "payloads": 26975,
@@ -12,7 +12,7 @@
     "total": 26975,
     "inOrbit": 19480,
     "decayed": 7495,
-    "active": 16466
+    "active": 16465
   },
   "starlink": {
     "total": 12391,
