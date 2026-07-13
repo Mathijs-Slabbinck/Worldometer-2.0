@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-13T11:31:08.967Z",
+  "lastUpdated": "2026-07-13T13:48:52.045Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -80,6 +80,8 @@
       "https://www.spacex.com/launches/sl-15-14"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=A_2KK99wGRw",
+      "https://www.youtube.com/watch?v=9j-W-79aoNI",
       "https://x.com/i/broadcasts/1qKDzzywYMVJV"
     ]
   }
