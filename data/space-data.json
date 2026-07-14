@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-07-14T17:34:33.005Z",
+  "lastUpdated": "2026-07-14T18:46:47.353Z",
   "astronauts": {
-    "count": 11,
+    "count": 14,
     "people": [
       {
         "name": "Jessica Meir",
@@ -22,7 +22,25 @@
         "mission": ""
       },
       {
+        "name": "Anna Kikina",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Pyotr Dubrov",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
         "name": "Jack Hathaway",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Anil Menon",
         "craft": "",
         "destination": "",
         "mission": ""
