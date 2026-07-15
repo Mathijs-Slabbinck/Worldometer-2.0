@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-15T13:48:48.219Z",
+  "lastUpdated": "2026-07-15T15:24:27.644Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,15 +90,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz 2.1a | Soyuz MS-29",
-    "windowStart": "2026-07-14T14:47:43Z",
-    "provider": "Russian Federal Space Agency (ROSCOSMOS)",
-    "slug": "soyuz-21a-soyuz-ms-29",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | SDA Tranche 1 Transport Layer E",
+    "windowStart": "2026-07-16T20:22:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-sda-tranche-1-transport-layer-e",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sda-t1tl-e"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=SwhPXxNtdoc",
-      "https://plus.nasa.gov/scheduled-video/nasa-astronaut-anil-menon-soyuz-ms-29-launch/",
-      "https://www.youtube.com/watch?v=d_CsFH3uIbc"
+      "https://x.com/i/broadcasts/1kJzDDmBBArKv"
     ]
   }
 }
