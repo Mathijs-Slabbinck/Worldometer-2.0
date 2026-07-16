@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-16T04:24:59.999Z",
+  "lastUpdated": "2026-07-16T06:41:15.180Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -98,6 +98,8 @@
       "https://www.spacex.com/launches/sda-t1tl-e"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=M0agOywbDIU",
+      "https://www.youtube.com/watch?v=rLAfNp2CtrY",
       "https://x.com/i/broadcasts/1kJzDDmBBArKv"
     ]
   }
