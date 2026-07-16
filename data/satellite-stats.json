@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-07-16T04:24:59.921Z",
+  "lastUpdated": "2026-07-16T11:11:31.176Z",
   "overview": {
-    "totalLaunched": 69925,
+    "totalLaunched": 69926,
     "payloads": 27067,
-    "inOrbit": 34557,
+    "inOrbit": 34558,
     "decayed": 35368,
     "launchFailures": 522,
     "partialFailures": 34
@@ -22,8 +22,8 @@
     "launchFailures": 1
   },
   "rocketBodies": {
-    "total": 6866,
-    "inOrbit": 2413,
+    "total": 6867,
+    "inOrbit": 2414,
     "decayed": 4453,
     "active": 2
   },
