@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-17T20:32:13.714Z",
+  "lastUpdated": "2026-07-17T21:32:37.778Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,17 +90,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | SDA Tranche 1 Transport Layer E",
-    "windowStart": "2026-07-16T20:22:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-sda-tranche-1-transport-layer-e",
+    "name": "Vikram-I | Demo Flight",
+    "windowStart": "2026-07-18T05:00:00Z",
+    "provider": "Skyroot Aerospace",
+    "slug": "vikram-i-demo-flight",
     "infoURLs": [
-      "https://www.spacex.com/launches/sda-t1tl-e"
+      "https://media.licdn.com/dms/document/media/v2/D561FAQEP0r_fB1mHMQ/feedshare-document-url-metadata-scrapper-pdf/B56Z9vY_B.GQA4-/0/1784280250603?e=1784901600&v=beta&t=kOr_IRRS-0Wq2KSGtQOIqe8Z32qrVed8oyY"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=8FWEeOWY4Bs",
-      "https://www.youtube.com/watch?v=rLAfNp2CtrY",
-      "https://x.com/i/broadcasts/1kJzDDmBBArKv"
+      "https://www.youtube.com/watch?v=-lLd1cI7v0U"
     ]
   }
 }
