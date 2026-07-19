@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T06:28:02.298Z",
+  "lastUpdated": "2026-07-19T08:54:19.509Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,16 +90,16 @@
     ]
   },
   "nextLaunch": {
-    "name": "Vikram-I | Demo Flight",
-    "windowStart": "2026-07-18T05:00:00Z",
-    "provider": "Skyroot Aerospace",
-    "slug": "vikram-i-demo-flight",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-39",
+    "windowStart": "2026-07-20T14:00:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-39",
     "infoURLs": [
-      "https://media.licdn.com/dms/document/media/v2/D561FAQEP0r_fB1mHMQ/feedshare-document-url-metadata-scrapper-pdf/B56Z9vY_B.GQA4-/0/1784280250603?e=1784901600&v=beta&t=kOr_IRRS-0Wq2KSGtQOIqe8Z32qrVed8oyY"
+      "https://www.spacex.com/launches/sl-17-39"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=2KKZbSX9SgI",
-      "https://x.com/i/broadcasts/1PJqrrXWeXbxb"
+      "https://www.youtube.com/watch?v=p648NlL0fi4",
+      "https://x.com/i/broadcasts/1qGoNNQZvEMKv"
     ]
   }
 }
