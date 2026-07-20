@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-20T13:03:41.288Z",
+  "lastUpdated": "2026-07-20T15:20:24.100Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -91,7 +91,7 @@
   },
   "nextLaunch": {
     "name": "Falcon 9 Block 5 | Starlink Group 17-39",
-    "windowStart": "2026-07-20T14:00:00Z",
+    "windowStart": "2026-07-21T14:00:00Z",
     "provider": "SpaceX",
     "slug": "falcon-9-block-5-starlink-group-17-39",
     "infoURLs": [
