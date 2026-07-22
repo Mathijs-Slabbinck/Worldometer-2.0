@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-22T20:37:02.104Z",
+  "lastUpdated": "2026-07-22T21:43:53.405Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,18 +90,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | MRV-1",
-    "windowStart": "2026-07-21T21:15:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-mrv-1",
-    "infoURLs": [
-      "https://www.spacex.com/launches/mrv-mep"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=qKgy0UbBZrk",
-      "https://www.youtube.com/watch?v=2h4gxuQ9lPA",
-      "https://www.youtube.com/watch?v=dO71XO4lceM",
-      "https://x.com/i/broadcasts/1nxnRRdXWEkxO"
-    ]
+    "name": "Gravity-1 | 9 satellites",
+    "windowStart": "2026-07-22T02:44:00Z",
+    "provider": "Orienspace Technology",
+    "slug": "gravity-1-9-satellites",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
