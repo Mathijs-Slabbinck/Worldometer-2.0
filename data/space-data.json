@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-22T12:56:28.973Z",
+  "lastUpdated": "2026-07-22T15:03:49.148Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,17 +90,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-39",
-    "windowStart": "2026-07-21T14:00:00Z",
+    "name": "Falcon 9 Block 5 | MRV-1",
+    "windowStart": "2026-07-21T21:15:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-39",
+    "slug": "falcon-9-block-5-mrv-1",
     "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-39"
+      "https://www.spacex.com/launches/mrv-mep"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=cBlgROX6OO4",
-      "https://www.youtube.com/watch?v=tOQwbRqCWV8",
-      "https://x.com/i/broadcasts/1RJjppBPkALKw"
+      "https://www.youtube.com/watch?v=qKgy0UbBZrk",
+      "https://www.youtube.com/watch?v=2h4gxuQ9lPA",
+      "https://www.youtube.com/watch?v=dO71XO4lceM",
+      "https://x.com/i/broadcasts/1nxnRRdXWEkxO"
     ]
   }
 }
