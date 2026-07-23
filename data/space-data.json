@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-23T11:50:17.769Z",
+  "lastUpdated": "2026-07-23T13:52:15.177Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,10 +90,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 3B/E | Unknown Payload",
+    "name": "Long March 3B/E | Tianlian 2-06",
     "windowStart": "2026-07-23T11:52:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-3be-unknown-payload",
+    "slug": "long-march-3be-tianlian-2-06",
     "infoURLs": [],
     "vidURLs": [
       "https://www.youtube.com/watch?v=H6ZqSTcsZko"
