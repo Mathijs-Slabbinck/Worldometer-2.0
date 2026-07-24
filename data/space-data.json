@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-24T11:25:48.385Z",
+  "lastUpdated": "2026-07-24T12:57:00.644Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,13 +90,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 3B/E | Tianlian 2-06",
-    "windowStart": "2026-07-23T11:52:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-3be-tianlian-2-06",
+    "name": "Kinetica 1 | 5 satellites",
+    "windowStart": "2026-07-23T23:24:00Z",
+    "provider": "CAS Space",
+    "slug": "kinetica-1-5-satellites-3",
     "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=H6ZqSTcsZko"
+      "https://www.youtube.com/watch?v=n_faAgi5wZI"
     ]
   }
 }
