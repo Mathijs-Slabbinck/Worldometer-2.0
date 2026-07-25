@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-24T23:31:15.316Z",
+  "lastUpdated": "2026-07-25T01:08:58.118Z",
   "astronauts": {
     "count": 14,
     "people": [
@@ -90,13 +90,20 @@
     ]
   },
   "nextLaunch": {
-    "name": "Kinetica 1 | 5 satellites",
-    "windowStart": "2026-07-23T23:24:00Z",
-    "provider": "CAS Space",
-    "slug": "kinetica-1-5-satellites-3",
-    "infoURLs": [],
+    "name": "Starship | Flight 13",
+    "windowStart": "2026-07-24T22:45:00Z",
+    "provider": "SpaceX",
+    "slug": "starship-flight-13",
+    "infoURLs": [
+      "https://www.spacex.com/launches/starship-flight-13"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=n_faAgi5wZI"
+      "https://www.youtube.com/watch?v=0EnOQCjgq4E",
+      "https://www.youtube.com/watch?v=7dMblISWtz8",
+      "https://www.youtube.com/watch?v=Ew0Xu1RT8oc",
+      "https://www.youtube.com/watch?v=lC3RDO7tdLc",
+      "https://x.com/i/broadcasts/1AJEmmYdMDnJL",
+      "https://www.youtube.com/watch?v=-pR0eOj9hK0"
     ]
   }
 }
