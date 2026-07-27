@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-27T11:17:55.943Z",
+  "lastUpdated": "2026-07-27T13:52:31.739Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-52",
-    "windowStart": "2026-07-29T02:00:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-52",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-52"
-    ],
-    "vidURLs": [
-      "https://x.com/i/broadcasts/1AxRnnrObgzxl"
-    ]
+    "name": "Long March 7A | Unknown Payload",
+    "windowStart": "2026-07-29T11:42:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-7a-unknown-payload",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
