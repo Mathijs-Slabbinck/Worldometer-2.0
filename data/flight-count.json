@@ -1,14 +1,14 @@
 {
-  "lastUpdated": "2026-07-30T04:20:01.340Z",
-  "count": 15666,
+  "lastUpdated": "2026-07-30T07:10:43.507Z",
+  "count": 22684,
   "stats": {
-    "ads-b": 13110,
-    "mlat": 823,
-    "faa": 83,
-    "flarm": 24,
-    "estimated": 284,
-    "satellite": 1165,
-    "uat": 29,
-    "other": 124
+    "ads-b": 18541,
+    "mlat": 1453,
+    "faa": 178,
+    "flarm": 644,
+    "estimated": 311,
+    "satellite": 1207,
+    "uat": 71,
+    "other": 234
   }
 }
