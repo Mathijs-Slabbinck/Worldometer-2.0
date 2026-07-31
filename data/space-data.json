@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-31T06:32:49.245Z",
+  "lastUpdated": "2026-07-31T09:31:49.303Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,16 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | NROL-95",
-    "windowStart": "2026-07-30T06:37:00Z",
+    "name": "Falcon 9 Block 5 | Starlink Group 17-52",
+    "windowStart": "2026-08-01T02:00:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-nrol-95",
+    "slug": "falcon-9-block-5-starlink-group-17-52",
     "infoURLs": [
-      "https://www.spacex.com/launches/nrol95"
+      "https://www.spacex.com/launches/sl-17-52"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=L6c0OzSQevo",
-      "https://www.youtube.com/watch?v=5cokZJ3XQW0",
-      "https://www.youtube.com/watch?v=7QchKzHqvOM",
-      "https://x.com/i/broadcasts/1DxLddLoqayxm"
+      "https://www.youtube.com/watch?v=OMxBhQDCXts",
+      "https://x.com/i/broadcasts/1AxRnnrObgzxl"
     ]
   }
 }
