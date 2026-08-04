@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-04T10:08:15.568Z",
+  "lastUpdated": "2026-08-04T12:17:32.255Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 8A | Unknown Payload",
+    "name": "Long March 8A | SatNet LEO Group 23",
     "windowStart": "2026-08-04T08:44:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-8a-unknown-payload",
+    "slug": "long-march-8a-satnet-leo-group-23",
     "infoURLs": [],
     "vidURLs": [
       "https://www.youtube.com/watch?v=U50JIfKPGCk",
