@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-04T07:16:56.811Z",
+  "lastUpdated": "2026-08-04T10:08:15.568Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -77,6 +77,9 @@
     "provider": "China Aerospace Science and Technology Corporation",
     "slug": "long-march-8a-unknown-payload",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=U50JIfKPGCk",
+      "https://www.youtube.com/watch?v=boUA2gAkWI4"
+    ]
   }
 }
