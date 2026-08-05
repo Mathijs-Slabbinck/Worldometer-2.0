@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-05T16:39:54.717Z",
+  "lastUpdated": "2026-08-05T18:09:43.979Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-53",
-    "windowStart": "2026-08-04T14:00:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-53",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-53"
-    ],
+    "name": "Smart Dragon 3 | OSE HS-01 & 02",
+    "windowStart": "2026-08-05T02:27:00Z",
+    "provider": "China Rocket Co. Ltd.",
+    "slug": "smart-dragon-3-ose-hs-01-02",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=wOYcghy82eo",
-      "https://www.youtube.com/watch?v=cUU6opP_GDg",
-      "https://x.com/i/broadcasts/1yKAPPDejLzxb"
+      "https://www.youtube.com/watch?v=QElbEmB1PUM"
     ]
   }
 }
