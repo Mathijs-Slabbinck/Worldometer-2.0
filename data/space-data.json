@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-06T06:44:29.886Z",
+  "lastUpdated": "2026-08-06T09:30:52.876Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | BlueBird 11-13 (Block 2 #6-8)",
-    "windowStart": "2026-08-05T07:42:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-bluebird-11-13-block-2-6-8",
-    "infoURLs": [
-      "https://www.spacex.com/launches/bluebird11-13"
-    ],
+    "name": "Electron | The Grain Goddess Provides (iQPS Launch 7)",
+    "windowStart": "2026-08-06T09:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-the-grain-goddess-provides-iqps-launch-7",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=6un1y7bK0XY",
-      "https://www.youtube.com/watch?v=zp4xFr1grXk",
-      "https://www.youtube.com/watch?v=Bw4Ql3WS0y0",
-      "https://x.com/i/broadcasts/1RJjppmjYjgKw"
+      "https://www.youtube.com/watch?v=TR4bkBCR6VI"
     ]
   }
 }
