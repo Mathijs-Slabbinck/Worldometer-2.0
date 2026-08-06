@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-06T00:53:11.544Z",
+  "lastUpdated": "2026-08-06T04:09:48.444Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,13 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Smart Dragon 3 | OSE HS-01 & 02",
-    "windowStart": "2026-08-05T02:27:00Z",
-    "provider": "China Rocket Co. Ltd.",
-    "slug": "smart-dragon-3-ose-hs-01-02",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | BlueBird 11-13 (Block 2 #6-8)",
+    "windowStart": "2026-08-05T07:42:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-bluebird-11-13-block-2-6-8",
+    "infoURLs": [
+      "https://www.spacex.com/launches/bluebird11-13"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=QElbEmB1PUM"
+      "https://www.youtube.com/watch?v=6un1y7bK0XY",
+      "https://www.youtube.com/watch?v=zp4xFr1grXk",
+      "https://www.youtube.com/watch?v=Bw4Ql3WS0y0",
+      "https://x.com/i/broadcasts/1RJjppmjYjgKw"
     ]
   }
 }
