@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-07T08:56:32.556Z",
+  "lastUpdated": "2026-08-07T10:02:04.890Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,13 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | The Grain Goddess Provides (iQPS Launch 7)",
-    "windowStart": "2026-08-06T09:00:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-the-grain-goddess-provides-iqps-launch-7",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | Starlink Group 17-38",
+    "windowStart": "2026-08-08T14:00:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-38",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-17-38"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=TR4bkBCR6VI"
+      "https://x.com/i/broadcasts/1qxoNNApQWyJv"
     ]
   }
 }
