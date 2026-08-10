@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-08-10T11:09:11.160Z",
+  "lastUpdated": "2026-08-10T17:36:06.853Z",
   "overview": {
     "totalLaunched": 70244,
     "payloads": 27373,
     "inOrbit": 34791,
     "decayed": 35453,
-    "launchFailures": 522,
+    "launchFailures": 523,
     "partialFailures": 34
   },
   "payloads": {

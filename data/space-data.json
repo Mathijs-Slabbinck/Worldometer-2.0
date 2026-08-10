@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-10T15:36:58.980Z",
+  "lastUpdated": "2026-08-10T17:36:06.926Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 7A | Unknown Payload",
+    "name": "Long March 7A | ChinaSat 4B",
     "windowStart": "2026-08-10T11:54:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-7a-unknown-payload",
+    "slug": "long-march-7a-chinasat-4b",
     "infoURLs": [],
     "vidURLs": [
       "https://www.youtube.com/watch?v=cwy5FbgI7n8",
