@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-11T11:29:50.926Z",
+  "lastUpdated": "2026-08-11T13:52:37.896Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,14 +72,14 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 7A | ChinaSat 4B",
-    "windowStart": "2026-08-10T11:54:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-7a-chinasat-4b",
+    "name": "H3-22 | Michibiki 7 (QZS-7)",
+    "windowStart": "2026-08-10T19:23:31Z",
+    "provider": "Mitsubishi Heavy Industries",
+    "slug": "h3-22-michibiki-7-qzs-7",
     "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=cwy5FbgI7n8",
-      "https://www.youtube.com/watch?v=cZjlQq4JcBM"
+      "https://www.youtube.com/watch?v=fH9hQn8ebp4",
+      "https://www.youtube.com/watch?v=V5Xx1gXtcr8"
     ]
   }
 }
