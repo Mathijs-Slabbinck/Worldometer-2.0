@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-11T19:18:55.184Z",
+  "lastUpdated": "2026-08-11T21:03:24.369Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,14 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "H3-22 | Michibiki 7 (QZS-7)",
-    "windowStart": "2026-08-10T19:23:31Z",
-    "provider": "Mitsubishi Heavy Industries",
-    "slug": "h3-22-michibiki-7-qzs-7",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | Starlink Group 10-19",
+    "windowStart": "2026-08-11T14:26:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-10-19",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-10-19"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=fH9hQn8ebp4",
-      "https://www.youtube.com/watch?v=V5Xx1gXtcr8"
+      "https://www.youtube.com/watch?v=p1UQU7ax4t8",
+      "https://www.youtube.com/watch?v=grXTQnopJ80",
+      "https://www.youtube.com/watch?v=LMsqa3xGQTo",
+      "https://x.com/i/broadcasts/1nxeLLRRMQWJX"
     ]
   }
 }
