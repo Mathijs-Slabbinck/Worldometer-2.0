@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T16:32:45.768Z",
+  "lastUpdated": "2026-08-15T17:47:59.967Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -80,6 +80,9 @@
       "https://www.spacex.com/launches/ussf366"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=kHEJHhUndgk",
+      "https://www.youtube.com/watch?v=hBRXDnr-b_0",
+      "https://www.youtube.com/watch?v=MfkUzz93xZQ",
       "https://x.com/i/broadcasts/1DxleVErQBdKL"
     ]
   }
