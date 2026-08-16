@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T01:43:56.845Z",
+  "lastUpdated": "2026-08-16T02:46:53.482Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Globalstar 2-R Mission 1 (x 9)",
+    "name": "Falcon 9 Block 5 | Globalstar 2-R Mission 1 (x 8)",
     "windowStart": "2026-08-16T01:12:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-globalstar-2-r-mission-1-x-9",
+    "slug": "falcon-9-block-5-globalstar-2-r-mission-1-x-8",
     "infoURLs": [
       "https://www.spacex.com/launches/globalstar2-rlaunch1"
     ],
