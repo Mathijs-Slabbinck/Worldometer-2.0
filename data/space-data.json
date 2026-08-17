@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-17T06:50:08.934Z",
+  "lastUpdated": "2026-08-17T07:50:46.506Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2C | Unknown Payload",
+    "name": "Long March 2C | Satellite for Earth Observation (SEO)",
     "windowStart": "2026-08-17T02:53:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2c-unknown-payload",
+    "slug": "long-march-2c-satellite-for-earth-observation-seo",
     "infoURLs": [],
     "vidURLs": []
   }
