@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-17T02:40:12.906Z",
+  "lastUpdated": "2026-08-17T04:25:17.182Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,14 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 12 | SatNet LEO Group 24",
-    "windowStart": "2026-08-16T04:03:00Z",
+    "name": "Long March 2C | Unknown Payload",
+    "windowStart": "2026-08-17T02:53:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-12-satnet-leo-group-24",
+    "slug": "long-march-2c-unknown-payload",
     "infoURLs": [],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=UifMQ8J8jMY",
-      "https://www.youtube.com/watch?v=Iv3Ve3nLQK4"
-    ]
+    "vidURLs": []
   }
 }
