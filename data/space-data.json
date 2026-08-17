@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T23:57:11.963Z",
+  "lastUpdated": "2026-08-17T01:25:30.137Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Globalstar 2-R Mission 1 (x 8)",
-    "windowStart": "2026-08-16T01:12:00Z",
+    "name": "Falcon 9 Block 5 | USSF-366",
+    "windowStart": "2026-08-15T21:52:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-globalstar-2-r-mission-1-x-8",
+    "slug": "falcon-9-block-5-ussf-366",
     "infoURLs": [
-      "https://www.spacex.com/launches/globalstar2-rlaunch1"
+      "https://www.spacex.com/launches/ussf366"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=o3t9usE9y5w",
-      "https://www.youtube.com/watch?v=nRnjNthHtSU",
+      "https://www.youtube.com/watch?v=GCdmtmYyInM",
+      "https://www.youtube.com/watch?v=hBRXDnr-b_0",
       "https://www.youtube.com/watch?v=2lJyYhaRcZM",
-      "https://x.com/i/broadcasts/1pJkOOkmyQyJj"
+      "https://x.com/i/broadcasts/1DxleVErQBdKL"
     ]
   }
 }
