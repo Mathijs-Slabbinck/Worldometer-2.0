@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-18T02:20:59.924Z",
+  "lastUpdated": "2026-08-18T03:22:13.188Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2C | Satellite for Earth Observation (SEO)",
-    "windowStart": "2026-08-17T02:53:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2c-satellite-for-earth-observation-seo",
+    "name": "Zhuque-3 | Flight 2",
+    "windowStart": "2026-08-18T23:27:00Z",
+    "provider": "LandSpace",
+    "slug": "zhuque-3-flight-2",
     "infoURLs": [],
     "vidURLs": []
   }
