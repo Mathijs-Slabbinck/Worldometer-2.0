@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-18T23:45:42.990Z",
+  "lastUpdated": "2026-08-19T01:06:09.130Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Zhuque-3 | Flight 2",
+    "name": "Zhuque-3 | Honghu-03",
     "windowStart": "2026-08-18T23:27:00Z",
     "provider": "LandSpace",
-    "slug": "zhuque-3-flight-2",
+    "slug": "zhuque-3-honghu-03",
     "infoURLs": [],
     "vidURLs": []
   }
