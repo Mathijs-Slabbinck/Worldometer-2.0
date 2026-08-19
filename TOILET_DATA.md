@@ -1,23 +1,24 @@
 # ISS Toilet Telemetry
 
 <!-- Machine-readable data — do not edit manually -->
-<!-- TANK_LEVEL: 42.0 -->
-<!-- LAST_UPDATED: 2026-08-19T03:28:35Z -->
-<!-- LAST_FLUSH: 2026-08-19T03:28:35Z -->
-<!-- PREV_TANK_LEVEL: 53.0 -->
+<!-- TANK_LEVEL: 34.0 -->
+<!-- LAST_UPDATED: 2026-08-19T04:09:24Z -->
+<!-- LAST_FLUSH: 2026-08-19T04:09:24Z -->
+<!-- PREV_TANK_LEVEL: 42.0 -->
 
 ## Current Status
 
 | Metric | Value |
 |---|---|
-| Tank Level | 42.0% |
-| Last Updated | 2026-08-19 03:28:35 UTC |
-| Last Flush Detected | 2026-08-19 03:28:35 UTC |
+| Tank Level | 34.0% |
+| Last Updated | 2026-08-19 04:09:24 UTC |
+| Last Flush Detected | 2026-08-19 04:09:24 UTC |
 
 ## Recent History
 
 | Time (UTC) | Event | Change |
 |---|---|---|
+| 2026-08-19 04:09:24 | Flush detected | 42.0% → 34.0% |
 | 2026-08-19 03:28:35 | Flush detected | 53.0% → 42.0% |
 | 2026-08-19 01:06:03 | Flush detected | 33.0% → 20.0% |
 | 2026-08-18 23:45:42 | Flush detected | 38.0% → 33.0% |
@@ -67,4 +68,3 @@
 | 2026-08-13 22:04:14 | Flush detected | 21.0% → 10.0% |
 | 2026-08-13 21:13:14 | Flush detected | 26.0% → 21.0% |
 | 2026-08-13 20:22:09 | Flush detected | 34.0% → 26.0% |
-| 2026-08-13 19:43:44 | Flush detected | 43.0% → 34.0% |
