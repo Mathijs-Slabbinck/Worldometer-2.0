@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-20T10:57:29.445Z",
+  "lastUpdated": "2026-08-20T12:42:58.523Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -73,12 +73,14 @@
   },
   "nextLaunch": {
     "name": "Electron | The Lightning God Defends (iQPS Launch 8)",
-    "windowStart": "2026-08-20T13:00:00Z",
+    "windowStart": "2026-08-20T13:04:45Z",
     "provider": "Rocket Lab",
     "slug": "electron-the-lightning-god-defends-iqps-launch-8",
     "infoURLs": [
       "https://rocketlabcorp.com/missions/launches/the-lightning-god-defends/"
     ],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=wLc1C15jbgY"
+    ]
   }
 }
