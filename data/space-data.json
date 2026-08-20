@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-19T23:00:18.218Z",
+  "lastUpdated": "2026-08-20T01:27:22.595Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Zhuque-3 | Honghu-03",
-    "windowStart": "2026-08-18T23:27:00Z",
-    "provider": "LandSpace",
-    "slug": "zhuque-3-honghu-03",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 17-50",
+    "windowStart": "2026-08-19T02:00:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-17-50",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-17-50"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=3vX-zLAGM38",
+      "https://www.youtube.com/watch?v=XLnziohHvA4",
+      "https://x.com/i/broadcasts/1RJjppgNbXwKw"
+    ]
   }
 }
