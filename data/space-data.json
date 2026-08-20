@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-20T02:39:06.672Z",
+  "lastUpdated": "2026-08-20T04:08:53.638Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 17-50",
-    "windowStart": "2026-08-19T02:00:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-17-50",
+    "name": "Electron | The Lightning God Defends (iQPS Launch 8)",
+    "windowStart": "2026-08-20T13:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-the-lightning-god-defends-iqps-launch-8",
     "infoURLs": [
-      "https://www.spacex.com/launches/sl-17-50"
+      "https://rocketlabcorp.com/missions/launches/the-lightning-god-defends/"
     ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=3vX-zLAGM38",
-      "https://www.youtube.com/watch?v=XLnziohHvA4",
-      "https://x.com/i/broadcasts/1RJjppgNbXwKw"
-    ]
+    "vidURLs": []
   }
 }
