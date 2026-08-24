@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-21T12:40:56.395Z",
+  "lastUpdated": "2026-08-24T20:27:07.563Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | The Lightning God Defends (iQPS Launch 8)",
-    "windowStart": "2026-08-20T13:04:45Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-the-lightning-god-defends-iqps-launch-8",
-    "infoURLs": [
-      "https://rocketlabcorp.com/missions/launches/the-lightning-god-defends/"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=wLc1C15jbgY"
-    ]
+    "name": "Soyuz 2.1b/Fregat | Glonass-K1 No. 19",
+    "windowStart": "2026-08-24T02:40:00Z",
+    "provider": "Russian Space Forces",
+    "slug": "soyuz-21bfregat-glonass-k1-no-19",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
