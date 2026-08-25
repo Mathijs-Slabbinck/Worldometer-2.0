@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-25T01:27:03.133Z",
+  "lastUpdated": "2026-08-25T02:40:28.096Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz 2.1b/Fregat | Glonass-K1 No. 19",
-    "windowStart": "2026-08-24T02:40:00Z",
-    "provider": "Russian Space Forces",
-    "slug": "soyuz-21bfregat-glonass-k1-no-19",
+    "name": "Long March 6C | Unknown Payload",
+    "windowStart": "2026-08-25T03:15:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-6c-unknown-payload",
     "infoURLs": [],
     "vidURLs": []
   }
