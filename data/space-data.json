@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-25T02:40:28.096Z",
+  "lastUpdated": "2026-08-25T04:22:42.234Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 6C | Unknown Payload",
+    "name": "Long March 6C | 7 satellites",
     "windowStart": "2026-08-25T03:15:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-6c-unknown-payload",
+    "slug": "long-march-6c-7-satellites",
     "infoURLs": [],
     "vidURLs": []
   }
