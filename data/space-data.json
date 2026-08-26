@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-26T03:01:54.404Z",
+  "lastUpdated": "2026-08-26T04:01:56.969Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 6C | 7 satellites",
-    "windowStart": "2026-08-25T03:15:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-6c-7-satellites",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 10-49",
+    "windowStart": "2026-08-25T05:49:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-10-49",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-10-49"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=iXcAJQ5r0jI",
+      "https://www.youtube.com/watch?v=QMm5d54Xrbo",
+      "https://www.youtube.com/watch?v=m5c9Gn5DH0o",
+      "https://x.com/i/broadcasts/1AKEmvmQBwgKL"
+    ]
   }
 }
