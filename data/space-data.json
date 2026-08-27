@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-27T02:11:03.184Z",
+  "lastUpdated": "2026-08-27T12:47:42.594Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,14 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 15-22",
-    "windowStart": "2026-08-26T09:27:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-15-22",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-15-22"
-    ],
+    "name": "Ariane 62 | MTG-I2",
+    "windowStart": "2026-08-27T20:10:00Z",
+    "provider": "Arianespace",
+    "slug": "ariane-62-mtg-i2",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=ZUSimYVey_c",
-      "https://www.youtube.com/watch?v=ww3y8y5RLwU",
-      "https://x.com/i/broadcasts/1AKEmvvQLayKL"
+      "https://www.youtube.com/watch?v=CLTbPdGfMJw",
+      "https://www.youtube.com/watch?v=bEB-VbMwBuY"
     ]
   }
 }
