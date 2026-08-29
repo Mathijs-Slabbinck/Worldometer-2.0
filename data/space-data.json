@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-29T09:06:26.638Z",
+  "lastUpdated": "2026-08-29T14:28:25.427Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -73,7 +73,7 @@
   },
   "nextLaunch": {
     "name": "Falcon Heavy | Nancy Grace Roman Space Telescope",
-    "windowStart": "2026-08-30T11:26:00Z",
+    "windowStart": "2026-08-30T11:25:49Z",
     "provider": "SpaceX",
     "slug": "falcon-heavy-nancy-grace-roman-space-telescope",
     "infoURLs": [
