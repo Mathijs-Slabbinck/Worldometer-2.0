@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-28T19:14:34.424Z",
+  "lastUpdated": "2026-08-29T02:14:32.832Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,16 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Ariane 62 | MTG-I2",
-    "windowStart": "2026-08-27T20:10:00Z",
-    "provider": "Arianespace",
-    "slug": "ariane-62-mtg-i2",
-    "infoURLs": [],
+    "name": "Falcon Heavy | Nancy Grace Roman Space Telescope",
+    "windowStart": "2026-08-30T11:26:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-heavy-nancy-grace-roman-space-telescope",
+    "infoURLs": [
+      "https://www.spacex.com/launches/roman"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=CLTbPdGfMJw",
-      "https://www.youtube.com/watch?v=bEB-VbMwBuY",
-      "https://www.youtube.com/watch?v=vzytcrGSqUU",
-      "https://www.youtube.com/watch?v=eF4s2Zga3uw"
+      "https://www.youtube.com/watch?v=9wq3VHsL_bE",
+      "https://x.com/i/broadcasts/1jxXgBanvZeJZ",
+      "https://plus.nasa.gov/scheduled-video/nancy-grace-roman-space-telescope-launch/"
     ]
   }
 }
