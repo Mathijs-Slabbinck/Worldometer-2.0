@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-31T10:05:50.397Z",
+  "lastUpdated": "2026-08-31T17:37:39.203Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon Heavy | Nancy Grace Roman Space Telescope",
-    "windowStart": "2026-08-30T11:25:49Z",
-    "provider": "SpaceX",
-    "slug": "falcon-heavy-nancy-grace-roman-space-telescope",
-    "infoURLs": [
-      "https://www.spacex.com/launches/roman"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=9wq3VHsL_bE",
-      "https://x.com/i/broadcasts/1jxXgBanvZeJZ",
-      "https://plus.nasa.gov/scheduled-video/nancy-grace-roman-space-telescope-launch/"
-    ]
+    "name": "Pallas-1 | Demo Flight",
+    "windowStart": "2026-09-01T01:52:00Z",
+    "provider": "Galactic Energy",
+    "slug": "pallas-1-demo-flight",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
