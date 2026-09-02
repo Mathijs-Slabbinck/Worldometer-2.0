@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-02T00:13:31.144Z",
+  "lastUpdated": "2026-09-02T04:39:40.167Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Pallas-1 | Demo Flight",
-    "windowStart": "2026-09-01T01:52:00Z",
-    "provider": "Galactic Energy",
-    "slug": "pallas-1-demo-flight",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 15-23",
+    "windowStart": "2026-09-02T07:46:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-15-23",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-15-23"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=C2M8CpEjHJk",
+      "https://www.youtube.com/watch?v=bwGo6lIW3rQ",
+      "https://www.youtube.com/watch?v=msp_aXGeB0I",
+      "https://x.com/i/broadcasts/1yKAPwXpMlqxb"
+    ]
   }
 }
