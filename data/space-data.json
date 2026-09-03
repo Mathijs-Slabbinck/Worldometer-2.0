@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-03T09:48:55.711Z",
+  "lastUpdated": "2026-09-03T14:07:58.651Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | Owl Around The World (StriX Launch 11)",
-    "windowStart": "2026-09-02T11:12:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-owl-around-the-world-strix-launch-11",
+    "name": "GSLV Mk II | GISAT-1A (EOS-05)",
+    "windowStart": "2026-09-03T21:00:00Z",
+    "provider": "Indian Space Research Organization",
+    "slug": "gslv-mk-ii-gisat-1a-eos-05",
     "infoURLs": [
-      "https://rocketlabcorp.com/missions/launches/owl-around-the-world/"
+      "https://www.isro.gov.in/ISRO_EN/Mission_GSLVF17.html"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=oLovbBQFxI8"
+      "https://www.youtube.com/watch?v=Q9OdYc3KpEw"
     ]
   }
 }
