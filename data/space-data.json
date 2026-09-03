@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-03T05:05:27.023Z",
+  "lastUpdated": "2026-09-03T09:48:55.711Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 15-23",
-    "windowStart": "2026-09-02T07:46:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-15-23",
+    "name": "Electron | Owl Around The World (StriX Launch 11)",
+    "windowStart": "2026-09-02T11:12:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-owl-around-the-world-strix-launch-11",
     "infoURLs": [
-      "https://www.spacex.com/launches/sl-15-23"
+      "https://rocketlabcorp.com/missions/launches/owl-around-the-world/"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=d-uqfWcK6no",
-      "https://www.youtube.com/watch?v=bwGo6lIW3rQ",
-      "https://www.youtube.com/watch?v=msp_aXGeB0I",
-      "https://x.com/i/broadcasts/1yKAPwXpMlqxb"
+      "https://www.youtube.com/watch?v=oLovbBQFxI8"
     ]
   }
 }
