@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-04T19:51:51.640Z",
+  "lastUpdated": "2026-09-04T22:05:48.388Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "GSLV Mk II | GISAT-1A (EOS-05)",
-    "windowStart": "2026-09-03T21:00:00Z",
-    "provider": "Indian Space Research Organization",
-    "slug": "gslv-mk-ii-gisat-1a-eos-05",
+    "name": "Spectrum | Onward and Upward",
+    "windowStart": "2026-09-05T20:00:00Z",
+    "provider": "Isar Aerospace",
+    "slug": "spectrum-onward-and-upward",
     "infoURLs": [
-      "https://www.isro.gov.in/ISRO_EN/Mission_GSLVF17.html"
+      "https://isaraerospace.com/mission-2"
     ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=Q9OdYc3KpEw"
-    ]
+    "vidURLs": []
   }
 }
