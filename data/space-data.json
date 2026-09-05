@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-05T08:30:09.909Z",
+  "lastUpdated": "2026-09-05T11:59:39.939Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -79,6 +79,9 @@
     "infoURLs": [
       "https://isaraerospace.com/mission-2"
     ],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=Ss1DUqLjecc",
+      "https://www.youtube.com/watch?v=uUc2d_NPBN0"
+    ]
   }
 }
