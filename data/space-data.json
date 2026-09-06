@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-06T18:30:48.590Z",
+  "lastUpdated": "2026-09-06T20:50:25.688Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,16 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Spectrum | Onward and Upward",
-    "windowStart": "2026-09-05T20:00:00Z",
-    "provider": "Isar Aerospace",
-    "slug": "spectrum-onward-and-upward",
+    "name": "Falcon 9 Block 5 | Starlink Group 15-24",
+    "windowStart": "2026-09-06T10:59:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-15-24",
     "infoURLs": [
-      "https://isaraerospace.com/mission-2"
+      "https://www.spacex.com/launches/sl-15-24"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=Ss1DUqLjecc",
-      "https://www.youtube.com/watch?v=uUc2d_NPBN0"
+      "https://www.youtube.com/watch?v=hqxM5Ui1t2E",
+      "https://www.youtube.com/watch?v=cnU8ocJmRVA",
+      "https://x.com/i/broadcasts/1NxaroyrEngKj"
     ]
   }
 }
