@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-07T10:17:19.003Z",
+  "lastUpdated": "2026-09-07T15:58:03.743Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 15-24",
-    "windowStart": "2026-09-06T10:59:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-15-24",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-15-24"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=hqxM5Ui1t2E",
-      "https://www.youtube.com/watch?v=cnU8ocJmRVA",
-      "https://x.com/i/broadcasts/1NxaroyrEngKj"
-    ]
+    "name": "Long March 2D/YZ-3 | Unknown Payload",
+    "windowStart": "2026-09-09T08:52:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-2dyz-3-unknown-payload",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
