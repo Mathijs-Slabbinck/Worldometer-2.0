@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-08T14:10:12.354Z",
+  "lastUpdated": "2026-09-08T17:55:08.032Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,14 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz 2.1b | Progress MS-35 (96P)",
-    "windowStart": "2026-09-09T16:15:03Z",
-    "provider": "Russian Federal Space Agency (ROSCOSMOS)",
-    "slug": "soyuz-21b-progress-ms-35-96p",
+    "name": "Long March 2D/YZ-3 | Unknown Payload",
+    "windowStart": "2026-09-10T08:52:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-2dyz-3-unknown-payload",
     "infoURLs": [],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=cCpf0BOjlLE",
-      "https://plus.nasa.gov/scheduled-video/progress-96-cargo-ship-launch/"
-    ]
+    "vidURLs": []
   }
 }
