@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-11T15:00:41.027Z",
+  "lastUpdated": "2026-09-11T18:31:57.185Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | USSF-153",
-    "windowStart": "2026-09-10T15:37:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-ussf-153",
+    "name": "Electron | Happily Ever Faster (BlackSky Gen-3 5)",
+    "windowStart": "2026-09-11T01:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-happily-ever-faster-blacksky-gen-3-5",
     "infoURLs": [
-      "https://www.spacex.com/launches/ussf153"
+      "https://rocketlabcorp.com/missions/launches/happily-ever-faster/"
     ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=mPxbkR0BFS0",
-      "https://www.youtube.com/watch?v=hHjWLWxhjqk",
-      "https://x.com/i/broadcasts/1nxnRBWejLOxO"
-    ]
+    "vidURLs": []
   }
 }
