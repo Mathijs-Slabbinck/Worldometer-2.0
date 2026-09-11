@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-11T05:58:42.613Z",
+  "lastUpdated": "2026-09-11T11:04:31.885Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 4B | Yaogan 53-01 to 03/56-01 to 03",
-    "windowStart": "2026-09-10T08:52:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-4b-yaogan-53-01-to-0356-01-to-03",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | USSF-153",
+    "windowStart": "2026-09-10T15:37:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-ussf-153",
+    "infoURLs": [
+      "https://www.spacex.com/launches/ussf153"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=mPxbkR0BFS0",
+      "https://www.youtube.com/watch?v=hHjWLWxhjqk",
+      "https://x.com/i/broadcasts/1nxnRBWejLOxO"
+    ]
   }
 }
