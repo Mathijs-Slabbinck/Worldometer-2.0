@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-12T01:23:15.790Z",
+  "lastUpdated": "2026-09-12T06:09:46.339Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,13 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | Happily Ever Faster (BlackSky Gen-3 5)",
-    "windowStart": "2026-09-11T01:00:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-happily-ever-faster-blacksky-gen-3-5",
+    "name": "Falcon 9 Block 5 | O3b mPower 11-13",
+    "windowStart": "2026-09-13T18:49:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-o3b-mpower-11-13",
     "infoURLs": [
-      "https://rocketlabcorp.com/missions/launches/happily-ever-faster/"
+      "https://www.spacex.com/launches/mpower-f"
     ],
-    "vidURLs": []
+    "vidURLs": [
+      "https://x.com/i/broadcasts/1RKjpbVdykQJw"
+    ]
   }
 }
