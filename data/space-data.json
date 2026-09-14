@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T16:46:14.169Z",
+  "lastUpdated": "2026-09-14T20:44:11.300Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | O3b mPower 11-13",
-    "windowStart": "2026-09-13T18:49:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-o3b-mpower-11-13",
-    "infoURLs": [
-      "https://www.spacex.com/launches/mpower-f"
-    ],
+    "name": "Vega-C | Sentinel-3C & FLEX",
+    "windowStart": "2026-09-15T01:21:07Z",
+    "provider": "Avio S.p.A",
+    "slug": "vega-c-sentinel-3c-flex",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=zZHnf8QB5ok",
-      "https://www.youtube.com/watch?v=r0avdYfJO2Q",
-      "https://www.youtube.com/watch?v=FgKKtSsyYD4",
-      "https://x.com/i/broadcasts/1RKjpbVdykQJw"
+      "https://www.youtube.com/watch?v=Rb4CN2avz90",
+      "https://www.youtube.com/watch?v=fmrgyh5s-is",
+      "https://www.youtube.com/watch?v=_7nBPHF-hAE"
     ]
   }
 }
