@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T20:44:11.300Z",
+  "lastUpdated": "2026-09-14T23:30:58.145Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -76,7 +76,9 @@
     "windowStart": "2026-09-15T01:21:07Z",
     "provider": "Avio S.p.A",
     "slug": "vega-c-sentinel-3c-flex",
-    "infoURLs": [],
+    "infoURLs": [
+      "https://www.avio.com/press-kit/launch-kit-vv-30"
+    ],
     "vidURLs": [
       "https://www.youtube.com/watch?v=Rb4CN2avz90",
       "https://www.youtube.com/watch?v=fmrgyh5s-is",
