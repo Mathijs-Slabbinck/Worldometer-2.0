@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-16T19:33:08.345Z",
+  "lastUpdated": "2026-09-16T22:19:54.637Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Gravity-1 | SpaceSail Polar Group #16",
-    "windowStart": "2026-09-15T21:50:00Z",
-    "provider": "Orienspace Technology",
-    "slug": "gravity-1-spacesail-polar-group-16",
+    "name": "Soyuz 2.1b | Progress MS-35 (96P)",
+    "windowStart": "2026-09-16T13:33:54Z",
+    "provider": "Russian Federal Space Agency (ROSCOSMOS)",
+    "slug": "soyuz-21b-progress-ms-35-96p",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=cCpf0BOjlLE",
+      "https://www.youtube.com/watch?v=3rQ6o_0seEE",
+      "https://plus.nasa.gov/scheduled-video/progress-96-cargo-ship-launch/"
+    ]
   }
 }
