@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-15T23:02:03.726Z",
+  "lastUpdated": "2026-09-16T01:24:35.550Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Vega-C | Sentinel-3C & FLEX",
-    "windowStart": "2026-09-15T01:21:07Z",
-    "provider": "Avio S.p.A",
-    "slug": "vega-c-sentinel-3c-flex",
-    "infoURLs": [
-      "https://www.avio.com/press-kit/launch-kit-vv-30"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=Rb4CN2avz90",
-      "https://www.youtube.com/watch?v=fmrgyh5s-is",
-      "https://www.youtube.com/watch?v=_7nBPHF-hAE"
-    ]
+    "name": "Zhuque-2E Block 2 | SpaceSail Polar Group #15",
+    "windowStart": "2026-09-15T06:18:00Z",
+    "provider": "LandSpace",
+    "slug": "zhuque-2e-block-2-spacesail-polar-group-15",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
