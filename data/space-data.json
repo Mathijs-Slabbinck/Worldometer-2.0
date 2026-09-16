@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-16T06:24:39.350Z",
+  "lastUpdated": "2026-09-16T11:55:15.930Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,10 +72,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Zhuque-2E Block 2 | SpaceSail Polar Group #15",
-    "windowStart": "2026-09-15T06:18:00Z",
-    "provider": "LandSpace",
-    "slug": "zhuque-2e-block-2-spacesail-polar-group-15",
+    "name": "Gravity-1 | SpaceSail Polar Group #16",
+    "windowStart": "2026-09-15T21:50:00Z",
+    "provider": "Orienspace Technology",
+    "slug": "gravity-1-spacesail-polar-group-16",
     "infoURLs": [],
     "vidURLs": []
   }
