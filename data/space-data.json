@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-17T10:27:32.268Z",
+  "lastUpdated": "2026-09-17T15:12:19.573Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz 2.1b | Progress MS-35 (96P)",
-    "windowStart": "2026-09-16T13:33:54Z",
-    "provider": "Russian Federal Space Agency (ROSCOSMOS)",
-    "slug": "soyuz-21b-progress-ms-35-96p",
+    "name": "Long March 12 | SatNet LEO Group 25",
+    "windowStart": "2026-09-17T00:25:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-12-satnet-leo-group-25",
     "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=cCpf0BOjlLE",
-      "https://www.youtube.com/watch?v=3rQ6o_0seEE",
-      "https://plus.nasa.gov/scheduled-video/progress-96-cargo-ship-launch/"
+      "https://www.youtube.com/watch?v=M7fx59LjfJ8"
     ]
   }
 }
