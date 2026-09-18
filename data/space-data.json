@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-18T00:18:11.265Z",
+  "lastUpdated": "2026-09-18T04:59:31.880Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,13 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 12 | SatNet LEO Group 25",
-    "windowStart": "2026-09-17T00:25:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-12-satnet-leo-group-25",
-    "infoURLs": [],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=M7fx59LjfJ8"
-    ]
+    "name": "Electron | Owl By The Dozen (StriX Launch 12)",
+    "windowStart": "2026-09-19T03:15:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-owl-by-the-dozen-strix-launch-12",
+    "infoURLs": [
+      "https://rocketlabcorp.com/missions/launches/owl-by-the-dozen/"
+    ],
+    "vidURLs": []
   }
 }
