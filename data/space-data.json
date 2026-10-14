@@ -1,16 +1,22 @@
 {
-  "lastUpdated": "2026-09-18T04:59:31.880Z",
+  "lastUpdated": "2026-10-14T21:40:14.689Z",
   "astronauts": {
     "count": 11,
     "people": [
       {
-        "name": "Jessica Meir",
+        "name": "Jessica Watkins",
         "craft": "",
         "destination": "",
         "mission": ""
       },
       {
         "name": "Starman",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Joshua Kutryk",
         "craft": "",
         "destination": "",
         "mission": ""
@@ -28,7 +34,7 @@
         "mission": ""
       },
       {
-        "name": "Jack Hathaway",
+        "name": "Luke Delaney",
         "craft": "",
         "destination": "",
         "mission": ""
@@ -40,19 +46,13 @@
         "mission": ""
       },
       {
-        "name": "Andrei Fedyaev",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
-        "name": "Sophie Adenot",
-        "craft": "",
-        "destination": "",
-        "mission": ""
-      },
-      {
         "name": "Zhu Yangzhu",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Sergey Teteryatnikov",
         "craft": "",
         "destination": "",
         "mission": ""
@@ -72,13 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | Owl By The Dozen (StriX Launch 12)",
-    "windowStart": "2026-09-19T03:15:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-owl-by-the-dozen-strix-launch-12",
-    "infoURLs": [
-      "https://rocketlabcorp.com/missions/launches/owl-by-the-dozen/"
-    ],
+    "name": "Zhuque-2E Block 2 | 10 satellites",
+    "windowStart": "2026-10-14T11:33:00Z",
+    "provider": "LandSpace",
+    "slug": "zhuque-2e-block-2-10-satellites",
+    "infoURLs": [],
     "vidURLs": []
   }
 }
