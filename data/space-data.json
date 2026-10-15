@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-15T18:29:15.000Z",
+  "lastUpdated": "2026-10-15T21:40:43.178Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -80,6 +80,8 @@
       "https://www.spacex.com/launches/ussf481"
     ],
     "vidURLs": [
+      "https://www.youtube.com/watch?v=CYXidmyZlG4",
+      "https://www.youtube.com/watch?v=vzFtQ3zsl4s",
       "https://x.com/i/broadcasts/1aJbdEzYpPaKX"
     ]
   }
