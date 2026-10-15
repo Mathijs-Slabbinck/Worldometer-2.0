@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-15T09:26:25.923Z",
+  "lastUpdated": "2026-10-15T14:18:09.514Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Zhuque-2E Block 2 | 10 satellites",
-    "windowStart": "2026-10-14T11:33:00Z",
-    "provider": "LandSpace",
-    "slug": "zhuque-2e-block-2-10-satellites",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | USSF-481",
+    "windowStart": "2026-10-15T23:44:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-ussf-481",
+    "infoURLs": [
+      "https://www.spacex.com/launches/ussf481"
+    ],
+    "vidURLs": [
+      "https://x.com/i/broadcasts/1aJbdEzYpPaKX"
+    ]
   }
 }
