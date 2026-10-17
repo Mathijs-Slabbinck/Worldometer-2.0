@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-16T22:50:47.227Z",
+  "lastUpdated": "2026-10-17T01:03:10.175Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | USSF-481",
-    "windowStart": "2026-10-15T23:44:00Z",
+    "name": "Falcon 9 Block 5 | Bandwagon 5 (Dedicated Mid-Inclination Rideshare)",
+    "windowStart": "2026-10-19T10:30:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-ussf-481",
+    "slug": "falcon-9-block-5-bandwagon-5-dedicated-mid-inclina",
     "infoURLs": [
-      "https://www.spacex.com/launches/ussf481"
+      "https://www.spacex.com/launches/bandwagon5"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=0rd-mypixIg",
-      "https://www.youtube.com/watch?v=vzFtQ3zsl4s",
-      "https://x.com/i/broadcasts/1aJbdEzYpPaKX"
+      "https://x.com/i/broadcasts/1nxeLMddZlEJX"
     ]
   }
 }
