@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-20T19:15:45.944Z",
+  "lastUpdated": "2026-10-20T22:29:43.345Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "H3-24 | Martian Moons eXploration (MMX)",
-    "windowStart": "2026-10-19T19:41:03Z",
-    "provider": "Mitsubishi Heavy Industries",
-    "slug": "h3-24-martian-moons-exploration-mmx",
+    "name": "Falcon 9 Block 5 | Bandwagon 5 (Dedicated Mid-Inclination Rideshare)",
+    "windowStart": "2026-10-20T10:30:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-bandwagon-5-dedicated-mid-inclina",
     "infoURLs": [
-      "https://www.mmx.jaxa.jp/en/"
+      "https://www.spacex.com/launches/bandwagon5"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=Fn6gzuGa-6c",
-      "https://www.youtube.com/watch?v=sZGyK9jfoy4",
-      "https://www.youtube.com/watch?v=ghSpAe_gx6k"
+      "https://www.youtube.com/watch?v=UJmcwHwxip0",
+      "https://www.youtube.com/watch?v=WtuZaR5vryo",
+      "https://www.youtube.com/watch?v=8t6CQp9-bpk",
+      "https://x.com/i/broadcasts/1nxeLMddZlEJX"
     ]
   }
 }
