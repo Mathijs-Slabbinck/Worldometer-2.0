@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-21T10:36:36.640Z",
+  "lastUpdated": "2026-10-21T15:37:23.089Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,18 +72,14 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Bandwagon 5 (Dedicated Mid-Inclination Rideshare)",
-    "windowStart": "2026-10-20T10:30:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-bandwagon-5-dedicated-mid-inclina",
-    "infoURLs": [
-      "https://www.spacex.com/launches/bandwagon5"
-    ],
+    "name": "Ceres-1S | Xiguang-4 01",
+    "windowStart": "2026-10-21T03:29:00Z",
+    "provider": "Galactic Energy",
+    "slug": "ceres-1s-xiguang-4-01",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=UJmcwHwxip0",
-      "https://www.youtube.com/watch?v=WtuZaR5vryo",
-      "https://www.youtube.com/watch?v=8t6CQp9-bpk",
-      "https://x.com/i/broadcasts/1nxeLMddZlEJX"
+      "https://www.youtube.com/watch?v=KvRfNtJocuo",
+      "https://www.youtube.com/watch?v=74J2gr_yRHE"
     ]
   }
 }
