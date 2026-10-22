@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-22T20:18:16.106Z",
+  "lastUpdated": "2026-10-22T23:29:47.139Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 15-15",
-    "windowStart": "2026-10-22T21:45:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-15-15",
+    "name": "Electron | We're Not Hawking Around (3x HawkEye 360)",
+    "windowStart": "2026-10-23T07:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-were-not-hawking-around-3x-hawkeye-360",
     "infoURLs": [
-      "https://www.spacex.com/launches/sl-15-15"
+      "https://rocketlabcorp.com/missions/launches/hawkeye-360/"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=k-TFfeJD8T4",
-      "https://www.youtube.com/watch?v=d4zn2Tth8O0",
-      "https://x.com/i/broadcasts/1YGNrbnzdqLGw"
+      "https://www.youtube.com/watch?v=qY2qCqF1PvE"
     ]
   }
 }
