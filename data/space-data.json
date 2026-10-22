@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-22T01:12:25.830Z",
+  "lastUpdated": "2026-10-22T06:07:40.911Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,14 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Ceres-1S | Xiguang-4 01",
-    "windowStart": "2026-10-21T03:29:00Z",
-    "provider": "Galactic Energy",
-    "slug": "ceres-1s-xiguang-4-01",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | Starlink Group 15-15",
+    "windowStart": "2026-10-22T21:45:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-15-15",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-15-15"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=KvRfNtJocuo",
-      "https://www.youtube.com/watch?v=74J2gr_yRHE"
+      "https://www.youtube.com/watch?v=k-TFfeJD8T4",
+      "https://www.youtube.com/watch?v=d4zn2Tth8O0",
+      "https://x.com/i/broadcasts/1YGNrbnzdqLGw"
     ]
   }
 }
