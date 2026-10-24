@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-24T07:09:21.489Z",
+  "lastUpdated": "2026-10-24T11:59:40.202Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | We're Not Hawking Around (3x HawkEye 360)",
-    "windowStart": "2026-10-23T07:00:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-were-not-hawking-around-3x-hawkeye-360",
-    "infoURLs": [
-      "https://rocketlabcorp.com/missions/launches/hawkeye-360/"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=LddRNoiKJ7U"
-    ]
+    "name": "Long March 4B | Yaogan 53-07 to 09/56-19 to 21",
+    "windowStart": "2026-10-23T19:17:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-4b-yaogan-53-07-to-0956-19-to-21",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
