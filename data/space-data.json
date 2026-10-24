@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-24T18:34:44.651Z",
+  "lastUpdated": "2026-10-24T21:11:59.189Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,11 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 4B | Yaogan 53-07 to 09/56-19 to 21",
-    "windowStart": "2026-10-23T19:17:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-4b-yaogan-53-07-to-0956-19-to-21",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | Starlink Group 15-15",
+    "windowStart": "2026-10-23T21:30:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-15-15",
+    "infoURLs": [
+      "https://www.spacex.com/launches/sl-15-15"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=cyJtopOtMZA",
+      "https://www.youtube.com/watch?v=hANSUkrKDwQ",
+      "https://x.com/i/broadcasts/1qKDzWkEraoJV"
+    ]
   }
 }
