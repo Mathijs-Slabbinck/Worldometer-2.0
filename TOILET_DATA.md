@@ -1,17 +1,17 @@
 # ISS Toilet Telemetry
 
 <!-- Machine-readable data — do not edit manually -->
-<!-- TANK_LEVEL: 37.0 -->
-<!-- LAST_UPDATED: 2026-10-25T15:59:39Z -->
+<!-- TANK_LEVEL: 62.0 -->
+<!-- LAST_UPDATED: 2026-10-25T18:53:09Z -->
 <!-- LAST_FLUSH: 2026-10-24T01:59:21Z -->
-<!-- PREV_TANK_LEVEL: 25.0 -->
+<!-- PREV_TANK_LEVEL: 37.0 -->
 
 ## Current Status
 
 | Metric | Value |
 |---|---|
-| Tank Level | 37.0% |
-| Last Updated | 2026-10-25 15:59:39 UTC |
+| Tank Level | 62.0% |
+| Last Updated | 2026-10-25 18:53:09 UTC |
 | Last Flush Detected | 2026-10-24 01:59:21 UTC |
 
 ## Recent History
