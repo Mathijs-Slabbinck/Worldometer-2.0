@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-28T15:43:38.697Z",
+  "lastUpdated": "2026-10-28T20:34:45.377Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,15 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 15-18",
-    "windowStart": "2026-10-30T04:02:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-15-18",
-    "infoURLs": [
-      "https://www.spacex.com/launches/sl-15-18"
-    ],
+    "name": "GSLV Mk II | IRNSS-1L (NVS-03)",
+    "windowStart": "2026-10-30T17:00:00Z",
+    "provider": "Indian Space Research Organization",
+    "slug": "gslv-mk-ii-irnss-1l-nvs-03",
+    "infoURLs": [],
     "vidURLs": [
-      "https://x.com/i/broadcasts/1DGleVlqoaqJL"
+      "https://www.youtube.com/watch?v=qIiYr3tRSqE"
     ]
   }
 }
