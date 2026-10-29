@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-29T06:13:10.174Z",
+  "lastUpdated": "2026-10-29T13:07:01.995Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -76,7 +76,9 @@
     "windowStart": "2026-10-30T17:00:00Z",
     "provider": "Indian Space Research Organization",
     "slug": "gslv-mk-ii-irnss-1l-nvs-03",
-    "infoURLs": [],
+    "infoURLs": [
+      "https://www.isro.gov.in/ISRO_EN/Mission_GSLVF18.html"
+    ],
     "vidURLs": [
       "https://www.youtube.com/watch?v=qIiYr3tRSqE"
     ]
