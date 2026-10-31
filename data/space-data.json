@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-31T15:53:03.000Z",
+  "lastUpdated": "2026-10-31T19:43:05.600Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,16 +72,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "GSLV Mk II | IRNSS-1L (NVS-03)",
-    "windowStart": "2026-10-30T17:00:00Z",
-    "provider": "Indian Space Research Organization",
-    "slug": "gslv-mk-ii-irnss-1l-nvs-03",
+    "name": "Falcon 9 Block 5 | Starlink Group 15-18",
+    "windowStart": "2026-10-31T03:48:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-starlink-group-15-18",
     "infoURLs": [
-      "https://www.isro.gov.in/ISRO_EN/Mission_GSLVF18.html",
-      "https://www.isro.gov.in/media_isro/image/index/GSLVF18_NVS03/GSLV_F18_NVS03_Mission_Brouchure_27102026.pdf"
+      "https://www.spacex.com/launches/sl-15-18"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=qIiYr3tRSqE"
+      "https://www.youtube.com/watch?v=Lie7RZffEh8",
+      "https://www.youtube.com/watch?v=BEnnrpwGnMQ",
+      "https://x.com/i/broadcasts/1DGleVlqoaqJL"
     ]
   }
 }
