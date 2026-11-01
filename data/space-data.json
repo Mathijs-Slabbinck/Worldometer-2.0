@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-01T01:50:23.441Z",
+  "lastUpdated": "2026-11-01T08:41:45.939Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -72,17 +72,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | Starlink Group 15-18",
-    "windowStart": "2026-10-31T03:48:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-starlink-group-15-18",
+    "name": "Electron | The Sea God Surveys (iQPS Launch 9)",
+    "windowStart": "2026-11-02T16:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-the-sea-god-surveys-iqps-launch-9",
     "infoURLs": [
-      "https://www.spacex.com/launches/sl-15-18"
+      "https://rocketlabcorp.com/missions/launches/iqps-the-sea-god-surveys/"
     ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=Lie7RZffEh8",
-      "https://www.youtube.com/watch?v=BEnnrpwGnMQ",
-      "https://x.com/i/broadcasts/1DGleVlqoaqJL"
-    ]
+    "vidURLs": []
   }
 }
