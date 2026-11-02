@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-02T09:58:12.343Z",
+  "lastUpdated": "2026-11-02T20:07:25.236Z",
   "astronauts": {
     "count": 11,
     "people": [
@@ -73,12 +73,14 @@
   },
   "nextLaunch": {
     "name": "Electron | The Sea God Surveys (iQPS Launch 9)",
-    "windowStart": "2026-11-02T16:00:00Z",
+    "windowStart": "2026-11-02T16:30:00Z",
     "provider": "Rocket Lab",
     "slug": "electron-the-sea-god-surveys-iqps-launch-9",
     "infoURLs": [
       "https://rocketlabcorp.com/missions/launches/iqps-the-sea-god-surveys/"
     ],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=irbPTnpIl9g"
+    ]
   }
 }
