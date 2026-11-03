@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-11-02T20:07:25.236Z",
+  "lastUpdated": "2026-11-03T02:17:25.935Z",
   "astronauts": {
-    "count": 11,
+    "count": 12,
     "people": [
       {
         "name": "Jessica Watkins",
@@ -65,6 +65,12 @@
       },
       {
         "name": "Lai Ka-ying",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Laika",
         "craft": "",
         "destination": "",
         "mission": ""
