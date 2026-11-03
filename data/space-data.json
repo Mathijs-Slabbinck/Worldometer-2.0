@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-03T09:50:39.364Z",
+  "lastUpdated": "2026-11-03T17:32:01.947Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,15 +78,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Electron | The Sea God Surveys (iQPS Launch 9)",
-    "windowStart": "2026-11-02T16:30:00Z",
-    "provider": "Rocket Lab",
-    "slug": "electron-the-sea-god-surveys-iqps-launch-9",
-    "infoURLs": [
-      "https://rocketlabcorp.com/missions/launches/iqps-the-sea-god-surveys/"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=irbPTnpIl9g"
-    ]
+    "name": "Kinetica 2 | SpaceSail Polar Group #17",
+    "windowStart": "2026-11-03T00:05:00Z",
+    "provider": "CAS Space",
+    "slug": "kinetica-2-spacesail-polar-group-17",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
