@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-03T22:30:46.951Z",
+  "lastUpdated": "2026-11-04T02:42:32.124Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,10 +78,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Kinetica 2 | SpaceSail Polar Group #17",
-    "windowStart": "2026-11-03T00:05:00Z",
-    "provider": "CAS Space",
-    "slug": "kinetica-2-spacesail-polar-group-17",
+    "name": "Long March 2C | Unknown Payload",
+    "windowStart": "2026-11-05T15:52:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-2c-unknown-payload",
     "infoURLs": [],
     "vidURLs": []
   }
