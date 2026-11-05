@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-05T10:54:21.015Z",
+  "lastUpdated": "2026-11-05T18:31:01.163Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,10 +78,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2C | Unknown Payload",
+    "name": "Long March 2C | Yaogan 51-07 to 09",
     "windowStart": "2026-11-05T15:52:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2c-unknown-payload",
+    "slug": "long-march-2c-yaogan-51-07-to-09",
     "infoURLs": [],
     "vidURLs": []
   }
