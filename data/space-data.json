@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-06T12:56:34.826Z",
+  "lastUpdated": "2026-11-06T19:52:21.001Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,10 +78,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2C | Yaogan 51-07 to 09",
-    "windowStart": "2026-11-05T15:52:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2c-yaogan-51-07-to-09",
+    "name": "Ceres-2 | Unknown Payload",
+    "windowStart": "2026-11-06T23:28:00Z",
+    "provider": "Galactic Energy",
+    "slug": "ceres-2-unknown-payload",
     "infoURLs": [],
     "vidURLs": []
   }
