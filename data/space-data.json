@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-06T23:56:52.450Z",
+  "lastUpdated": "2026-11-07T05:07:49.665Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,10 +78,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Ceres-2 | Unknown Payload",
+    "name": "Ceres-2 | 4 satellites",
     "windowStart": "2026-11-06T23:28:00Z",
     "provider": "Galactic Energy",
-    "slug": "ceres-2-unknown-payload",
+    "slug": "ceres-2-4-satellites",
     "infoURLs": [],
     "vidURLs": []
   }
