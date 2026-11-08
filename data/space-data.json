@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-08T13:12:38.317Z",
+  "lastUpdated": "2026-11-08T18:21:50.242Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,10 +78,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz 2.1b/Fregat | Glonass-K1? (Kosmos 2621?)",
-    "windowStart": "2026-11-07T07:00:00Z",
-    "provider": "Russian Space Forces",
-    "slug": "soyuz-21bfregat-glonass-k1-kosmos-2621",
+    "name": "Long March 12 | SatNet LEO Group TBD?",
+    "windowStart": "2026-11-08T20:17:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-12-satnet-leo-group-tbd",
     "infoURLs": [],
     "vidURLs": []
   }
