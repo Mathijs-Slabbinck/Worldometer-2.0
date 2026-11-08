@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-08T00:10:41.015Z",
+  "lastUpdated": "2026-11-08T05:59:43.593Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,18 +78,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | USSF-432",
-    "windowStart": "2026-11-07T00:46:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-ussf-432",
-    "infoURLs": [
-      "https://www.spacex.com/launches/ussf432"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=x6z8DpYqTho",
-      "https://www.youtube.com/watch?v=5zPZKJicp0s",
-      "https://www.youtube.com/watch?v=e3oGHhO3xpw",
-      "https://x.com/i/broadcasts/1kKzDPYrZNdJv"
-    ]
+    "name": "Soyuz 2.1b/Fregat | Glonass-K1? (Kosmos 2621?)",
+    "windowStart": "2026-11-07T07:00:00Z",
+    "provider": "Russian Space Forces",
+    "slug": "soyuz-21bfregat-glonass-k1-kosmos-2621",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
