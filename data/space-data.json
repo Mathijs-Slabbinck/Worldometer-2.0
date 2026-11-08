@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-07T20:46:53.588Z",
+  "lastUpdated": "2026-11-08T00:10:41.015Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,11 +78,18 @@
     ]
   },
   "nextLaunch": {
-    "name": "Ceres-2 | 4 satellites",
-    "windowStart": "2026-11-06T23:28:00Z",
-    "provider": "Galactic Energy",
-    "slug": "ceres-2-4-satellites",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | USSF-432",
+    "windowStart": "2026-11-07T00:46:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-ussf-432",
+    "infoURLs": [
+      "https://www.spacex.com/launches/ussf432"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=x6z8DpYqTho",
+      "https://www.youtube.com/watch?v=5zPZKJicp0s",
+      "https://www.youtube.com/watch?v=e3oGHhO3xpw",
+      "https://x.com/i/broadcasts/1kKzDPYrZNdJv"
+    ]
   }
 }
