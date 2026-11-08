@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-08T18:21:50.242Z",
+  "lastUpdated": "2026-11-08T22:19:47.067Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -83,6 +83,9 @@
     "provider": "China Aerospace Science and Technology Corporation",
     "slug": "long-march-12-satnet-leo-group-tbd",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=rQWLSUjfJ-Q",
+      "https://www.youtube.com/watch?v=LhEjaM500Ek"
+    ]
   }
 }
