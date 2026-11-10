@@ -1,18 +1,18 @@
 {
-  "lastUpdated": "2026-11-10T02:32:01.382Z",
+  "lastUpdated": "2026-11-10T10:26:34.622Z",
   "overview": {
-    "totalLaunched": 71295,
-    "payloads": 28304,
-    "inOrbit": 35504,
+    "totalLaunched": 71305,
+    "payloads": 28313,
+    "inOrbit": 35514,
     "decayed": 35791,
     "launchFailures": 523,
     "partialFailures": 34
   },
   "payloads": {
-    "total": 28304,
-    "inOrbit": 20517,
+    "total": 28313,
+    "inOrbit": 20526,
     "decayed": 7787,
-    "active": 17479
+    "active": 17488
   },
   "starlink": {
     "total": 13024,
@@ -22,8 +22,8 @@
     "launchFailures": 1
   },
   "rocketBodies": {
-    "total": 6926,
-    "inOrbit": 2437,
+    "total": 6927,
+    "inOrbit": 2438,
     "decayed": 4489,
     "active": 4
   },
