@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-11T10:20:18.974Z",
+  "lastUpdated": "2026-11-11T17:58:32.226Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,10 +78,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2D | Unknown Payload",
+    "name": "Long March 2D | CAS Pathfinder-1",
     "windowStart": "2026-11-11T11:32:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2d-unknown-payload",
+    "slug": "long-march-2d-cas-pathfinder-1",
     "infoURLs": [],
     "vidURLs": []
   }
