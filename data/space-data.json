@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-12T07:30:58.419Z",
+  "lastUpdated": "2026-11-12T16:16:10.249Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,11 +78,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2D | CAS Pathfinder-1",
-    "windowStart": "2026-11-11T11:32:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2d-cas-pathfinder-1",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Falcon 9 Block 5 | USSF-627",
+    "windowStart": "2026-11-12T02:35:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-ussf-627",
+    "infoURLs": [
+      "https://www.spacex.com/launches/ussf627"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=rq7SLpK5vlY",
+      "https://www.youtube.com/watch?v=tM6K9RMvx0Y",
+      "https://x.com/i/broadcasts/2brkWyolnlBbLM"
+    ]
   }
 }
