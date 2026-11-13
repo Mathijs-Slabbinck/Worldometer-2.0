@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-13T10:30:51.850Z",
+  "lastUpdated": "2026-11-13T18:03:28.675Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,15 +78,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Vulcan VC6L | Amazon Leo (LV-01)",
-    "windowStart": "2026-11-13T17:54:00Z",
-    "provider": "United Launch Alliance",
-    "slug": "vulcan-vc6l-amazon-leo-lv-01",
+    "name": "Starship | Starlink Group 31-2 (Starship Flight 15)",
+    "windowStart": "2026-11-13T22:45:00Z",
+    "provider": "SpaceX",
+    "slug": "starship-starlink-group-31-2-starship-flight-15",
     "infoURLs": [
-      "https://www.ulalaunch.com/missions/next-launch/vulcan-leo-1"
+      "https://www.spacex.com/launches/starship-flight-15"
     ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=qM5A1ZO9oh8"
-    ]
+    "vidURLs": []
   }
 }
