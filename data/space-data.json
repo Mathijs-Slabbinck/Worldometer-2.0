@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-13T02:46:29.459Z",
+  "lastUpdated": "2026-11-13T10:30:51.850Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,17 +78,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | USSF-627",
-    "windowStart": "2026-11-12T02:35:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-ussf-627",
+    "name": "Vulcan VC6L | Amazon Leo (LV-01)",
+    "windowStart": "2026-11-13T17:54:00Z",
+    "provider": "United Launch Alliance",
+    "slug": "vulcan-vc6l-amazon-leo-lv-01",
     "infoURLs": [
-      "https://www.spacex.com/launches/ussf627"
+      "https://www.ulalaunch.com/missions/next-launch/vulcan-leo-1"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=rq7SLpK5vlY",
-      "https://www.youtube.com/watch?v=tM6K9RMvx0Y",
-      "https://x.com/i/broadcasts/2brkWyolnlBbLM"
+      "https://www.youtube.com/watch?v=qM5A1ZO9oh8"
     ]
   }
 }
