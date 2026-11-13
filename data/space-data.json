@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-13T18:03:28.675Z",
+  "lastUpdated": "2026-11-13T23:31:11.259Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -85,6 +85,12 @@
     "infoURLs": [
       "https://www.spacex.com/launches/starship-flight-15"
     ],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=dl4O6RqbvOs",
+      "https://x.com/i/broadcasts/2brajgZlOKRMka",
+      "https://www.youtube.com/watch?v=QlR1agMLyMk",
+      "https://www.youtube.com/watch?v=9XM0lpVlvo0",
+      "https://www.youtube.com/watch?v=QJFdKoKNn2M"
+    ]
   }
 }
