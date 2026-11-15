@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-15T01:00:59.332Z",
+  "lastUpdated": "2026-11-15T07:50:37.545Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,13 +78,16 @@
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz 2.1b/Fregat-M | MKA Kinosputnik, KOEN and others",
-    "windowStart": "2026-11-14T00:50:00Z",
-    "provider": "Russian Federal Space Agency (ROSCOSMOS)",
-    "slug": "soyuz-21bfregat-m-mka-kinosputnik-koen-and-others",
-    "infoURLs": [],
+    "name": "Vulcan VC6L | Amazon Leo (LV-01)",
+    "windowStart": "2026-11-15T17:11:30Z",
+    "provider": "United Launch Alliance",
+    "slug": "vulcan-vc6l-amazon-leo-lv-01",
+    "infoURLs": [
+      "https://www.ulalaunch.com/missions/next-launch/vulcan-leo-1"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=ATvKzYP7CPw"
+      "https://www.youtube.com/watch?v=qM5A1ZO9oh8",
+      "https://www.youtube.com/watch?v=qcA9uMBhTmo"
     ]
   }
 }
