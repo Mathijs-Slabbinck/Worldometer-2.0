@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-16T16:26:28.375Z",
+  "lastUpdated": "2026-11-17T00:22:46.144Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,16 +78,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Vulcan VC6L | Amazon Leo (LV-01)",
-    "windowStart": "2026-11-15T17:11:30Z",
-    "provider": "United Launch Alliance",
-    "slug": "vulcan-vc6l-amazon-leo-lv-01",
-    "infoURLs": [
-      "https://www.ulalaunch.com/missions/next-launch/vulcan-leo-1"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=qM5A1ZO9oh8",
-      "https://www.youtube.com/watch?v=qcA9uMBhTmo"
-    ]
+    "name": "Long March 2D | Unknown Payload",
+    "windowStart": "2026-11-18T22:43:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-2d-unknown-payload",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
