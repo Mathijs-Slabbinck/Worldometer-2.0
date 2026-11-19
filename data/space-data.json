@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-18T23:00:31.342Z",
+  "lastUpdated": "2026-11-19T04:03:55.395Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,10 +78,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2D | Unknown Payload",
+    "name": "Long March 2D | Shijian 24",
     "windowStart": "2026-11-18T22:43:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2d-unknown-payload",
+    "slug": "long-march-2d-shijian-24",
     "infoURLs": [],
     "vidURLs": []
   }
