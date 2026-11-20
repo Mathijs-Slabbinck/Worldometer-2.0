@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-20T10:31:39.172Z",
+  "lastUpdated": "2026-11-20T18:50:28.270Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,11 +78,13 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 8A | SatNet LEO Group TBD?",
+    "name": "Long March 8A | SatNet LEO Group 30",
     "windowStart": "2026-11-20T11:51:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-8a-satnet-leo-group-tbd",
+    "slug": "long-march-8a-satnet-leo-group-30",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=dUxmQvNnQEI"
+    ]
   }
 }
