@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-21T07:43:34.506Z",
+  "lastUpdated": "2026-11-21T15:38:08.779Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,13 +78,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 8A | SatNet LEO Group 30",
-    "windowStart": "2026-11-20T11:51:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-8a-satnet-leo-group-30",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | USSF-317",
+    "windowStart": "2026-11-21T02:32:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-ussf-317",
+    "infoURLs": [
+      "https://www.spacex.com/launches/ussf317"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=dUxmQvNnQEI"
+      "https://www.youtube.com/watch?v=NejEgXnJzBM",
+      "https://www.youtube.com/watch?v=fk84K7QVWgw",
+      "https://x.com/i/broadcasts/2lgkMvaRVPMdYR"
     ]
   }
 }
