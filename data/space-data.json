@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-22T01:17:49.872Z",
+  "lastUpdated": "2026-11-22T08:29:51.199Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,17 +78,17 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | USSF-317",
-    "windowStart": "2026-11-21T02:32:00Z",
+    "name": "Falcon 9 Block 5 | NROL-136",
+    "windowStart": "2026-11-22T12:16:00Z",
     "provider": "SpaceX",
-    "slug": "falcon-9-block-5-ussf-317",
+    "slug": "falcon-9-block-5-nrol-136",
     "infoURLs": [
-      "https://www.spacex.com/launches/ussf317"
+      "https://www.spacex.com/launches/nrol136"
     ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=NejEgXnJzBM",
-      "https://www.youtube.com/watch?v=fk84K7QVWgw",
-      "https://x.com/i/broadcasts/2lgkMvaRVPMdYR"
+      "https://www.youtube.com/watch?v=CjN4lPx7mD8",
+      "https://www.youtube.com/watch?v=um48_-sSFrE",
+      "https://x.com/i/broadcasts/2yboJapzrmYNbe"
     ]
   }
 }
