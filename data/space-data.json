@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-23T11:18:58.809Z",
+  "lastUpdated": "2026-11-23T22:48:47.722Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -78,17 +78,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | NROL-136",
-    "windowStart": "2026-11-22T12:16:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-nrol-136",
-    "infoURLs": [
-      "https://www.spacex.com/launches/nrol136"
-    ],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=NFIjyRFTPao",
-      "https://www.youtube.com/watch?v=um48_-sSFrE",
-      "https://x.com/i/broadcasts/2yboJapzrmYNbe"
-    ]
+    "name": "Soyuz 2.1b | Progress MS-36 (97P)",
+    "windowStart": "2026-11-24T10:13:00Z",
+    "provider": "Russian Federal Space Agency (ROSCOSMOS)",
+    "slug": "soyuz-21b-progress-ms-36-97p",
+    "infoURLs": [],
+    "vidURLs": []
   }
 }
