@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-23T22:48:47.722Z",
+  "lastUpdated": "2026-11-24T06:44:09.749Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -79,7 +79,7 @@
   },
   "nextLaunch": {
     "name": "Soyuz 2.1b | Progress MS-36 (97P)",
-    "windowStart": "2026-11-24T10:13:00Z",
+    "windowStart": "2026-11-24T10:17:00Z",
     "provider": "Russian Federal Space Agency (ROSCOSMOS)",
     "slug": "soyuz-21b-progress-ms-36-97p",
     "infoURLs": [],
