@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-24T06:44:09.749Z",
+  "lastUpdated": "2026-11-24T18:21:59.846Z",
   "astronauts": {
     "count": 12,
     "people": [
@@ -79,10 +79,14 @@
   },
   "nextLaunch": {
     "name": "Soyuz 2.1b | Progress MS-36 (97P)",
-    "windowStart": "2026-11-24T10:17:00Z",
+    "windowStart": "2026-11-24T10:17:46Z",
     "provider": "Russian Federal Space Agency (ROSCOSMOS)",
     "slug": "soyuz-21b-progress-ms-36-97p",
     "infoURLs": [],
-    "vidURLs": []
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=LwQMevphh10",
+      "https://plus.nasa.gov/scheduled-video/progress-97-cargo-ship-launch/",
+      "https://www.youtube.com/watch?v=-UddWcF9BTM"
+    ]
   }
 }
