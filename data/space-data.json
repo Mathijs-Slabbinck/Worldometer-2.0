@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-25T11:45:57.437Z",
+  "lastUpdated": "2026-11-25T20:41:03.207Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,18 +96,14 @@
     ]
   },
   "nextLaunch": {
-    "name": "Falcon 9 Block 5 | USSF-266",
-    "windowStart": "2026-11-24T15:55:00Z",
-    "provider": "SpaceX",
-    "slug": "falcon-9-block-5-ussf-266",
-    "infoURLs": [
-      "https://www.spacex.com/launches/ussf266"
-    ],
+    "name": "Long March 2F/G | Shenzhou 24",
+    "windowStart": "2026-11-25T00:08:00Z",
+    "provider": "China Aerospace Science and Technology Corporation",
+    "slug": "long-march-2fg-shenzhou-24",
+    "infoURLs": [],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=Fb7P2xSoF28",
-      "https://www.youtube.com/watch?v=Mx26fq3CcnQ",
-      "https://www.youtube.com/watch?v=0HG7obl5IAo",
-      "https://x.com/i/broadcasts/2JQXBjLyYOQrpX"
+      "https://www.youtube.com/watch?v=SeWm3kfVx20",
+      "https://www.youtube.com/watch?v=Jd_rM2JlOi4"
     ]
   }
 }
