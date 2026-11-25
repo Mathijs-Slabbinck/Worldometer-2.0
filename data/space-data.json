@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-11-25T02:42:30.003Z",
+  "lastUpdated": "2026-11-25T11:45:57.437Z",
   "astronauts": {
-    "count": 12,
+    "count": 15,
     "people": [
       {
         "name": "Jessica Watkins",
@@ -29,6 +29,12 @@
       },
       {
         "name": "Pyotr Dubrov",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Tang Hongbo",
         "craft": "",
         "destination": "",
         "mission": ""
@@ -74,19 +80,34 @@
         "craft": "",
         "destination": "",
         "mission": ""
+      },
+      {
+        "name": "Wu Yi",
+        "craft": "",
+        "destination": "",
+        "mission": ""
+      },
+      {
+        "name": "Muhammad Zeeshan Ali",
+        "craft": "",
+        "destination": "",
+        "mission": ""
       }
     ]
   },
   "nextLaunch": {
-    "name": "Soyuz 2.1b | Progress MS-36 (97P)",
-    "windowStart": "2026-11-24T10:17:46Z",
-    "provider": "Russian Federal Space Agency (ROSCOSMOS)",
-    "slug": "soyuz-21b-progress-ms-36-97p",
-    "infoURLs": [],
+    "name": "Falcon 9 Block 5 | USSF-266",
+    "windowStart": "2026-11-24T15:55:00Z",
+    "provider": "SpaceX",
+    "slug": "falcon-9-block-5-ussf-266",
+    "infoURLs": [
+      "https://www.spacex.com/launches/ussf266"
+    ],
     "vidURLs": [
-      "https://www.youtube.com/watch?v=LwQMevphh10",
-      "https://plus.nasa.gov/scheduled-video/progress-97-cargo-ship-launch/",
-      "https://www.youtube.com/watch?v=-UddWcF9BTM"
+      "https://www.youtube.com/watch?v=Fb7P2xSoF28",
+      "https://www.youtube.com/watch?v=Mx26fq3CcnQ",
+      "https://www.youtube.com/watch?v=0HG7obl5IAo",
+      "https://x.com/i/broadcasts/2JQXBjLyYOQrpX"
     ]
   }
 }
