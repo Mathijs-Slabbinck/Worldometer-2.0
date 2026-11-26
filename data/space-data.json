@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-26T12:30:42.733Z",
+  "lastUpdated": "2026-11-26T21:56:16.386Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,10 +96,10 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2D | Unknown Payload",
+    "name": "Long March 2D | Yaogan 49 Group 01",
     "windowStart": "2026-11-26T09:30:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2d-unknown-payload",
+    "slug": "long-march-2d-yaogan-49-group-01",
     "infoURLs": [],
     "vidURLs": []
   }
