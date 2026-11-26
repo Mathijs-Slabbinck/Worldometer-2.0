@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-25T20:41:03.207Z",
+  "lastUpdated": "2026-11-26T03:08:28.121Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,14 +96,11 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2F/G | Shenzhou 24",
-    "windowStart": "2026-11-25T00:08:00Z",
+    "name": "Long March 2D | Unknown Payload",
+    "windowStart": "2026-11-26T09:30:00Z",
     "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2fg-shenzhou-24",
+    "slug": "long-march-2d-unknown-payload",
     "infoURLs": [],
-    "vidURLs": [
-      "https://www.youtube.com/watch?v=SeWm3kfVx20",
-      "https://www.youtube.com/watch?v=Jd_rM2JlOi4"
-    ]
+    "vidURLs": []
   }
 }
