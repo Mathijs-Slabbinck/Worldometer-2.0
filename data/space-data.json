@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-27T03:56:45.374Z",
+  "lastUpdated": "2026-11-27T13:32:54.695Z",
   "astronauts": {
     "count": 15,
     "people": [
@@ -96,11 +96,15 @@
     ]
   },
   "nextLaunch": {
-    "name": "Long March 2D | Yaogan 49 Group 01",
-    "windowStart": "2026-11-26T09:30:00Z",
-    "provider": "China Aerospace Science and Technology Corporation",
-    "slug": "long-march-2d-yaogan-49-group-01",
-    "infoURLs": [],
-    "vidURLs": []
+    "name": "Electron | Night Owls Never Sleep (StriX Launch 14)",
+    "windowStart": "2026-11-27T00:00:00Z",
+    "provider": "Rocket Lab",
+    "slug": "electron-night-owls-never-sleep-strix-launch-14",
+    "infoURLs": [
+      "https://rocketlabcorp.com/missions/launches/night-owls-never-sleep/"
+    ],
+    "vidURLs": [
+      "https://www.youtube.com/watch?v=p75NOkFoyXs"
+    ]
   }
 }
